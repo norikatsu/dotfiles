@@ -35,6 +35,7 @@ endif
 "読み込みプラグインリスト
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'vimtaku/hl_matchit.vim.git'
 
 
 "========== Backup
@@ -443,6 +444,11 @@ autocmd FileType verilog :compiler verilog
 
 
 
+"========== matchit.vim Setting (verilog begin-end関連づけ)
+source $VIMRUNTIME/macros/matchit.vim
+
+
+
 "========== AutoComplpop Setting
 
 "neocomplcache を使うので無効化
@@ -519,3 +525,6 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
+
+"========== Highlight match Setting
+let g:hl_matchit_enable_on_vim_startup = 1
