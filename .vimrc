@@ -34,7 +34,7 @@ endif
 
 "読み込みプラグインリスト
 NeoBundle 'Shougo/neocomplete.vim'
-
+NeoBundle 'Shougo/neosnippet.vim'
 
 
 "========== Backup
@@ -461,17 +461,14 @@ nmap ,y :NeoCompleteEnable <CR>
 nmap ,n :NeoCompleteDisable <CR>
 
 
-"" Snipet Setting
-"let g:neocomplcache_snippets_dir = '~/.vim/snippets'
-"nnorema ,ns :<C-u>NeoComplCacheEditSnippets 
-"
-"
-"imap <C-s> <Plug>(neocomplcache_snippets_expand)
-"smap <C-s> <Plug>(neocomplcache_snippets_expand)
-"
-"
-"" Use smartcase. 大文字入力まで大文字小文字を区別しない
-"let g:neocomplcache_enable_smart_case = 1
+" Use smartcase. 大文字入力まで大文字小文字を区別しない
+let g:neocompete#enable_smart_case = 1
+
+
+" Tabで補完
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
 "
 "" Use auto select 補完候補を出すときに、自動的に一番上の候補を選択 
 ""let g:neocomplcache_enable_auto_select = 1
@@ -489,14 +486,7 @@ nmap ,n :NeoCompleteDisable <CR>
 "let g:neocomplcache_manual_completion_start_length = 0
 "
 "
-""スイッチ設定
-"nmap ,y :NeoComplCacheEnable <CR>
-"nmap ,n :NeoComplCacheDisable <CR>
-"
-"
-"" Tabで補完
-"inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-"
+
 "" ポップアップ削除
 ""inoremap <expr><C-x> neocomplcache#smart_close_popup().”\<C-h>”
 "
@@ -510,4 +500,22 @@ nmap ,n :NeoCompleteDisable <CR>
 "inoremap <expr><C-g> neocomplcache#undo_completion()
 "
 
+
+"========== neosnippet.vim Setting
+" Snipet Setting
+"let g:neocomplcache_snippets_dir = '~/.vim/snippets'
+"nnorema ,ns :<C-u>NeoComplCacheEditSnippets 
+
+imap <C-s>     <Plug>(neosnippet_expand_or_jump)
+smap <C-s>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-s>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
