@@ -4,61 +4,38 @@
 "  Type      :  vim init file
 "  Function  :  VIM Initial
 "  Author    :  Yoshida Norikatsu
-"               2011/05/06 Start
-"               2011/05/08 Mod linenumber etc....
-"               2011/05/12 Add Colorscheme,Key Setting
-"               2011/05/15 Add neocomplcache setting
-"               2011/05/23 Mod BackSpace Setting
-"               2011/05/23 Mod Vundle Setting
-"               2011/05/23 Add vcscommand
-"               2011/05/24 Mod BackSpace Setting
-"               2011/05/25 Add make-rtl tools setting
-"               2011/05/25 Add git-vim & VCScommand setting
-"               2011/05/25 Mod VCScommand setting & neocomplcache
-"               2011/05/29 Mod Windows Setting
-"               2011/05/29 Mod Mouse Mode
-"               2011/05/31 Mod StatusLine
-"               2011/05/31 Mod Binary Mode
-"               2011/06/01 Mod IME Auto Off
-"               2011/06/01 Mod Keybind  <Space>  -> ,
-"               2011/06/01 Mod Keybind  :copen :cclose :cnewer :colder 
-"               2011/06/02 Mod NeoComplCache Snipet On
-"               2011/06/07 Mod Colorscheme (Switch Input Mode / Normal Mode)
-"               2011/06/08 Mod Backup settig
-"               2011/06/11 Mod Ex command settig ,And quickrun plugin
-"               2011/06/13 Mod Clipboard Setting (Use unnamed buffer)
-"               2011/06/13 Mod Unset C-x (decrement command)  & Add CD command
-"                              Tag Setting
-"               2011/06/19 Mod StatusLine
-"               2013/11/17 Remake
+"               2013/11/17 Restart
 "
 "******************************************************************************
 
-"========== Vundle Setting
-" Need Install vundle -> .vim/vundle.git
-"   -> $ git submodule add http://github.com/gmarik/vundle.git ~/.vim/vundle.git
+"========== neobundle Setting
+" neobundle
+set nocompatible               " Be iMproved
+filetype off                   " Required!
 
-filetype off
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-"set rtp+=~/.vim/vundle.git/
-"call vundle#rc()
+call neobundle#rc(expand('~/.vim/bundle/'))
 
-"if has("win32") || has("win64")
-"  set rtp+=~/vimfiles/vundle.git/
-"  call vundle#rc('~/vimfiles/bundle/')
-"else
-"  set rtp+=~/.vim/vundle.git/
-"  call vundle#rc()
-"endif
+filetype plugin indent on     " Required!
+
+" Installation check.
+if neobundle#exists_not_installed_bundles()
+  echomsg 'Not installed bundles : ' .
+        \ string(neobundle#get_not_installed_bundle_names())
+  echomsg 'Please execute ":NeoBundleInstall" command.'
+  "finish
+endif
+
+"neobundleを更新するための設定
+"NeoBundleFetch 'Shougo/neobundle.vim'
+
+"読み込みプラグインリスト
+NeoBundle 'Shougo/neocomplete.vim'
 
 
-" Vundle install plugin list
-"Bundle 'neocomplcache'
-"Bundle 'motemen/git-vim'
-"Bundle 'git://repo.or.cz/vcscommand'
-"Bundle 'thinca/vim-quickrun'
-
-"filetype plugin indent on
 
 "========== Backup
 set backup
@@ -309,18 +286,18 @@ nnoremap :cp :<C-u>colder<CR>
 
 
 " git-vim 設定
-let g:git_no_map_default = 1
-let g:git_command_edit = 'rightbelow vnew'
-nnoremap ,gd :<C-u>GitDiff<Enter>
-nnoremap ,gD :<C-u>GitDiff --cached<Enter>
-nnoremap ,gs :<C-u>GitStatus<Enter>
-nnoremap ,gl :<C-u>GitLog<Enter>
-nnoremap ,gL :<C-u>GitLog -u \| head -10000<Enter>
-nnoremap ,ga :<C-u>GitAdd<Enter>
-nnoremap ,gA :<C-u>GitAdd <cfile><Enter>
-nnoremap ,gc :<C-u>GitCommit<Enter>
-nnoremap ,gC :<C-u>GitCommit --amend<Enter>
-nnoremap ,gp :<C-u>Git push
+"let g:git_no_map_default = 1
+"let g:git_command_edit = 'rightbelow vnew'
+"nnoremap ,gd :<C-u>GitDiff<Enter>
+"nnoremap ,gD :<C-u>GitDiff --cached<Enter>
+"nnoremap ,gs :<C-u>GitStatus<Enter>
+"nnoremap ,gl :<C-u>GitLog<Enter>
+"nnoremap ,gL :<C-u>GitLog -u \| head -10000<Enter>
+"nnoremap ,ga :<C-u>GitAdd<Enter>
+"nnoremap ,gA :<C-u>GitAdd <cfile><Enter>
+"nnoremap ,gc :<C-u>GitCommit<Enter>
+"nnoremap ,gC :<C-u>GitCommit --amend<Enter>
+"nnoremap ,gp :<C-u>Git push
 
 
 "VCScommand 設定
@@ -474,58 +451,63 @@ let g:acp_enableAtStartup = 0
 
 
 
-"========== neocomplcache Setting
+"========== neocomplete.vim Setting
 
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
+" Use neocomplete.vim
+let g:neocomplete#enable_at_startup = 1
 
-" Snipet Setting
-let g:neocomplcache_snippets_dir = '~/.vim/snippets'
-nnorema ,ns :<C-u>NeoComplCacheEditSnippets 
-
-
-imap <C-s> <Plug>(neocomplcache_snippets_expand)
-smap <C-s> <Plug>(neocomplcache_snippets_expand)
+""スイッチ設定
+nmap ,y :NeoCompleteEnable <CR>
+nmap ,n :NeoCompleteDisable <CR>
 
 
-" Use smartcase. 大文字入力まで大文字小文字を区別しない
-let g:neocomplcache_enable_smart_case = 1
-
-" Use auto select 補完候補を出すときに、自動的に一番上の候補を選択 
-"let g:neocomplcache_enable_auto_select = 1
-
-" Use camel case completion. 大文字を区切りとしたワイルドカードのように振る舞うという機能
-let g:neocomplcache_enable_camel_case_completion = 1
-
-" Use underbar completion. _区切りの補完を有効化
-let g:neocomplcache_enable_underbar_completion = 1
-
-" Set minimum syntax keyword length. シンタックスをキャッシュするときの最小文字長
-let g:neocomplcache_min_syntax_length = 3
-
-" Set manual completion length.
-let g:neocomplcache_manual_completion_start_length = 0
-
-
-"スイッチ設定
-nmap ,y :NeoComplCacheEnable <CR>
-nmap ,n :NeoComplCacheDisable <CR>
-
-
-" Tabで補完
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" ポップアップ削除
-"inoremap <expr><C-x> neocomplcache#smart_close_popup().”\<C-h>”
-
-" 選択候補確定
-inoremap <expr><C-y> neocomplcache#close_popup()
-
-" 選択候補キャンセル ＆ ポップアップ削除
-inoremap <expr><C-x> neocomplcache#cancel_popup()
-
-" 前回行われた補完をキャンセル
-inoremap <expr><C-g> neocomplcache#undo_completion()
-
+"" Snipet Setting
+"let g:neocomplcache_snippets_dir = '~/.vim/snippets'
+"nnorema ,ns :<C-u>NeoComplCacheEditSnippets 
+"
+"
+"imap <C-s> <Plug>(neocomplcache_snippets_expand)
+"smap <C-s> <Plug>(neocomplcache_snippets_expand)
+"
+"
+"" Use smartcase. 大文字入力まで大文字小文字を区別しない
+"let g:neocomplcache_enable_smart_case = 1
+"
+"" Use auto select 補完候補を出すときに、自動的に一番上の候補を選択 
+""let g:neocomplcache_enable_auto_select = 1
+"
+"" Use camel case completion. 大文字を区切りとしたワイルドカードのように振る舞うという機能
+"let g:neocomplcache_enable_camel_case_completion = 1
+"
+"" Use underbar completion. _区切りの補完を有効化
+"let g:neocomplcache_enable_underbar_completion = 1
+"
+"" Set minimum syntax keyword length. シンタックスをキャッシュするときの最小文字長
+"let g:neocomplcache_min_syntax_length = 3
+"
+"" Set manual completion length.
+"let g:neocomplcache_manual_completion_start_length = 0
+"
+"
+""スイッチ設定
+"nmap ,y :NeoComplCacheEnable <CR>
+"nmap ,n :NeoComplCacheDisable <CR>
+"
+"
+"" Tabで補完
+"inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"
+"" ポップアップ削除
+""inoremap <expr><C-x> neocomplcache#smart_close_popup().”\<C-h>”
+"
+"" 選択候補確定
+"inoremap <expr><C-y> neocomplcache#close_popup()
+"
+"" 選択候補キャンセル ＆ ポップアップ削除
+"inoremap <expr><C-x> neocomplcache#cancel_popup()
+"
+"" 前回行われた補完をキャンセル
+"inoremap <expr><C-g> neocomplcache#undo_completion()
+"
 
 
