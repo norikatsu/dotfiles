@@ -242,10 +242,15 @@ set backspace=indent,eol,start
 "Filer Setting
 nmap ,f :<C-u>Ex<CR>
 
-"文字コード設定変更
+"文字コード設定変更(ファイルオープンし直し)
 nmap ,e :<C-u>e ++enc=euc-jp<CR>
 nmap ,u :<C-u>e ++enc=utf-8<CR>
 nmap ,s :<C-u>e ++enc=sjis<CR>
+
+"文字コード設定変更(保存形式変更)
+nmap ,ee :<C-u>set fileencoding=euc-jp fileformat=unix<CR>
+nmap ,eu :<C-u>set fileencoding=utf-8 fileformat=unix<CR>
+nmap ,es :<C-u>set fileencoding=sjis fileformat=dos<CR>
 
 
 "検索時のハイライト消去
@@ -508,9 +513,13 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 
 "========== neosnippet.vim Setting
-" Snipet Setting
-"let g:neocomplcache_snippets_dir = '~/.vim/snippets'
-"nnorema ,ns :<C-u>NeoComplCacheEditSnippets 
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+
 
 imap <C-s>     <Plug>(neosnippet_expand_or_jump)
 smap <C-s>     <Plug>(neosnippet_expand_or_jump)
