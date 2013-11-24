@@ -1,0 +1,14 @@
+#******************************************************************************
+#
+#  File Name : .wgetrc
+#  Type      : wget init file
+#  Function  : Wget Initial
+#  Author    : Yoshida Norikatsu
+#              2011/05/10 Start
+#
+#******************************************************************************
+
+
+#========== Proxy
+http_proxy=proxy.mei.co.jp:8080
+
