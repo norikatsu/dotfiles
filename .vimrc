@@ -30,13 +30,16 @@ if neobundle#exists_not_installed_bundles()
 endif
 
 "neobundleを更新するための設定
+" インストール  :NeoBundleInstall
+" アップデート　:NeobundleUpdate
+
 "NeoBundleFetch 'Shougo/neobundle.vim'
 
 "読み込みプラグインリスト
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
-
+NeoBundle 'vcscommand.vim'
 
 "========== Backup
 set backup
@@ -308,8 +311,6 @@ nnoremap :cp :<C-u>colder<CR>
 
 "VCScommand 設定
 nnoremap ,cv :<C-u>VCSVimDiff<Enter>
-nnoremap ,gv :<C-u>VCSVimDiff<Enter>
-
 nnoremap ,ca :<C-u>VCSAdd<Enter>
 nnoremap ,cc :<C-u>VCSCommit<Enter>
 nnoremap ,cd :<C-u>VCSDiff<Enter>
