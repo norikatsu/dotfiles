@@ -1,0 +1,13 @@
+#******************************************************************************
+#
+#  File Name : .hgrc
+#  Type      : Mercurial init file
+#  Function  : Mercurial  Initial
+#  Author    : Yoshida Norikatsu
+#              2011/05/10 Start
+#
+#******************************************************************************
+
+[http_proxy]
+host = proxy.mei.co.jp:8080
+

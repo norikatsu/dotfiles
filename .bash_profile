@@ -1,0 +1,455 @@
+#******************************************************************************
+#
+#   File Name   :   .bash_profile
+#   Type        :   bash init file
+#   Function    :   bash Initial
+#
+#  This is Linux & Cygwim & Mingw Login shell dot file
+#
+#   Linux GUI loging sequence
+#     1. init system.....
+#     2. exec xdm(gdm)  -> Login(GUI)
+#     3. load /etc/profile
+#     4. load $HOME/.bash_profile
+#     5.   -> load $HOME/.bashrc
+#     6.   -> load /etc/bashrc
+#     7. Exe bash (terminal)
+#     8.   -> load $HOME/.bashrc
+#     9.   -> load /etc/bashrc
+#
+#   Linux CUI loging sequence
+#     1. init system.....a
+#     2. Login(CUI)
+#     3. load /etc/profile
+#     4. load $HOME/.bash_profile
+#     5.   -> load $HOME/.bashrc
+#     6.   -> load /etc/bashrc
+#
+#
+#   Mingw boot sequence
+#     1. exec MSYSroot/bin/sh -login -i
+#     2. "sh" load MSYSroot/etc/profile
+#     3. "sh" load HOME/.profile
+#     4.   -> HOME/.profile      load HOME/.bash_profile (This file)
+#     5.   -> HOME/.bash_profile load /etc/bash.bashrc (But nothing is /etc/bash.bashrc at Mingw System....)
+#     6.   -> HOME/.bash_profile load HOME/.bashrc
+#
+#
+#   CYGWIM boot sequence
+#     1. exec CYGWINroot/bin/bash -login -i
+#     2. "bash" load CYGWINroot/etc/profile
+#     3. "bash" load HOME/.bash_profile  (This file)
+#     4.   -> HOME/.bash_profile load /etc/bash.bashrc
+#     5.   -> HOME/.bash_profile load HOME/.bashrc
+#
+#   Author      :   Yoshida Norikatsu
+#               2010/03/31 Start
+#               2010/09/20 Mod Environment Variables
+#               2011/04/25 Add EXEC SCREEN
+#               2011/05/05 Mod PATH
+#               2011/05/07 Separate Common-file and Local-file
+#               2011/05/09 Mod SVN_EDITOR , EDITOR
+#
+#               2011/05/14 Restart (Combine Cygwin,Mingw,Linux Version)
+#               2011/05/25 Add JuliaLsi Path setting
+#               2011/06/08 Add Vim Backup Files Dir Setting
+#
+#******************************************************************************
+
+
+#******************************************************************************
+# Source the system wide bashrc if it exists (Cygwin only....)
+#******************************************************************************
+
+#if [ -e /etc/bash.bashrc ] ; then
+#  source /etc/bash.bashrc
+#fi
+
+
+
+#******************************************************************************
+# Source the users bashrc if it exists
+#******************************************************************************
+
+if [ -e "${HOME}/.bashrc" ] ; then
+  source "${HOME}/.bashrc"
+else
+  echo "No ${HOME}/.bash  (This message at ${HOME}/.bash_profile)"
+fi
+
+
+
+#****************************************************************************o*
+# Make Need Files & Dir
+#******************************************************************************
+
+#---------- Make Tmp Dir
+if [ ! -d "${HOME}/tmp" ] ; then
+    mkdir ${HOME}/tmp
+fi
+
+#---------- Make VIM Backup Files Dir
+if [ ! -d "${HOME}/tmp/vimbackup" ] ; then
+    mkdir ${HOME}/tmp/vimbackup
+fi
+
+
+
+
+#****************************************************************************o*
+# Delete Environment Variables
+#******************************************************************************
+
+#========== Delete ( Windows Environment Variables )
+unset LM_LICENSE_FILE
+
+
+
+
+#****************************************************************************o*
+# Setting Variable of Environmental Dependence Type
+#   Use $OSTYPE & $LOCATIONTYPE
+#
+#       LOCATIONTYPE that is a personal variable is defined in /etc/profile.
+#******************************************************************************
+
+#********** LOCATIONTYPE Variable is undefined **********
+if [ "${LOCATIONTYPE}" == "" ]; then
+    echo " LOCATIONTYPE Variable is undefined.  Please define it in /etc/profile"
+    echo " This message is sent from ${HOME}/.bash_profile"
+
+    #   TMP                 # for cygwin
+    #   TEMP                # for cygwin
+    #   VIMRUNTIME          # for mingw
+    export QUARTUS_ROOTDIR=undefined
+    export QUARTUS_LICENSE=undefined
+    export ALTLIB_BASEPATH=undefined
+    export MODEL_TECH_BASE_PATH=undefined
+    export MODELSIM_PATH=undefined
+    export MODELSIM_LICENSE=undefined
+
+
+#********** MYHOME setting **********
+elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
+
+    #========== Set Tmp (cygwin only)
+    if [ "${OSTYPE}" == "cygwin" ]; then
+        export TMP=/tmp
+        export TEMP=/tmp
+    fi
+
+    #========== Set VIM runtime path (mingw only)
+    if [ "${OSTYPE}" == "msys" ]; then
+        export VIMRUNTIME=/share/vim/vim72
+    fi
+
+    #========== Set Altera QuartusII Path & Lincense
+    export QUARTUS_LICENSE=nothing
+
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export QUARTUS_ROOTDIR=/cygdrive/c/altera/10.0sp1/quartus
+            ;;
+        # ***** Mingw
+        msys)
+            export QUARTUS_ROOTDIR=/c/altera/10.0sp1/quartus
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export QUARTUS_ROOTDIR=/usr/cad/quartus-110/quartus
+            ;;
+    esac
+
+    #========== Set Altera Simulation Library Path for Modelsim
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export ALTLIBPATH=C:/altera/10.1/modelsim_ase/altera/verilog
+            ;;
+        # ***** Mingw
+        msys)
+            export ALTLIBPATH=/c/altera/10.1/modelsim_ase/altera/verilog
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export ALTLIBPATH=/usr/cad/modelsim-110/modelsim_ase/altera/verilog
+            ;;
+    esac
+
+    #========== Set ModelSim Path & Lincense
+    export MODELSIM_LICENSE=nothing
+
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export MODEL_TECH=/cygdrive/c/altera/10.1/modelsim_ase
+            export MODELSIM_PATH=${MODEL_TECH}/win32aloem
+            ;;
+        # ***** Mingw
+        msys)
+            export MODEL_TECH=/c/altera/10.1/modelsim_ase
+            export MODELSIM_PATH=${MODEL_TECH}/win32aloem
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export MODEL_TECH=/usr/cad/modelsim-110/modelsim_ase
+            export MODELSIM_PATH=$MODEL_TECH/bin
+            # 32bit or 64bit
+            export MTI_VCO_MODE=32
+            #export MTI_VCO_MODE=64
+            ;;
+    esac
+
+
+    #========== Set Leda
+    export SYNOPSYS_LICENSE=nothing
+    export LEDA_PATH=/usr/local
+    export LEDA_CONFIG=nothing
+
+
+    #========== Set Julia Project
+    export SVN_JULIA=https://133.181.137.151/julia/repos/julialsi/trunk/julia
+    export LSI_HOME=~/julia
+    export FPGA_HOME=~/fuji
+
+#********** OFFICE setting **********
+elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
+
+    #========== Set Tmp (cygwin only)
+    if [ "${OSTYPE}" == "cygwin" ]; then
+        export TMP=/tmp
+        export TEMP=/tmp
+    fi
+
+    #========== Set VIM runtime path (mingw only)
+    if [ "${OSTYPE}" == "msys" ]; then
+        export VIMRUNTIME=/share/vim/vim72
+    fi
+
+
+    #========== Set Proxy (Linux only)
+    # http ftp proxy
+    export http_proxy=http://proxy.mei.co.jp:8080/
+    export https_proxy=http://proxy.mei.co.jp:8080/
+    export ftp_proxy=http://proxy.mei.co.jp:8080/
+
+    # Git Proxy
+    export GIT_PROXY_COMMAND=/usr/local/bin/git-proxy
+
+
+    if [ "${OSTYPE}" == "linux-gnu" ]; then
+        # Wget Proxy
+        ln -fs ${HOME}/.wgetrc_office_linux ${HOME}/.wgetrc
+
+        # Mercuria Proxy
+        ln -fs ${HOME}/.hgrc_office_linux ${HOME}/.hgrc
+
+    fi
+
+
+    #========== Set Altera QuartusII Path & Lincense
+    export QUARTUS_LICENSE=1700@133.181.137.195
+
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export QUARTUS_ROOTDIR=/cygdrive/c/altera/10.0sp1/quartus
+            ;;
+        # ***** Mingw
+        msys)
+            export QUARTUS_ROOTDIR=/c/altera/10.0sp1/quartus
+            ;;
+        # ***** Linux
+        linux-gnu)
+            #export QUARTUS_ROOTDIR=/usr/cad/quartus-100/quartus
+            export QUARTUS_ROOTDIR=/usr/cad/quartus-111/quartus
+            ;;
+    esac
+
+    #========== Set Altera Simulation Library Path for Modelsim
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export ALTLIBPATH=C:/altera/10.0sp1/modelsim_ase/altera/verilog
+            ;;
+        # ***** Mingw
+        msys)
+            export ALTLIBPATH=/c/altera/10.0sp1/modelsim_ase/altera/verilog
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export ALTLIBPATH=/usr/local/altera/modelsim_ase-100sp1/modelsim_ase/altera/verilog
+            ;;
+    esac
+
+    #========== Set ModelSim Path & Lincense
+    #export MODELSIM_LICENSE=1717@132.182.83.174
+    export MODELSIM_LICENSE=1717@cae-x4:1717@zion:1717@jp0200swtc103
+
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export MODEL_TECH=/cygdrive/c/modeltech_6.6b
+            export MODELSIM_PATH=${MODEL_TECH}/win32
+            ;;
+        # ***** Mingw
+        msys)
+            export MODEL_TECH=/c/modeltech_6.6b
+            export MODELSIM_PATH=${MODEL_TECH}/win32
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export MODEL_TECH=/usr/cad/questa-66c/questasim
+            export MODELSIM_PATH=$MODEL_TECH/bin
+            # 32bit or 64bit
+            export MTI_VCO_MODE=32
+            #export MTI_VCO_MODE=64
+            ;;
+    esac
+
+    #========== Set Leda
+    export SYNOPSYS_LICENSE=27000@132.182.83.171:27000@132.182.83.173
+    case $OSTYPE in
+        # ***** Linux
+        linux-gnu)
+            export LEDA_PATH=/usr/cad/leda-2010.12
+            export LEDA_CONFIG=${LEDA_PATH}/pana/leda_config.tcl
+            ;;
+        # ***** other
+        *)
+            export LEDA_PATH=/usr/local
+            export LEDA_CONFIG=nothing
+            ;;
+    esac
+
+
+    #========== Set Julia Project
+    export SVN_JULIA=https://133.181.137.151/julia/repos/julialsi/trunk/julia
+    export LSI_HOME=~/julia
+    export FPGA_HOME=~/fuji
+
+
+#********** Non-Correspondence **********
+else
+    echo " LOCATIONTYPE Variable is ${LOCATIONTYPE} is non-correspondence.  Please confirm it in /etc/profile"
+    echo " This message is sent from ${HOME}/.bash_profile"
+fi
+
+
+#****************************************************************************o*
+# Setting Environment Variables
+#******************************************************************************
+
+#========== Set LANG
+export LANG=ja_JP.UTF-8
+
+
+#========== Set Editer
+export EDITOR=vim
+
+
+#========== Set SVN Editer
+export SVN_EDITOR=vim
+
+
+#========== Set Julia Script setting
+export USERMAIL="Yoshida Norikatsu <yoshida.norikatsu@jp.panasonic.com>"
+
+
+
+
+#========== Set Base Path
+
+#---------- Set Use Binpath
+if [ -d "${HOME}/bin" ] ; then
+    if [ ! "$(echo $PATH | grep ${HOME}/bin)" ]; then
+        export PATH=${PATH}:${HOME}/bin
+    fi
+fi
+
+
+#---------- Set Altera QuartusII Path 
+if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin)" ]; then
+    export PATH=$PATH:$QUARTUS_ROOTDIR/bin
+fi
+
+
+#----------  Set ModelSim  Environment Variables 
+if [ ! "$(echo $PATH | grep $MODELSIM_PATH)" ]; then
+    export PATH=$PATH:$MODELSIM_PATH
+fi
+
+#----------  Set LEDA  Environment Variables 
+if [ ! "$(echo $PATH | grep ${LEDA_PATH}/bin)" ]; then
+    export PATH=$PATH:${LEDA_PATH}/bin
+fi
+
+
+
+#----------  Set Julia Project  Environment Variables 
+if [ ! "$(echo $PATH | grep ${LSI_HOME}/bin)" ]; then
+    export PATH=$PATH:${LSI_HOME}/bin
+fi
+
+if [ ! "$(echo $PATH | grep ${FPGA_HOME}/bin)" ]; then
+    export PATH=$PATH:${FPGA_HOME}/bin
+fi
+
+
+#========== Set License
+
+#---------- Set Altera QuartusII License
+if [ ! "$(echo $LM_LICENSE_FILE | grep $QUARTUS_LICENSE)" ]; then
+    if [ "$LM_LICENSE_FILE" = "" ]; then
+        export LM_LICENSE_FILE=$QUARTUS_LICENSE
+    else
+        export LM_LICENSE_FILE=$LM_LICENSE_FILE:$QUARTUS_LICENSE
+    fi
+fi
+
+
+#---------- Set ModelSim License 
+if [ ! "$(echo $LM_LICENSE_FILE | grep $MODELSIM_LICENSE)" ]; then
+    export LM_LICENSE_FILE=$LM_LICENSE_FILE:$MODELSIM_LICENSE
+fi
+
+
+#---------- Set Synopsys License 
+if [ ! "$(echo $LM_LICENSE_FILE | grep $SYNOPSYS_LICENSE)" ]; then
+    export LM_LICENSE_FILE=$LM_LICENSE_FILE:$SYNOPSYS_LICENSE
+fi
+
+
+#****************************************************************************o*
+# EXEC Screen
+#******************************************************************************
+
+#========== Check Screen
+if [ "${OSTYPE}" == "linux-gnu" ]; then
+    which screen 1>/dev/null 2>/dev/null
+else
+    which screen 1>${HOME}/null 2>${HOME}/null
+fi
+
+if [ $? -eq 0 ]; then
+    SCREEN_ERROR=0
+else
+    SCREEN_ERROR=1
+fi
+
+if [ -e "${HOME}/null" ] ; then
+  rm -f ${HOME}/null
+fi
+
+#========== Exec screen
+if [ "${OSTYPE}" == "linux-gnu" ]; then
+    if [ ${SCREEN_ERROR} == "0" ]; then
+        if [ "${DISPLAY}" = "" ]; then
+            if [ "${TERM}" != "screen" ]; then
+                exec screen -D -RR
+            fi
+        fi
+    fi
+fi
+
