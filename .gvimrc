@@ -27,7 +27,7 @@ colorscheme darkblue
 
 "========== Font
 if has("win32") || has("win64")
-    set guifont=ÇlÇr_ÉSÉVÉbÉN:h11:cSHIFTJIS
+    set guifont=Ricty:h13:cSHIFTJIS
 else
     set guifont=monospace\ 12
 end
