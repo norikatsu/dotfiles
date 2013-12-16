@@ -198,6 +198,7 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
             # 32bit or 64bit
             export MTI_VCO_MODE=32
             #export MTI_VCO_MODE=64
+            export MTI_GCC_VER=4.3.3
             ;;
     esac
 
@@ -300,11 +301,12 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
         # ***** Linux
         linux-gnu)
-            export MODEL_TECH=/usr/cad/questa-66c/questasim
+            export MODEL_TECH=/usr/cad/questa-10.0d/questasim
             export MODELSIM_PATH=$MODEL_TECH/bin
             # 32bit or 64bit
             export MTI_VCO_MODE=32
             #export MTI_VCO_MODE=64
+            export MTI_GCC_VER=4.3.3
             ;;
     esac
 

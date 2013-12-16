@@ -1,9 +1,10 @@
-[core]
-	quotepath = false
-	editor = 'C:\\ProgramFiles\\vim\\gvim.exe'
 [user]
 	name = Yoshida Norikatsu
 	email = norikatsu@gmail.com
+[core]
+	autocrlf = false
+	quotepath = false
+	editor = 'C:\\ProgramFiles\\vim\\gvim.exe'
 [color]
 	ui = auto
 [diff]
