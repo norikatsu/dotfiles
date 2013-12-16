@@ -1,0 +1,54 @@
+Git設定あんちょこ
+
+プロキシを超えるための設定
+
+1．ssh用設定
+ 
+  ssh-keygenで鍵を生成しておくこと（生成時の設定はすべてデフォルト・空パスワード)
+
+  ~/.ssh/configの設定
+
+    > ProxyCommand "C:\Program Files (x86)\Git\bin\connect.exe" -H proxy.mei.co.jp:8080 %h %p
+    > 
+    > Host github.com
+    > User git
+    > Port 443
+    > Hostname ssh.github.com
+    > IdentityFile "C:\nori_mydoc\\.ssh\id_rsa"
+    > TCPKeepAlive yes
+    > IdentitiesOnly yes
+    > 
+    > Host git.codebreak.com
+    > User norikatsu
+    > Port 22
+    > Hostname git.codebreak.com
+    > IdentityFile "C:\nori_mydoc\\.ssh\id_rsa"
+    > TCPKeepAlive yes
+    > IdentitiesOnly yes
+
+
+2．.gitconfigの設定
+  http httpsのプロキシ設定を行う(試したがこのファイル上の設定は有効にならず　後述する環境変数設定が必要
+  git://　プロトコルを  ssh://への置換設定
+
+    >[http]
+    >[https]
+    >	proxy = http://proxy.mei.co.jp:8080
+    >[user]
+    >	name = Yoshida Norikatsu
+    >	email = norikatsu@gmail.com
+    >[core]
+    >	autocrlf = true
+    >[difftool "sourcetree"]
+    >	cmd = 'C:/Program Files/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
+    >[url "ssh://"]
+    >	insteadOf = git://
+
+
+
+3.  環境変数の設定
+
+    http_proxy  : http://mei.co.jp:8080
+    https_proxy : http://mei.co.jp:8080
+
+
