@@ -7,6 +7,8 @@ Git設定あんちょこ
   ssh-keygenで鍵を生成しておくこと（生成時の設定はすべてデフォルト・空パスワード)
 
   ~/.ssh/configの設定
+    (connectが必要 Windows版は msysgitに付いてくる
+     Linuxでは別途インストールすること)
 
     > ProxyCommand "C:\Program Files (x86)\Git\bin\connect.exe" -H proxy.mei.co.jp:8080 %h %p
     > 
