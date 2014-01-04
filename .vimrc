@@ -217,6 +217,8 @@ endfunction
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
 
+"========== rebuild
+nnoremap <silent> <Space>re :<C-u>!./rebuild.sh
 
 "========== Keybind
 "
