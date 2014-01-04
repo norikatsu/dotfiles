@@ -42,7 +42,7 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
 NeoBundle 'vcscommand.vim'
-"NeoBundle 'motemen/git-vim'
+NeoBundle 'motemen/git-vim'
 
 
 
@@ -192,6 +192,59 @@ nnoremap <silent> <Space>cd :<C-u>CD<CR>
 
 
 "**********************************************************************
+"* Binary Mode
+"**********************************************************************
+augroup BinaryXXD
+    autocmd!
+    autocmd BufReadPre  *.bin let &binary =1
+    autocmd BufReadPost * if &binary | silent %!xxd -g 1
+    autocmd BufReadPost * set ft=xxd | endif
+    autocmd BufWritePre * if &binary | %!xxd -r
+    autocmd BufWritePre * endif
+    autocmd BufWritePost * if &binary | silent %!xxd -g 1
+    autocmd BufWritePost * set nomod | endif
+augroup END
+
+
+
+"**********************************************************************
+"*RTL作成支援ツール用 (外部スクリプトを実行するので注意)
+"**********************************************************************
+" ~/bin  or ~/julia/bin 等 パスの通った場所にスクリプトを置くこと
+
+"========== ヘッダ部作成
+map _rcs :r !rcs_gen %<CR>
+
+"==========  Module Instantiation
+map _lmi :r !vlog_mod.rb -i <cword>.*v<CR>
+
+"==========  Module Drive Signals
+map _lms :r !vlog_mod.rb -s <cword>.*v<CR>
+
+
+
+"**********************************************************************
+"* コンパイラ設定(make実行時)
+"**********************************************************************
+"========== Compiler (Setting File Type)
+autocmd FileType verilog :compiler verilog
+
+
+"========== Make
+" Setting is in ~/vim/compiler/***.vim
+
+" command link is.....
+"      ";" : bash
+"      "&" : dos
+"set makeprg=rm\ -rf\ work\&vlib\ work\&vlog\ %
+"set makeprg=rm\ -rf\ work\;vlib\ work\;vlog\ %
+
+"set errorformat=**\ Warning:\ %f(%l):\ %m,**\ Error:\ %f(%l):\ %m
+
+
+
+
+"**********************************************************************
 "* Other Environment Setting
 "**********************************************************************
 "========== Text Width
@@ -244,6 +297,8 @@ set sts=4
 "nmap <C-b> "+gP
 set clipboard=unnamed
 
+"========== matchit.vim Setting (verilog begin-end関連づけ)
+source $VIMRUNTIME/macros/matchit.vim
 
 
 "**********************************************************************
@@ -308,18 +363,18 @@ nnoremap <Space>cp :<C-u>colder<CR>
 
 
 "========== git-vim 設定
-"let g:git_no_map_default = 1
-"let g:git_command_edit = 'rightbelow vnew'
-"nnoremap <Space>gd :<C-u>GitDiff<Enter>
-"nnoremap <Space>gD :<C-u>GitDiff --cached<Enter>
-"nnoremap <Space>gs :<C-u>GitStatus<Enter>
-"nnoremap <Space>gl :<C-u>GitLog<Enter>
-"nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
-"nnoremap <Space>ga :<C-u>GitAdd<Enter>
-"nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
-"nnoremap <Space>gc :<C-u>GitCommit<Enter>
-"nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
-"nnoremap <Space>gp :<C-u>Git push
+let g:git_no_map_default = 1
+let g:git_command_edit = 'rightbelow vnew'
+nnoremap <Space>gd :<C-u>GitVimDiff<Enter>
+nnoremap <Space>gD :<C-u>GitVimDiff --cached<Enter>
+nnoremap <Space>gs :<C-u>GitStatus<Enter>
+nnoremap <Space>gl :<C-u>GitLog<Enter>
+nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
+nnoremap <Space>ga :<C-u>GitAdd<Enter>
+nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
+nnoremap <Space>gc :<C-u>GitCommit<Enter>
+nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
+nnoremap <Space>gp :<C-u>Git push
 
 
 "========== VCScommand 設定
@@ -330,8 +385,6 @@ nnoremap <Space>cd :<C-u>VCSDiff<Enter>
 nnoremap <Space>cs :<C-u>VCSStatus<Enter>
 nnoremap <Space>cr :<C-u>VCSRevert
 nnoremap <Space>cx :<C-u>VCSDelete
-
-
 
 
 
@@ -351,132 +404,19 @@ nmap ,gq :winc l<CR>:bw<CR>:diffoff<CR>
 nmap ,q :winc l<CR>:bw<CR>:diffoff<CR>
 
 
-"========== Binary Mode
-augroup BinaryXXD
-    autocmd!
-    autocmd BufReadPre  *.bin let &binary =1
-    autocmd BufReadPost * if &binary | silent %!xxd -g 1
-    autocmd BufReadPost * set ft=xxd | endif
-    autocmd BufWritePre * if &binary | %!xxd -r
-    autocmd BufWritePre * endif
-    autocmd BufWritePost * if &binary | silent %!xxd -g 1
-    autocmd BufWritePost * set nomod | endif
-augroup END
-
-
-
-"RTL作成支援ツール用 (外部スクリプトを実行するので注意)
-" ~/bin  or ~/julia/bin 等 パスの通った場所にスクリプトを置くこと
-
-" ヘッダ部作成
-map _rcs :r !rcs_gen %<CR>
-
-" ls実行
-map _ls  :!ls<CR>
-
-
-" ***** for Verilog Source Edit Support
-" Verilog FF Gen(basic)
-map _lfb :r !vlog_ff.rb -t basic -w 1 <cword>
-
-" Verilog FF Gen(if)
-map _lfi :r !vlog_ff.rb -t if -w 1 <cword>
-
-" Verilog FF Gen(case)
-map _lfc :r !vlog_ff.rb -t case -w 1 -s 2 <cword>
-
-" Verilog FF Gen(sreg)
-map _lfs :r !vlog_ff.rb -t sreg -w 8 <cword>
-
-" Verilog FF Gen(edge)
-map _lfe :r !vlog_ff.rb -t edge <cword><CR>
-
-" Verilog FF Gen(ucntr)
-map _lfu :r !vlog_ff.rb -t cntr -w 8 -m cue <cword>
-
-" Verilog FF Gen(dcntr)
-map _lfd :r !vlog_ff.rb -t cntr -w 8 -m cde <cword>
-
-" Verilog FF Gen(state machine)
-map _lfm :r !vlog_ff.rb -t state -w 3 <cword>
-
-" Verilog Module Instantiation
-map _lmi :r !vlog_mod.rb -i <cword>.*v<CR>
-
-" Verilog Module Drive Signals
-map _lms :r !vlog_mod.rb -s <cword>.*v<CR>
-
-" Verilog Module Output Assign
-map _lmo :r !vlog_mod.rb -o <cword>.*v<CR>
-
-" Verilog Signal Declaration(reg) & Read it!
-map _lsr :r !vlog_sig.rb -t reg -w 8  <cword><CR>
-
-" Verilog Signal Declaration(wire) & Read it!
-map _lsw :r !vlog_sig.rb -t wire -w 8  <cword><CR>
-
-" Verilog Top Input Buffer Instance & Read it!
-map _lti :r !vlog_iob.rb -t i -w 1  <cword>
-
-" Verilog Top Output Buffer Instance & Read it!
-map _lto :r !vlog_iob.rb -t o -w 1  <cword>
-
-" Verilog Top I/O Buffer Instance & Read it!
-map _ltb :r !vlog_iob.rb -t b -w 1  <cword>
-
-
-" *****  for Verilog/VHDL Source Compile & Make
-" Save current file & Verilog Compile
-map _vl  :w!<CR>:!vlog %<CR>
-
-" Save current file & Verilog Compile with System Verilog option
-map _vls :w!<CR>:!vlog -sv %<CR>
-
-" Save current file & VHDL Compile
-map _vc  :w!<CR>:!vcom %<CR>
-
-" Save current file & Make Project
-map _ma  :w!<CR>:!make<CR>
-
-" Save current file & Kashi RTL Checker
-map _kr  :w!<CR>:!krtl.sh %<CR>
 
 
 
 
-
-
-"========== Compiler (Setting File Type)
-autocmd FileType verilog :compiler verilog
-
-
-"========== Make
-" Setting is in ~/vim/compiler/***.vim
-
-" command link is.....
-"      ";" : bash
-"      "&" : dos
-"set makeprg=rm\ -rf\ work\&vlib\ work\&vlog\ %
-"set makeprg=rm\ -rf\ work\;vlib\ work\;vlog\ %
-
-"set errorformat=**\ Warning:\ %f(%l):\ %m,**\ Error:\ %f(%l):\ %m
-
-
-
-"========== matchit.vim Setting (verilog begin-end関連づけ)
-source $VIMRUNTIME/macros/matchit.vim
-
-
-
-"========== AutoComplpop Setting
-
-"neocomplcache を使うので無効化
-let g:acp_enableAtStartup = 0
-
-
+"**********************************************************************
+"* Plugin Setting
+"**********************************************************************
 
 
 "========== neocomplete.vim Setting
+
+"neocomplcache を使うので無効化
+let g:acp_enableAtStartup = 0
 
 " Use neocomplete.vim
 let g:neocomplete#enable_at_startup = 1
@@ -485,10 +425,8 @@ let g:neocomplete#enable_at_startup = 1
 nmap ,y :NeoCompleteEnable <CR>
 nmap ,n :NeoCompleteDisable <CR>
 
-
 " Use smartcase. 大文字入力まで大文字小文字を区別しない
 let g:neocompete#enable_smart_case = 1
-
 
 " Tabで補完
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -509,7 +447,6 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 "
 "" Set manual completion length.
 "let g:neocomplcache_manual_completion_start_length = 0
-"
 "
 
 "" ポップアップ削除
@@ -534,7 +471,6 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets, ~/.vim/snippets'
 
 
-
 imap <C-s>     <Plug>(neosnippet_expand_or_jump)
 smap <C-s>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-s>     <Plug>(neosnippet_expand_target)
@@ -551,3 +487,4 @@ endif
 
 "========== Highlight match Setting
 let g:hl_matchit_enable_on_vim_startup = 1
+
