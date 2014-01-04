@@ -14,3 +14,13 @@
 	cmd = 'C:/Program Files/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
 [url "ssh://"]
 	insteadOf = git://
+[alias]
+	co = checkout
+	br = branch
+	ci = commit -a
+	st = status
+	svdc = svn dcommit
+	difh = diff HEAD
+	diffh = diff HEAD
+	svrb = svn rebase
+	hint = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short

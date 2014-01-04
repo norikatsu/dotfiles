@@ -4,13 +4,15 @@
 [core]
 	autocrlf = false
 	quotepath = false
-	editor = 'C:\\ProgramFiles\\vim\\gvim.exe'
+	editor = "'C:\\ProgramFiles\\vim\\gvim.exe' -c 'set fenc=utf-8'"
 [color]
 	ui = auto
 [diff]
 	tool = gvimdiff
 [difftool]
 	prompt = false
+[difftool "sourcetree"]
+	cmd = 'C:/Program Files/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
 [alias]
 	co = checkout
 	br = branch
@@ -21,4 +23,3 @@
 	diffh = diff HEAD
 	svrb = svn rebase
 	hint = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-
