@@ -110,6 +110,8 @@ au InsertLeave * call s:ModeColor('darkblue','Leave')
 "========== HighLight
 set hlsearch
 
+"========== Bell
+set visualbell
 
 "========== Insert Mode & IME Mode Color
 function! s:ModeColor(colorschemein, status)
