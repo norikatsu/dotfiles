@@ -8,8 +8,10 @@
 "
 "******************************************************************************
 
-"========== neobundle Setting
-" neobundle
+
+"**********************************************************************
+"* Neobundle Setting
+"**********************************************************************
 set nocompatible               " Be iMproved
 filetype off                   " Required!
 
@@ -41,12 +43,19 @@ NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
 NeoBundle 'vcscommand.vim'
 
-"========== Backup
+
+
+"**********************************************************************
+"* Backup
+"**********************************************************************
 set backup
 set backupdir=~/tmp/vimbackup,.
 
 
-"========== Encoding
+
+"**********************************************************************
+"* Encoding
+"**********************************************************************
 if has("win32") || has("win64")
     set encoding=cp932
     set fileformat=dos
@@ -60,7 +69,9 @@ set fileformats=unix,dos
 set ambiwidth=double
 
 
-"========= IME Setting
+"**********************************************************************
+"* IME Setting
+"**********************************************************************
 
 if has("win32") || has("win64")
     "Windowsではデフォルト IMEOFFに設定
@@ -84,13 +95,16 @@ else
 endif
 
 
+
+"**********************************************************************
+"* Other Environment Setting
+"**********************************************************************
 "========== Text Width
 set textwidth=0
 
 "========== Use Mouse
 set mouse=a
 set ttymouse=xterm2
-
 
 "========== Start Up Message
 set shortmess+=I
@@ -102,10 +116,8 @@ syntax on
 set t_Co=256
 colorscheme darkblue
 
-
 au InsertEnter * call s:ModeColor('desert','Enter')
 au InsertLeave * call s:ModeColor('darkblue','Leave')
-
 
 "========== HighLight
 set hlsearch
@@ -113,7 +125,11 @@ set hlsearch
 "========== Bell
 set visualbell
 
-"========== Insert Mode & IME Mode Color
+
+
+"**********************************************************************
+"* Insert Mode & IME Mode Color
+"**********************************************************************
 function! s:ModeColor(colorschemein, status)
     if has('syntax')
         "---------- Set Colorscheme 
@@ -169,7 +185,10 @@ set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%Y]%=\
 set list
 set listchars=tab:>.,trail:-,eol:$,extends:>,precedes:<,nbsp:%
 
-" 全角スペース処理
+
+"**********************************************************************
+"* 全角スペース処理
+"**********************************************************************
 if has("syntax")
     syntax on
 
@@ -198,7 +217,9 @@ set sw=4
 set sts=4
 
 
-"========== カレントディレクトリ移動コマンド定義 
+"**********************************************************************
+"* カレントディレクトリ移動コマンド定義 
+"**********************************************************************
 " -> :CD で開いているファイルのディレクトリに移動
 " -> :CD! で移動先を表示して確認できる
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
@@ -217,10 +238,15 @@ endfunction
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
 
+
+
+
+"**********************************************************************
+"* Keybind
+"**********************************************************************
 "========== rebuild
 nnoremap <silent> <Space>re :<C-u>!./rebuild.sh
 
-"========== Keybind
 "
 "  モード切り替え系のキーバインドは ,XX に統一する
 

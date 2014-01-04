@@ -8,10 +8,10 @@
 [color]
 	ui = auto
 [diff]
-	tool = gvimdiff
+	tool = WinMerge
 [difftool]
 	prompt = false
-[difftool "sourcetree"]
+[difftool "WinMerge"]
 	cmd = 'C:/Program Files/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
 [alias]
 	co = checkout
