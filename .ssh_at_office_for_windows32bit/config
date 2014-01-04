@@ -2,19 +2,27 @@ ProxyCommand "C:\Program Files\Git\bin\connect.exe" -H proxy.mei.co.jp:8080 %h %
 
 Host github.com
 User git
-Port 22
-Hostname github.com
-IdentityFile "C:\nori_mydoc\\.ssh\id_rsa"
-TCPKeepAlive yes
-IdentitiesOnly yes
-
-Host ssh.github.com
-User git
 Port 443
 Hostname ssh.github.com
 IdentityFile "C:\nori_mydoc\\.ssh\id_rsa"
 TCPKeepAlive yes
 IdentitiesOnly yes
+
+#Host github.com
+#User git
+#Port 22
+#Hostname github.com
+#IdentityFile "C:\nori_mydoc\\.ssh\id_rsa"
+#TCPKeepAlive yes
+#IdentitiesOnly yes
+#
+#Host ssh.github.com
+#User git
+#Port 443
+#Hostname ssh.github.com
+#IdentityFile "C:\nori_mydoc\\.ssh\id_rsa"
+#TCPKeepAlive yes
+#IdentitiesOnly yes
 
 
 Host git.codebreak.com
