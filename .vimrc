@@ -33,8 +33,8 @@ endif
 
 "neobundleを更新するための設定
 " インストール  :NeoBundleInstall
-" アップデート　:NeobundleUpdate
-
+" アップデート  :NeobundleUpdate
+" 削除          :NeoBundleClean( vimrc該当行を削除したのち実行)
 "NeoBundleFetch 'Shougo/neobundle.vim'
 
 "読み込みプラグインリスト
@@ -42,6 +42,7 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
 NeoBundle 'vcscommand.vim'
+"NeoBundle 'motemen/git-vim'
 
 
 
@@ -97,37 +98,6 @@ endif
 
 
 "**********************************************************************
-"* Other Environment Setting
-"**********************************************************************
-"========== Text Width
-set textwidth=0
-
-"========== Use Mouse
-set mouse=a
-set ttymouse=xterm2
-
-"========== Start Up Message
-set shortmess+=I
-
-"========== Syntax
-syntax on
-
-"========== Colorscheme
-set t_Co=256
-colorscheme darkblue
-
-au InsertEnter * call s:ModeColor('desert','Enter')
-au InsertLeave * call s:ModeColor('darkblue','Leave')
-
-"========== HighLight
-set hlsearch
-
-"========== Bell
-set visualbell
-
-
-
-"**********************************************************************
 "* Insert Mode & IME Mode Color
 "**********************************************************************
 function! s:ModeColor(colorschemein, status)
@@ -171,20 +141,6 @@ function! s:GetHighlight(hi)
 endfunction
 
 
-"========== LineNumber
-set number
-
-"========== Diff
-set diffopt=filler,vertical
-
-"========== StatusLine
-set laststatus=2
-set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%Y]%=\ (%v,%l)/%L%8P\
-
-"========== 不可視属性文字の可視化
-set list
-set listchars=tab:>.,trail:-,eol:$,extends:>,precedes:<,nbsp:%
-
 
 "**********************************************************************
 "* 全角スペース処理
@@ -210,11 +166,6 @@ if has("syntax")
     augroup END
 endif
 
-"========== Tab
-set expandtab
-set ts=4
-set sw=4
-set sts=4
 
 
 "**********************************************************************
@@ -240,31 +191,80 @@ nnoremap <silent> <Space>cd :<C-u>CD<CR>
 
 
 
+"**********************************************************************
+"* Other Environment Setting
+"**********************************************************************
+"========== Text Width
+set textwidth=0
+
+"========== Use Mouse
+set mouse=a
+set ttymouse=xterm2
+
+"========== Start Up Message
+set shortmess+=I
+
+"========== Syntax
+syntax on
+
+"========== Colorscheme
+set t_Co=256
+colorscheme darkblue
+
+au InsertEnter * call s:ModeColor('desert','Enter')
+au InsertLeave * call s:ModeColor('darkblue','Leave')
+
+"========== HighLight
+set hlsearch
+
+"========== Bell
+set visualbell
+
+"========== LineNumber
+set number
+
+"========== Diff
+set diffopt=filler,vertical
+
+"========== StatusLine
+set laststatus=2
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%Y]%=\ (%v,%l)/%L%8P\
+
+"========== 不可視属性文字の可視化
+set list
+set listchars=tab:>.,trail:-,eol:$,extends:>,precedes:<,nbsp:%
+
+"========== Tab
+set expandtab
+set ts=4
+set sw=4
+set sts=4
+
+"========== コピペ処理(コピペバッファに unnamed バッファを使用する)
+"nmap <C-b> "+gP
+set clipboard=unnamed
+
+
 
 "**********************************************************************
 "* Keybind
 "**********************************************************************
+"
 "========== rebuild
 nnoremap <silent> <Space>re :<C-u>!./rebuild.sh
 
-"
-"  モード切り替え系のキーバインドは ,XX に統一する
 
-"カーソル移動
-inoremap <C-e> <End>
-inoremap <C-d> <Del>
-
+"========== カーソル移動
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
-"BackSpace
+"========== BackSpace
 "     キーマップの解説
 "     BSキーは GUIでは BSコードを出力,ターミナルでは DEL(^?)を出す
 "     文字削除は ^H(C-h) コードだがすでに左移動に割り当てている
 "     よって以下の設定を入れないと左に移動するだけになってしまう
-
 noremap   
 noremap!  
 noremap  <BS> 
@@ -272,81 +272,64 @@ noremap! <BS> 
 set backspace=indent,eol,start
 
 
-"Filer Setting
-nmap ,f :<C-u>Ex<CR>
-
-"文字コード設定変更(ファイルオープンし直し)
-nmap ,e :<C-u>e ++enc=euc-jp<CR>
-nmap ,u :<C-u>e ++enc=utf-8<CR>
-nmap ,s :<C-u>e ++enc=sjis<CR>
-
-"文字コード設定変更(保存形式変更)
-nmap ,ee :<C-u>set fileencoding=euc-jp fileformat=unix<CR>
-nmap ,eu :<C-u>set fileencoding=utf-8 fileformat=unix<CR>
-nmap ,es :<C-u>set fileencoding=sjis fileformat=dos<CR>
+"========== Filer 
+nmap <Space>f :<C-u>Ex<CR>
 
 
-"検索時のハイライト消去
+"========== 文字コード設定変更(保存形式変更)
+nmap <Space>ee :<C-u>set fileencoding=euc-jp fileformat=unix<CR>
+nmap <Space>eu :<C-u>set fileencoding=utf-8 fileformat=unix<CR>
+nmap <Space>es :<C-u>set fileencoding=sjis fileformat=dos<CR>
+
+"========== 文字コード設定変更(ファイルオープンし直し)
+nmap <Space>oe :<C-u>e ++enc=euc-jp<CR>
+nmap <Space>ou :<C-u>e ++enc=utf-8<CR>
+nmap <Space>os :<C-u>e ++enc=sjis<CR>
+
+"========== 検索時のハイライト消去
 "nnoremap <Esc><Esc> :<C-u>set nohlsearch<CR>
-nmap ,h :<C-u>set hlsearch<CR>
-nmap ,l :<C-u>set nohlsearch<CR>
+nmap <Space>ho :<C-u>set hlsearch<CR>
+nmap <Space>hn :<C-u>set nohlsearch<CR>
 
 
-" コピペ処理(コピペバッファに unnamed バッファを使用する)
-"nmap <C-b> "+gP
-set clipboard=unnamed
-
-" タブ操作
+"========== タブ操作
 nnoremap <C-t> :tabedit<CR>
 "nnoremap <C-x> :tabclose<CR>
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprevious<CR>
+nmap <Space>t :<C-u>tabnew<CR>:<C-u>Ex<CR>
 
 
-" タグ操作
-nnoremap <C-@> :!ctags -R .<CR>
-nnoremap <C-b> :pop<CR>
+"========== make 関連
+nnoremap <Space>co :<C-u>copen<CR>
+nnoremap <Space>cq :<C-u>cclose<CR>
+nnoremap <Space>cn :<C-u>cnewer<CR>
+nnoremap <Space>cp :<C-u>colder<CR>
 
 
-
-" 横分割
-
-" 縦分割
-
-" 分割ウィンド消去
-
-" ウィンド移動
-
-" make 関連
-nnoremap :co :<C-u>copen<CR>
-nnoremap :cq :<C-u>cclose<CR>
-nnoremap :cn :<C-u>cnewer<CR>
-nnoremap :cp :<C-u>colder<CR>
-
-
-" git-vim 設定
+"========== git-vim 設定
 "let g:git_no_map_default = 1
 "let g:git_command_edit = 'rightbelow vnew'
-"nnoremap ,gd :<C-u>GitDiff<Enter>
-"nnoremap ,gD :<C-u>GitDiff --cached<Enter>
-"nnoremap ,gs :<C-u>GitStatus<Enter>
-"nnoremap ,gl :<C-u>GitLog<Enter>
-"nnoremap ,gL :<C-u>GitLog -u \| head -10000<Enter>
-"nnoremap ,ga :<C-u>GitAdd<Enter>
-"nnoremap ,gA :<C-u>GitAdd <cfile><Enter>
-"nnoremap ,gc :<C-u>GitCommit<Enter>
-"nnoremap ,gC :<C-u>GitCommit --amend<Enter>
-"nnoremap ,gp :<C-u>Git push
+"nnoremap <Space>gd :<C-u>GitDiff<Enter>
+"nnoremap <Space>gD :<C-u>GitDiff --cached<Enter>
+"nnoremap <Space>gs :<C-u>GitStatus<Enter>
+"nnoremap <Space>gl :<C-u>GitLog<Enter>
+"nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
+"nnoremap <Space>ga :<C-u>GitAdd<Enter>
+"nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
+"nnoremap <Space>gc :<C-u>GitCommit<Enter>
+"nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
+"nnoremap <Space>gp :<C-u>Git push
 
 
-"VCScommand 設定
-nnoremap ,cv :<C-u>VCSVimDiff<Enter>
-nnoremap ,ca :<C-u>VCSAdd<Enter>
-nnoremap ,cc :<C-u>VCSCommit<Enter>
-nnoremap ,cd :<C-u>VCSDiff<Enter>
-nnoremap ,cs :<C-u>VCSStatus<Enter>
-nnoremap ,cr :<C-u>VCSRevert
-nnoremap ,cx :<C-u>VCSDelete
+"========== VCScommand 設定
+nnoremap <Space>cv :<C-u>VCSVimDiff<Enter>
+nnoremap <Space>ca :<C-u>VCSAdd<Enter>
+nnoremap <Space>cc :<C-u>VCSCommit<Enter>
+nnoremap <Space>cd :<C-u>VCSDiff<Enter>
+nnoremap <Space>cs :<C-u>VCSStatus<Enter>
+nnoremap <Space>cr :<C-u>VCSRevert
+nnoremap <Space>cx :<C-u>VCSDelete
 
 
 
