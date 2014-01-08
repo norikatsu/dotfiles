@@ -68,7 +68,10 @@
                 $ hg clone https://vim.googlecode.com/hg/ vim
 
             2.ダウンロードした vimディレクトリに移動し configure 実行
-                $ ./configure --enable-multibyte --enable-xim --enable-fontset --disable-selinux --with-features=huge --prefix='/usr/local/vim-7.4'
+                $ ./configure --enable-multibyte --enable-xim --enable-fontset --disable-selinux --with-features=huge --prefix='/usr/local/vim-7.4' --enable-luainterp=yes
+
+                ( redhat環境では with-lua-prefixはデフォルトのままでいいので指定せず ubuntu等は別途指定が必要
+                   $ ./configure --enable-multibyte --enable-xim --enable-fontset --disable-selinux --with-features=huge --prefix='/usr/local/vim-7.4' --enable-luainterp=yes --with-lua-prefix=/usr/local などといった感じ・・・・)
 
             3. make 実行
                 $ make
