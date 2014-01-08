@@ -1,0 +1,27 @@
+[http]
+[https]
+	proxy = http://proxy.mei.co.jp:8080
+[user]
+	name = Yoshida Norikatsu
+	email = yoshida.norikatsu@jp.panasonic.com
+[core]
+	autocrlf = false
+	quotepath = false
+[color]
+	ui = auto
+[diff]
+	tool = gvimdiff
+[difftool]
+	prompt = false
+[url "ssh://"]
+	insteadOf = git://
+[alias]
+	co = checkout
+	br = branch
+	ci = commit -a
+	st = status
+	svdc = svn dcommit
+	difh = diff HEAD
+	diffh = diff HEAD
+	svrb = svn rebase
+	hint = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short

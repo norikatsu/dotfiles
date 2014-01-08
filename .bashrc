@@ -58,6 +58,13 @@
 #
 #******************************************************************************
 
+
+#******************************************************************************
+# For ftp 
+#******************************************************************************
+[ -z "$PS1" ] && return
+
+
 #******************************************************************************
 # Source global definitions
 #******************************************************************************
@@ -140,9 +147,11 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #========== QuartusII
     if [ "${OSTYPE}" == "linux-gnu" ]; then
         alias qua='quartus --64bit'
+        alias qua11='/usr/cad/quartus-111/quartus/bin/quartus --64bit'
         alias qprg='quartus_pgmw --64bit'
     else
         alias qua='quartus'
+        alias qua11='/usr/cad/quartus-111/quartus/bin/quartus'
         alias qprg='quartus_pgmw'
     fi
 #********** Non-Correspondence **********

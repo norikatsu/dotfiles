@@ -250,7 +250,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
 
     #========== Set Altera QuartusII Path & Lincense
-    export QUARTUS_LICENSE=1700@133.181.137.195
+    export QUARTUS_LICENSE=1700@10.64.218.165
 
     case $OSTYPE in
         # ***** Cygwin
@@ -264,7 +264,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
         # ***** Linux
         linux-gnu)
             #export QUARTUS_ROOTDIR=/usr/cad/quartus-100/quartus
-            export QUARTUS_ROOTDIR=/usr/cad/quartus-111/quartus
+            export QUARTUS_ROOTDIR=/usr/cad/quartus-130sp1/quartus
+            #export QUARTUS_ROOTDIR=/usr/cad/quartus-130/quartus
             ;;
     esac
 
@@ -286,7 +287,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
     #========== Set ModelSim Path & Lincense
     #export MODELSIM_LICENSE=1717@132.182.83.174
-    export MODELSIM_LICENSE=1717@cae-x4:1717@zion:1717@jp0200swtc103
+    #export MODELSIM_LICENSE=1717@cae-x4:1717@zion:1717@jp0200swtc103
+    export MODELSIM_LICENSE=1717@cae-x8:1717@jp0200swtc103
 
     case $OSTYPE in
         # ***** Cygwin
@@ -311,7 +313,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     esac
 
     #========== Set Leda
-    export SYNOPSYS_LICENSE=27000@132.182.83.171:27000@132.182.83.173
+    export SYNOPSYS_LICENSE=27000@132.182.83.177
     case $OSTYPE in
         # ***** Linux
         linux-gnu)
