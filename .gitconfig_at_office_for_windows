@@ -7,10 +7,14 @@
 [core]
 	autocrlf = false
 	quotepath = false
-	editor = "'C:\\Programs\\vim\\gvim.exe' -c 'set fenc=utf-8'"
+	editor = "'C:\\ProgramFiles\\vim\\gvim.exe' -c 'set fenc=utf-8'"
 [color]
 	ui = auto
-[difftool "sourcetree"]
+[diff]
+	tool = WinMerge
+[difftool]
+	prompt = false
+[difftool "WinMerge"]
 	cmd = 'C:/Program Files/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
 [url "ssh://"]
 	insteadOf = git://

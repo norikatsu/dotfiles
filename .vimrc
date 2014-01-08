@@ -8,8 +8,10 @@
 "
 "******************************************************************************
 
-"========== neobundle Setting
-" neobundle
+
+"**********************************************************************
+"* Neobundle Setting
+"**********************************************************************
 set nocompatible               " Be iMproved
 filetype off                   " Required!
 
@@ -31,8 +33,8 @@ endif
 
 "neobundleを更新するための設定
 " インストール  :NeoBundleInstall
-" アップデート　:NeobundleUpdate
-
+" アップデート  :NeobundleUpdate
+" 削除          :NeoBundleClean( vimrc該当行を削除したのち実行)
 "NeoBundleFetch 'Shougo/neobundle.vim'
 
 "読み込みプラグインリスト
@@ -40,13 +42,21 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
 NeoBundle 'vcscommand.vim'
+NeoBundle 'motemen/git-vim'
 
-"========== Backup
+
+
+"**********************************************************************
+"* Backup
+"**********************************************************************
 set backup
 set backupdir=~/tmp/vimbackup,.
 
 
-"========== Encoding
+
+"**********************************************************************
+"* Encoding
+"**********************************************************************
 if has("win32") || has("win64")
     set encoding=cp932
     set fileformat=dos
@@ -60,7 +70,9 @@ set fileformats=unix,dos
 set ambiwidth=double
 
 
-"========= IME Setting
+"**********************************************************************
+"* IME Setting
+"**********************************************************************
 
 if has("win32") || has("win64")
     "Windowsではデフォルト IMEOFFに設定
@@ -84,36 +96,10 @@ else
 endif
 
 
-"========== Text Width
-set textwidth=0
 
-"========== Use Mouse
-set mouse=a
-set ttymouse=xterm2
-
-
-"========== Start Up Message
-set shortmess+=I
-
-"========== Syntax
-syntax on
-
-"========== Colorscheme
-set t_Co=256
-colorscheme darkblue
-
-
-au InsertEnter * call s:ModeColor('desert','Enter')
-au InsertLeave * call s:ModeColor('darkblue','Leave')
-
-
-"========== HighLight
-set hlsearch
-
-"========== Bell
-set visualbell
-
-"========== Insert Mode & IME Mode Color
+"**********************************************************************
+"* Insert Mode & IME Mode Color
+"**********************************************************************
 function! s:ModeColor(colorschemein, status)
     if has('syntax')
         "---------- Set Colorscheme 
@@ -155,21 +141,10 @@ function! s:GetHighlight(hi)
 endfunction
 
 
-"========== LineNumber
-set number
 
-"========== Diff
-set diffopt=filler,vertical
-
-"========== StatusLine
-set laststatus=2
-set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%Y]%=\ (%v,%l)/%L%8P\
-
-"========== 不可視属性文字の可視化
-set list
-set listchars=tab:>.,trail:-,eol:$,extends:>,precedes:<,nbsp:%
-
-" 全角スペース処理
+"**********************************************************************
+"* 全角スペース処理
+"**********************************************************************
 if has("syntax")
     syntax on
 
@@ -191,14 +166,11 @@ if has("syntax")
     augroup END
 endif
 
-"========== Tab
-set expandtab
-set ts=4
-set sw=4
-set sts=4
 
 
-"========== カレントディレクトリ移動コマンド定義 
+"**********************************************************************
+"* カレントディレクトリ移動コマンド定義 
+"**********************************************************************
 " -> :CD で開いているファイルのディレクトリに移動
 " -> :CD! で移動先を表示して確認できる
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
@@ -217,28 +189,137 @@ endfunction
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
 
+
+
+"**********************************************************************
+"* Binary Mode
+"**********************************************************************
+augroup BinaryXXD
+    autocmd!
+    autocmd BufReadPre  *.bin let &binary =1
+    autocmd BufReadPost * if &binary | silent %!xxd -g 1
+    autocmd BufReadPost * set ft=xxd | endif
+    autocmd BufWritePre * if &binary | %!xxd -r
+    autocmd BufWritePre * endif
+    autocmd BufWritePost * if &binary | silent %!xxd -g 1
+    autocmd BufWritePost * set nomod | endif
+augroup END
+
+
+
+"**********************************************************************
+"*RTL作成支援ツール用 (外部スクリプトを実行するので注意)
+"**********************************************************************
+" ~/bin  or ~/julia/bin 等 パスの通った場所にスクリプトを置くこと
+
+"========== ヘッダ部作成
+map _rcs :r !rcs_gen %<CR>
+
+"==========  Module Instantiation
+map _lmi :r !vlog_mod.rb -i <cword>.*v<CR>
+
+"==========  Module Drive Signals
+map _lms :r !vlog_mod.rb -s <cword>.*v<CR>
+
+
+
+"**********************************************************************
+"* コンパイラ設定(make実行時)
+"**********************************************************************
+"========== Compiler (Setting File Type)
+autocmd FileType verilog :compiler verilog
+
+
+"========== Make
+" Setting is in ~/vim/compiler/***.vim
+
+" command link is.....
+"      ";" : bash
+"      "&" : dos
+"set makeprg=rm\ -rf\ work\&vlib\ work\&vlog\ %
+"set makeprg=rm\ -rf\ work\;vlib\ work\;vlog\ %
+
+"set errorformat=**\ Warning:\ %f(%l):\ %m,**\ Error:\ %f(%l):\ %m
+
+
+
+
+"**********************************************************************
+"* Other Environment Setting
+"**********************************************************************
+"========== Text Width
+set textwidth=0
+
+"========== Use Mouse
+set mouse=a
+set ttymouse=xterm2
+
+"========== Start Up Message
+set shortmess+=I
+
+"========== Syntax
+syntax on
+
+"========== Colorscheme
+set t_Co=256
+colorscheme darkblue
+
+au InsertEnter * call s:ModeColor('desert','Enter')
+au InsertLeave * call s:ModeColor('darkblue','Leave')
+
+"========== HighLight
+set hlsearch
+
+"========== Bell
+set visualbell
+
+"========== LineNumber
+set number
+
+"========== Diff
+set diffopt=filler,vertical
+
+"========== StatusLine
+set laststatus=2
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%Y]%=\ (%v,%l)/%L%8P\
+
+"========== 不可視属性文字の可視化
+set list
+set listchars=tab:>.,trail:-,eol:$,extends:>,precedes:<,nbsp:%
+
+"========== Tab
+set expandtab
+set ts=4
+set sw=4
+set sts=4
+
+"========== コピペ処理(コピペバッファに unnamed バッファを使用する)
+"nmap <C-b> "+gP
+set clipboard=unnamed
+
+"========== matchit.vim Setting (verilog begin-end関連づけ)
+source $VIMRUNTIME/macros/matchit.vim
+
+
+"**********************************************************************
+"* Keybind
+"**********************************************************************
+"
 "========== rebuild
 nnoremap <silent> <Space>re :<C-u>!./rebuild.sh
 
-"========== Keybind
-"
-"  モード切り替え系のキーバインドは ,XX に統一する
 
-"カーソル移動
-inoremap <C-e> <End>
-inoremap <C-d> <Del>
-
+"========== カーソル移動
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
-"BackSpace
+"========== BackSpace
 "     キーマップの解説
 "     BSキーは GUIでは BSコードを出力,ターミナルでは DEL(^?)を出す
 "     文字削除は ^H(C-h) コードだがすでに左移動に割り当てている
 "     よって以下の設定を入れないと左に移動するだけになってしまう
-
 noremap   
 noremap!  
 noremap  <BS> 
@@ -246,83 +327,64 @@ noremap! <BS> 
 set backspace=indent,eol,start
 
 
-"Filer Setting
-nmap ,f :<C-u>Ex<CR>
-
-"文字コード設定変更(ファイルオープンし直し)
-nmap ,e :<C-u>e ++enc=euc-jp<CR>
-nmap ,u :<C-u>e ++enc=utf-8<CR>
-nmap ,s :<C-u>e ++enc=sjis<CR>
-
-"文字コード設定変更(保存形式変更)
-nmap ,ee :<C-u>set fileencoding=euc-jp fileformat=unix<CR>
-nmap ,eu :<C-u>set fileencoding=utf-8 fileformat=unix<CR>
-nmap ,es :<C-u>set fileencoding=sjis fileformat=dos<CR>
+"========== Filer 
+nmap <Space>f :<C-u>Ex<CR>
 
 
-"検索時のハイライト消去
+"========== 文字コード設定変更(保存形式変更)
+nmap <Space>ee :<C-u>set fileencoding=euc-jp fileformat=unix<CR>
+nmap <Space>eu :<C-u>set fileencoding=utf-8 fileformat=unix<CR>
+nmap <Space>es :<C-u>set fileencoding=sjis fileformat=dos<CR>
+
+"========== 文字コード設定変更(ファイルオープンし直し)
+nmap <Space>oe :<C-u>e ++enc=euc-jp<CR>
+nmap <Space>ou :<C-u>e ++enc=utf-8<CR>
+nmap <Space>os :<C-u>e ++enc=sjis<CR>
+
+"========== 検索時のハイライト消去
 "nnoremap <Esc><Esc> :<C-u>set nohlsearch<CR>
-nmap ,h :<C-u>set hlsearch<CR>
-nmap ,l :<C-u>set nohlsearch<CR>
+nmap <Space>ho :<C-u>set hlsearch<CR>
+nmap <Space>hn :<C-u>set nohlsearch<CR>
 
 
-" コピペ処理(コピペバッファに unnamed バッファを使用する)
-"nmap <C-b> "+gP
-set clipboard=unnamed
-
-" タブ操作
+"========== タブ操作
 nnoremap <C-t> :tabedit<CR>
 "nnoremap <C-x> :tabclose<CR>
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprevious<CR>
+nmap <Space>t :<C-u>tabnew<CR>:<C-u>Ex<CR>
 
 
-" タグ操作
-nnoremap <C-@> :!ctags -R .<CR>
-nnoremap <C-b> :pop<CR>
+"========== make 関連
+nnoremap <Space>co :<C-u>copen<CR>
+nnoremap <Space>cq :<C-u>cclose<CR>
+nnoremap <Space>cn :<C-u>cnewer<CR>
+nnoremap <Space>cp :<C-u>colder<CR>
 
 
-
-" 横分割
-
-" 縦分割
-
-" 分割ウィンド消去
-
-" ウィンド移動
-
-" make 関連
-nnoremap :co :<C-u>copen<CR>
-nnoremap :cq :<C-u>cclose<CR>
-nnoremap :cn :<C-u>cnewer<CR>
-nnoremap :cp :<C-u>colder<CR>
-
-
-" git-vim 設定
-"let g:git_no_map_default = 1
-"let g:git_command_edit = 'rightbelow vnew'
-"nnoremap ,gd :<C-u>GitDiff<Enter>
-"nnoremap ,gD :<C-u>GitDiff --cached<Enter>
-"nnoremap ,gs :<C-u>GitStatus<Enter>
-"nnoremap ,gl :<C-u>GitLog<Enter>
-"nnoremap ,gL :<C-u>GitLog -u \| head -10000<Enter>
-"nnoremap ,ga :<C-u>GitAdd<Enter>
-"nnoremap ,gA :<C-u>GitAdd <cfile><Enter>
-"nnoremap ,gc :<C-u>GitCommit<Enter>
-"nnoremap ,gC :<C-u>GitCommit --amend<Enter>
-"nnoremap ,gp :<C-u>Git push
+"========== git-vim 設定
+let g:git_no_map_default = 1
+let g:git_command_edit = 'rightbelow vnew'
+nnoremap <Space>gd :<C-u>GitVimDiff<Enter>
+nnoremap <Space>gD :<C-u>GitVimDiff --cached<Enter>
+nnoremap <Space>gs :<C-u>GitStatus<Enter>
+nnoremap <Space>gl :<C-u>GitLog<Enter>
+nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
+nnoremap <Space>ga :<C-u>GitAdd<Enter>
+nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
+nnoremap <Space>gc :<C-u>GitCommit<Enter>
+nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
+nnoremap <Space>gp :<C-u>Git push
 
 
-"VCScommand 設定
-nnoremap ,cv :<C-u>VCSVimDiff<Enter>
-nnoremap ,ca :<C-u>VCSAdd<Enter>
-nnoremap ,cc :<C-u>VCSCommit<Enter>
-nnoremap ,cd :<C-u>VCSDiff<Enter>
-nnoremap ,cs :<C-u>VCSStatus<Enter>
-nnoremap ,cr :<C-u>VCSRevert
-nnoremap ,cx :<C-u>VCSDelete
-
-
+"========== VCScommand 設定
+nnoremap <Space>cv :<C-u>VCSVimDiff<Enter>
+nnoremap <Space>ca :<C-u>VCSAdd<Enter>
+nnoremap <Space>cc :<C-u>VCSCommit<Enter>
+nnoremap <Space>cd :<C-u>VCSDiff<Enter>
+nnoremap <Space>cs :<C-u>VCSStatus<Enter>
+nnoremap <Space>cr :<C-u>VCSRevert
+nnoremap <Space>cx :<C-u>VCSDelete
 
 
 
@@ -342,132 +404,19 @@ nmap ,gq :winc l<CR>:bw<CR>:diffoff<CR>
 nmap ,q :winc l<CR>:bw<CR>:diffoff<CR>
 
 
-"========== Binary Mode
-augroup BinaryXXD
-    autocmd!
-    autocmd BufReadPre  *.bin let &binary =1
-    autocmd BufReadPost * if &binary | silent %!xxd -g 1
-    autocmd BufReadPost * set ft=xxd | endif
-    autocmd BufWritePre * if &binary | %!xxd -r
-    autocmd BufWritePre * endif
-    autocmd BufWritePost * if &binary | silent %!xxd -g 1
-    autocmd BufWritePost * set nomod | endif
-augroup END
-
-
-
-"RTL作成支援ツール用 (外部スクリプトを実行するので注意)
-" ~/bin  or ~/julia/bin 等 パスの通った場所にスクリプトを置くこと
-
-" ヘッダ部作成
-map _rcs :r !rcs_gen %<CR>
-
-" ls実行
-map _ls  :!ls<CR>
-
-
-" ***** for Verilog Source Edit Support
-" Verilog FF Gen(basic)
-map _lfb :r !vlog_ff.rb -t basic -w 1 <cword>
-
-" Verilog FF Gen(if)
-map _lfi :r !vlog_ff.rb -t if -w 1 <cword>
-
-" Verilog FF Gen(case)
-map _lfc :r !vlog_ff.rb -t case -w 1 -s 2 <cword>
-
-" Verilog FF Gen(sreg)
-map _lfs :r !vlog_ff.rb -t sreg -w 8 <cword>
-
-" Verilog FF Gen(edge)
-map _lfe :r !vlog_ff.rb -t edge <cword><CR>
-
-" Verilog FF Gen(ucntr)
-map _lfu :r !vlog_ff.rb -t cntr -w 8 -m cue <cword>
-
-" Verilog FF Gen(dcntr)
-map _lfd :r !vlog_ff.rb -t cntr -w 8 -m cde <cword>
-
-" Verilog FF Gen(state machine)
-map _lfm :r !vlog_ff.rb -t state -w 3 <cword>
-
-" Verilog Module Instantiation
-map _lmi :r !vlog_mod.rb -i <cword>.*v<CR>
-
-" Verilog Module Drive Signals
-map _lms :r !vlog_mod.rb -s <cword>.*v<CR>
-
-" Verilog Module Output Assign
-map _lmo :r !vlog_mod.rb -o <cword>.*v<CR>
-
-" Verilog Signal Declaration(reg) & Read it!
-map _lsr :r !vlog_sig.rb -t reg -w 8  <cword><CR>
-
-" Verilog Signal Declaration(wire) & Read it!
-map _lsw :r !vlog_sig.rb -t wire -w 8  <cword><CR>
-
-" Verilog Top Input Buffer Instance & Read it!
-map _lti :r !vlog_iob.rb -t i -w 1  <cword>
-
-" Verilog Top Output Buffer Instance & Read it!
-map _lto :r !vlog_iob.rb -t o -w 1  <cword>
-
-" Verilog Top I/O Buffer Instance & Read it!
-map _ltb :r !vlog_iob.rb -t b -w 1  <cword>
-
-
-" *****  for Verilog/VHDL Source Compile & Make
-" Save current file & Verilog Compile
-map _vl  :w!<CR>:!vlog %<CR>
-
-" Save current file & Verilog Compile with System Verilog option
-map _vls :w!<CR>:!vlog -sv %<CR>
-
-" Save current file & VHDL Compile
-map _vc  :w!<CR>:!vcom %<CR>
-
-" Save current file & Make Project
-map _ma  :w!<CR>:!make<CR>
-
-" Save current file & Kashi RTL Checker
-map _kr  :w!<CR>:!krtl.sh %<CR>
 
 
 
 
-
-
-"========== Compiler (Setting File Type)
-autocmd FileType verilog :compiler verilog
-
-
-"========== Make
-" Setting is in ~/vim/compiler/***.vim
-
-" command link is.....
-"      ";" : bash
-"      "&" : dos
-"set makeprg=rm\ -rf\ work\&vlib\ work\&vlog\ %
-"set makeprg=rm\ -rf\ work\;vlib\ work\;vlog\ %
-
-"set errorformat=**\ Warning:\ %f(%l):\ %m,**\ Error:\ %f(%l):\ %m
-
-
-
-"========== matchit.vim Setting (verilog begin-end関連づけ)
-source $VIMRUNTIME/macros/matchit.vim
-
-
-
-"========== AutoComplpop Setting
-
-"neocomplcache を使うので無効化
-let g:acp_enableAtStartup = 0
-
-
+"**********************************************************************
+"* Plugin Setting
+"**********************************************************************
 
 
 "========== neocomplete.vim Setting
+
+"neocomplcache を使うので無効化
+let g:acp_enableAtStartup = 0
 
 " Use neocomplete.vim
 let g:neocomplete#enable_at_startup = 1
@@ -476,10 +425,8 @@ let g:neocomplete#enable_at_startup = 1
 nmap ,y :NeoCompleteEnable <CR>
 nmap ,n :NeoCompleteDisable <CR>
 
-
 " Use smartcase. 大文字入力まで大文字小文字を区別しない
 let g:neocompete#enable_smart_case = 1
-
 
 " Tabで補完
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -500,7 +447,6 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 "
 "" Set manual completion length.
 "let g:neocomplcache_manual_completion_start_length = 0
-"
 "
 
 "" ポップアップ削除
@@ -525,7 +471,6 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets, ~/.vim/snippets'
 
 
-
 imap <C-s>     <Plug>(neosnippet_expand_or_jump)
 smap <C-s>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-s>     <Plug>(neosnippet_expand_target)
@@ -542,3 +487,4 @@ endif
 
 "========== Highlight match Setting
 let g:hl_matchit_enable_on_vim_startup = 1
+
