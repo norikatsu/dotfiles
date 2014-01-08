@@ -1,0 +1,23 @@
+# Linux ssh config
+# 2013/12/16  Start
+
+Host github.com
+User git
+Port 443
+Hostname ssh.github.com
+IdentityFile /home/nori/.ssh/id_rsa
+TCPKeepAlive yes
+IdentitiesOnly yes
+ProxyCommand /usr/bin/connect -H proxy.mei.co.jp:8080 %h %p
+
+
+Host git.codebreak.com
+User norikatsu
+Port 22
+Hostname git.codebreak.com
+IdentityFile /home/nori/.ssh/id_rsa
+TCPKeepAlive yes
+IdentitiesOnly yes
+ProxyCommand /usr/bin/connect -H proxy.mei.co.jp:8080 %h %p
+
+
