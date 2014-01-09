@@ -381,7 +381,7 @@ nnoremap <Space>gp :<C-u>Git push
 nnoremap <Space>cv :<C-u>VCSVimDiff<Enter>
 nnoremap <Space>ca :<C-u>VCSAdd<Enter>
 nnoremap <Space>cc :<C-u>VCSCommit<Enter>
-nnoremap <Space>cd :<C-u>VCSDiff<Enter>
+"nnoremap <Space>cd :<C-u>VCSDiff<Enter>
 nnoremap <Space>cs :<C-u>VCSStatus<Enter>
 nnoremap <Space>cr :<C-u>VCSRevert
 nnoremap <Space>cx :<C-u>VCSDelete
