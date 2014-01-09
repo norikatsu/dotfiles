@@ -313,7 +313,7 @@ source $VIMRUNTIME/macros/matchit.vim
 "**********************************************************************
 "
 "========== rebuild
-nnoremap <silent> <Space>re :<C-u>!./rebuild.sh
+nnoremap <silent> <Space>re :<C-u>!./rebuild.sh<CR>
 
 
 "========== カーソル移動
