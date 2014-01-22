@@ -328,6 +328,24 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     esac
 
 
+    #========== Set Xilinx
+    export XILINXD_LICENSE_FILE=2100@10.64.218.165
+    export VIVADO=/usr/cad/vivado-2013.3/Vivado/2013.3
+    case $OSTYPE in
+        # ***** Linux
+        linux-gnu)
+            export LEDA_PATH=/usr/cad/leda-2010.12
+            export LEDA_CONFIG=${LEDA_PATH}/pana/leda_config.tcl
+            ;;
+        # ***** other
+        *)
+            export LEDA_PATH=/usr/local
+            export LEDA_CONFIG=nothing
+            ;;
+    esac
+
+
+
     #========== Set Julia Project
     export SVN_JULIA=https://133.181.137.151/julia/repos/julialsi/trunk/julia
     export LSI_HOME=~/julia
@@ -388,6 +406,14 @@ fi
 if [ ! "$(echo $PATH | grep ${LEDA_PATH}/bin)" ]; then
     export PATH=$PATH:${LEDA_PATH}/bin
 fi
+
+
+#----------  Set Vivado Environment Variables 
+if [ ! "$(echo $PATH | grep ${VIVADO}/bin)" ]; then
+    export PATH=$PATH:${VIVADO}/bin
+    export LD_LIBRARY_PATH=${VIVADO}/bin:/usr/X11R6/lib:/usr/cad/libs
+fi
+
 
 
 
@@ -457,3 +483,5 @@ if [ "${OSTYPE}" == "linux-gnu" ]; then
     fi
 fi
 
+
+export ALTERAOCLSDKROOT="/usr/local/altera/quartus-131/hld"
