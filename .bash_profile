@@ -331,18 +331,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #========== Set Xilinx
     export XILINXD_LICENSE_FILE=2100@10.64.218.165
     export VIVADO=/usr/cad/vivado-2013.3/Vivado/2013.3
-    case $OSTYPE in
-        # ***** Linux
-        linux-gnu)
-            export LEDA_PATH=/usr/cad/leda-2010.12
-            export LEDA_CONFIG=${LEDA_PATH}/pana/leda_config.tcl
-            ;;
-        # ***** other
-        *)
-            export LEDA_PATH=/usr/local
-            export LEDA_CONFIG=nothing
-            ;;
-    esac
+
+    export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
 
 
 
@@ -414,7 +404,10 @@ if [ ! "$(echo $PATH | grep ${VIVADO}/bin)" ]; then
     export LD_LIBRARY_PATH=${VIVADO}/bin:/usr/X11R6/lib:/usr/cad/libs
 fi
 
-
+#----------  Set Xilinx lib tool Environment Variables 
+if [ ! "$(echo $PATH | grep ${XILINX_LIB_PATH})" ]; then
+    export PATH=$PATH:${XILINX_LIB_PATH}
+fi
 
 
 #----------  Set Julia Project  Environment Variables 
