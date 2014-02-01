@@ -168,11 +168,11 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     case $OSTYPE in
         # ***** Cygwin
         cygwin)
-            export QUARTUS_ROOTDIR=/cygdrive/c/altera/10.0sp1/quartus
+            export QUARTUS_ROOTDIR=/cygdrive/c/altera/13.0sp1/quartus
             ;;
         # ***** Mingw
         msys)
-            export QUARTUS_ROOTDIR=/c/altera/10.0sp1/quartus
+            export QUARTUS_ROOTDIR=/c/altera/13.0sp1/quartus
             ;;
         # ***** Linux
         linux-gnu)
@@ -290,11 +290,11 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     case $OSTYPE in
         # ***** Cygwin
         cygwin)
-            export QUARTUS_ROOTDIR=/cygdrive/c/altera/10.0sp1/quartus
+            export QUARTUS_ROOTDIR=/cygdrive/c/altera/13.0sp1/quartus
             ;;
         # ***** Mingw
         msys)
-            export QUARTUS_ROOTDIR=/c/altera/10.0sp1/quartus
+            export QUARTUS_ROOTDIR=/c/altera/13.0sp1/quartus
             ;;
         # ***** Linux
         linux-gnu)
@@ -417,9 +417,29 @@ fi
 
 
 #---------- Set Altera QuartusII Path 
-if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin)" ]; then
-    export PATH=$PATH:$QUARTUS_ROOTDIR/bin
-fi
+
+case $OSTYPE in
+    # ***** Cygwin
+    cygwin)
+        if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin64)" ]; then
+            export PATH=$PATH:$QUARTUS_ROOTDIR/bin64
+        fi
+        ;;
+    # ***** Mingw
+    msys)
+        if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin64)" ]; then
+            export PATH=$PATH:$QUARTUS_ROOTDIR/bin64
+        fi
+        ;;
+    # ***** Linux
+    linux-gnu)
+        if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin)" ]; then
+            export PATH=$PATH:$QUARTUS_ROOTDIR/bin
+        fi
+        ;;
+esac
+
+
 
 
 #----------  Set ModelSim  Environment Variables 
