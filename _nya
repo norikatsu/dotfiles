@@ -1,0 +1,17 @@
+# Msys ê›íË
+set GWBIN=C:/MinGW/bin
+set MSYSBIN=C:/MinGW/msys/1.0/bin
+set PATH+=$GWBIN
+set PATH+=$MSYSBIN
+
+alias ll $MSYSBIN/ls.exe -agoFh --time-style=+"%Y/%m/%d %H:%M" --color=always --show-control-chars
+alias vi $MSYSBIN/vim.exe
+
+
+# vim ê›íË
+set VIM_PATH=C:/ProgramFiles/vim
+set PATH+=$VIM_PATH
+
+alias vi  gvim
+alias vim gvim
+
