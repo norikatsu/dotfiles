@@ -88,8 +88,10 @@ fi
 #******************************************************************************
 
 
-alias ls='ls -F --color=auto'
-alias ll='ls -l -F --color=auto'
+#alias ls='ls -F --color=auto'
+#alias ll='ls -l -F --color=auto'
+alias ls='ls --show-control-chars -F --color=auto'
+alias ll='ls --show-control-chars -l -F --color=auto'
 
 alias vi='vim'
 alias gvi='gvim'
@@ -106,6 +108,22 @@ alias svz='svn up; svn diff; svn status'
 alias ff='firefox'
 
 alias nkfe='nkf -e --overwrite'
+
+
+case $OSTYPE in
+    # ***** Cygwin
+    cygwin)
+        ;;
+    # ***** Mingw
+    msys)
+        alias vim='gvim'
+        ;;
+    # ***** Linux
+    linux-gnu)
+        ;;
+esac
+
+
 
 #********** MYHOME setting **********
 if [ "${LOCATIONTYPE}" == "MYHOME" ]; then

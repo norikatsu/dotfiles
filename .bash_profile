@@ -139,9 +139,28 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     fi
 
     #========== Set VIM runtime path (mingw only)
-    if [ "${OSTYPE}" == "msys" ]; then
-        export VIMRUNTIME=/share/vim/vim72
-    fi
+    #if [ "${OSTYPE}" == "msys" ]; then
+    #    export VIMRUNTIME=/share/vim/vim73
+    #fi
+
+
+    unset VIM_PATH
+    case $OSTYPE in
+        # ***** Cygwin
+        #cygwin)
+        #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+        # ***** Mingw
+        msys)
+            export VIM_PATH=/c/ProgramFiles/vim
+            ;;
+        # ***** Linux
+        #linux-gnu)
+        #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+    esac
+
+
 
     #========== Set Altera QuartusII Path & Lincense
     export QUARTUS_LICENSE=nothing
@@ -224,9 +243,25 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     fi
 
     #========== Set VIM runtime path (mingw only)
-    if [ "${OSTYPE}" == "msys" ]; then
-        export VIMRUNTIME=/share/vim/vim72
-    fi
+    #if [ "${OSTYPE}" == "msys" ]; then
+    #    export VIMRUNTIME=/share/vim/vim73
+    #fi
+
+    unset VIM_PATH
+    case $OSTYPE in
+        # ***** Cygwin
+        #cygwin)
+        #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+        # ***** Mingw
+        msys)
+            export VIM_PATH=/c/ProgramFiles/vim
+            ;;
+        # ***** Linux
+        #linux-gnu)
+        #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+    esac
 
 
     #========== Set Proxy (Linux only)
@@ -419,6 +454,10 @@ if [ ! "$(echo $PATH | grep ${FPGA_HOME}/bin)" ]; then
     export PATH=$PATH:${FPGA_HOME}/bin
 fi
 
+#----------  Set VIM path setting
+if [ ! "$(echo $PATH | grep ${VIM_PATH})" ]; then
+    export PATH=$PATH:${VIM_PATH}
+fi
 
 #========== Set License
 
