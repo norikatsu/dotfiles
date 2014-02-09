@@ -3,6 +3,7 @@ Console2 での msys 環境作り
 1. Windowsの環境変数設定
     WD = C:\MinGW\msys\1.0\\bin\
     COMSPEC = C:\WINDOWS\SysWOW64\cmd.exe
+      (32bit版では COMSPEC = %SystemRoot%\system32\cmd.exe )
     MSYSCON = sh.exe
     MSYSTEM = MINGW32
 
@@ -17,6 +18,8 @@ Console2 での msys 環境作り
 4. C:\MinGW\msys\1.0\etc\profile に下記設定追記
 
     export LOCATIONTYPE="MYHOME"
+                or 
+    export LOCATIONTYPE="OFFICE"
 
 4. Console2 の新しいタブ追加
    シェルとして下記設定記入(アイコン等は任意)
