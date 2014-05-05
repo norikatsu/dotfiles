@@ -161,6 +161,24 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     esac
 
 
+    #========== Set Git Path
+    case $OSTYPE in
+        # ***** Cygwin
+        #cygwin)
+        #    export GIT_PATH=
+        #    ;;
+        # ***** Mingw
+        msys)
+            export GIT_PATH=/mingw/Git/bin
+            ;;
+        # ***** Linux
+        #linux-gnu)
+        #    export GIT_PATH=
+        #    ;;
+    esac
+
+
+
 
     #========== Set Altera QuartusII Path & Lincense
     export QUARTUS_LICENSE=nothing
@@ -260,6 +278,23 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
         # ***** Linux
         #linux-gnu)
         #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+    esac
+
+
+    #========== Set Git Path
+    case $OSTYPE in
+        # ***** Cygwin
+        #cygwin)
+        #    export GIT_PATH=
+        #    ;;
+        # ***** Mingw
+        msys)
+            export GIT_PATH=/mingw/Git/bin
+            ;;
+        # ***** Linux
+        #linux-gnu)
+        #    export GIT_PATH=
         #    ;;
     esac
 
@@ -412,6 +447,14 @@ export USERMAIL="Yoshida Norikatsu <yoshida.norikatsu@jp.panasonic.com>"
 if [ -d "${HOME}/bin" ] ; then
     if [ ! "$(echo $PATH | grep ${HOME}/bin)" ]; then
         export PATH=${PATH}:${HOME}/bin
+    fi
+fi
+
+
+#---------- Set Git Binpath
+if [ -d "${GIT_PATH}" ] ; then
+    if [ ! "$(echo $PATH | grep ${GIT_PATH})" ]; then
+        export PATH=${PATH}:${GIT_PATH}
     fi
 fi
 

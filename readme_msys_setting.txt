@@ -1,5 +1,8 @@
 Console2 での msys 環境作り
 
+0. MinGw環境を C:\MinGW にインストール
+   Git for Windows を C:\MinGW\Git にインストール
+
 1. Windowsの環境変数設定
     WD = C:\MinGW\msys\1.0\\bin\
     COMSPEC = C:\WINDOWS\SysWOW64\cmd.exe
