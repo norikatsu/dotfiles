@@ -495,3 +495,8 @@ endif
 "========== Highlight match Setting
 let g:hl_matchit_enable_on_vim_startup = 1
 
+
+
+"========== TextWidth (Filetype) Setting
+autocmd FileType verilog setlocal textwidth=0
+
