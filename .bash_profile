@@ -264,8 +264,11 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
         # ***** Linux
         linux-gnu)
             #export QUARTUS_ROOTDIR=/usr/cad/quartus-100/quartus
-            export QUARTUS_ROOTDIR=/usr/cad/quartus-130sp1/quartus
+            export QUARTUS_ROOTDIR=/usr/cad/quartus-131/quartus
             #export QUARTUS_ROOTDIR=/usr/cad/quartus-130/quartus
+
+            # QuartusII Auto Add Setting
+            export ALTERAOCLSDKROOT="/usr/local/altera/quartus-131/hld"
             ;;
     esac
 
@@ -477,4 +480,3 @@ if [ "${OSTYPE}" == "linux-gnu" ]; then
 fi
 
 
-export ALTERAOCLSDKROOT="/usr/local/altera/quartus-131/hld"
