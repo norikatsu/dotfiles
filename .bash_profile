@@ -139,9 +139,46 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     fi
 
     #========== Set VIM runtime path (mingw only)
-    if [ "${OSTYPE}" == "msys" ]; then
-        export VIMRUNTIME=/share/vim/vim72
-    fi
+    #if [ "${OSTYPE}" == "msys" ]; then
+    #    export VIMRUNTIME=/share/vim/vim73
+    #fi
+
+
+    unset VIM_PATH
+    case $OSTYPE in
+        # ***** Cygwin
+        #cygwin)
+        #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+        # ***** Mingw
+        msys)
+            export VIM_PATH=/c/ProgramFiles/vim
+            ;;
+        # ***** Linux
+        #linux-gnu)
+        #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+    esac
+
+
+    #========== Set Git Path
+    case $OSTYPE in
+        # ***** Cygwin
+        #cygwin)
+        #    export GIT_PATH=
+        #    ;;
+        # ***** Mingw
+        msys)
+            export GIT_PATH=/mingw/Git/bin
+            ;;
+        # ***** Linux
+        #linux-gnu)
+        #    export GIT_PATH=
+        #    ;;
+    esac
+
+
+
 
     #========== Set Altera QuartusII Path & Lincense
     export QUARTUS_LICENSE=nothing
@@ -149,11 +186,11 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     case $OSTYPE in
         # ***** Cygwin
         cygwin)
-            export QUARTUS_ROOTDIR=/cygdrive/c/altera/10.0sp1/quartus
+            export QUARTUS_ROOTDIR=/cygdrive/c/altera/13.0sp1/quartus
             ;;
         # ***** Mingw
         msys)
-            export QUARTUS_ROOTDIR=/c/altera/10.0sp1/quartus
+            export QUARTUS_ROOTDIR=/c/altera/13.0sp1/quartus
             ;;
         # ***** Linux
         linux-gnu)
@@ -224,9 +261,42 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     fi
 
     #========== Set VIM runtime path (mingw only)
-    if [ "${OSTYPE}" == "msys" ]; then
-        export VIMRUNTIME=/share/vim/vim72
-    fi
+    #if [ "${OSTYPE}" == "msys" ]; then
+    #    export VIMRUNTIME=/share/vim/vim73
+    #fi
+
+    unset VIM_PATH
+    case $OSTYPE in
+        # ***** Cygwin
+        #cygwin)
+        #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+        # ***** Mingw
+        msys)
+            export VIM_PATH=/c/ProgramFiles/vim
+            ;;
+        # ***** Linux
+        #linux-gnu)
+        #    export VIM_PATH=/c/ProgramFiles/vim
+        #    ;;
+    esac
+
+
+    #========== Set Git Path
+    case $OSTYPE in
+        # ***** Cygwin
+        #cygwin)
+        #    export GIT_PATH=
+        #    ;;
+        # ***** Mingw
+        msys)
+            export GIT_PATH=/mingw/Git/bin
+            ;;
+        # ***** Linux
+        #linux-gnu)
+        #    export GIT_PATH=
+        #    ;;
+    esac
 
 
     #========== Set Proxy (Linux only)
@@ -255,11 +325,11 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     case $OSTYPE in
         # ***** Cygwin
         cygwin)
-            export QUARTUS_ROOTDIR=/cygdrive/c/altera/10.0sp1/quartus
+            export QUARTUS_ROOTDIR=/cygdrive/c/altera/13.0sp1/quartus
             ;;
         # ***** Mingw
         msys)
-            export QUARTUS_ROOTDIR=/c/altera/10.0sp1/quartus
+            export QUARTUS_ROOTDIR=/c/altera/13.0sp1/quartus
             ;;
         # ***** Linux
         linux-gnu)
@@ -384,10 +454,38 @@ if [ -d "${HOME}/bin" ] ; then
 fi
 
 
-#---------- Set Altera QuartusII Path 
-if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin)" ]; then
-    export PATH=$PATH:$QUARTUS_ROOTDIR/bin
+#---------- Set Git Binpath
+if [ -d "${GIT_PATH}" ] ; then
+    if [ ! "$(echo $PATH | grep ${GIT_PATH})" ]; then
+        export PATH=${PATH}:${GIT_PATH}
+    fi
 fi
+
+
+#---------- Set Altera QuartusII Path 
+
+case $OSTYPE in
+    # ***** Cygwin
+    cygwin)
+        if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin64)" ]; then
+            export PATH=$PATH:$QUARTUS_ROOTDIR/bin64
+        fi
+        ;;
+    # ***** Mingw
+    msys)
+        if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin64)" ]; then
+            export PATH=$PATH:$QUARTUS_ROOTDIR/bin64
+        fi
+        ;;
+    # ***** Linux
+    linux-gnu)
+        if [ ! "$(echo $PATH | grep $QUARTUS_ROOTDIR/bin)" ]; then
+            export PATH=$PATH:$QUARTUS_ROOTDIR/bin
+        fi
+        ;;
+esac
+
+
 
 
 #----------  Set ModelSim  Environment Variables 
@@ -422,6 +520,10 @@ if [ ! "$(echo $PATH | grep ${FPGA_HOME}/bin)" ]; then
     export PATH=$PATH:${FPGA_HOME}/bin
 fi
 
+#----------  Set VIM path setting
+if [ ! "$(echo $PATH | grep ${VIM_PATH})" ]; then
+    export PATH=$PATH:${VIM_PATH}
+fi
 
 #========== Set License
 
