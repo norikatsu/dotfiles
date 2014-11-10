@@ -245,6 +245,12 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     export LEDA_PATH=/usr/local
     export LEDA_CONFIG=nothing
 
+    #========== Set Xilinx
+    export XILINXD_LICENSE_FILE=2100@10.64.218.165
+    export VIVADO=/usr/cad/vivado-2013.3/Vivado/2013.3
+
+    export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
+
 
     #========== Set Julia Project
     export SVN_JULIA=https://133.181.137.151/julia/repos/julialsi/trunk/julia
