@@ -1,4 +1,4 @@
-Console2 での msys 環境作り
+ConEmu での msys 環境作り
 
 0. MinGw環境を C:\MinGW にインストール
    Git for Windows を C:\MinGW\Git にインストール
@@ -24,10 +24,18 @@ Console2 での msys 環境作り
                 or 
     export LOCATIONTYPE="OFFICE"
 
-4. Console2 の新しいタブ追加
-   シェルとして下記設定記入(アイコン等は任意)
-    shell : C:\MinGW\msys\1.0\bin\bash.exe --login -i
-    Startup dir : D:\nori_mydoc
+4. ConEmu の Commands設定部に下記を記載
+    C:\MinGW\msys\1.0\bin\bash.exe --login -i
+    (スタートアップディレクトリは環境変数HOMEで決まる） 
 
 
- 
+5. Cygwinの設定 Commands設定部に下記を記載
+
+   %SystemDrive%\Cygwin64\bin\bash.exe --login -i
+
+    HOMEディレクトリをマウントする
+    ・cygwin/home/nori ディレクトリを作成
+    ・/etc/fstabに下記行記載
+        C:/Users/Norikatsu/Documents /home/nori ntfs override,binary,auto 0 0
+
+        
