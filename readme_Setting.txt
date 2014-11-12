@@ -81,12 +81,11 @@
                     > mklink /j .\vimfiles .\.vim
 
         2.2.2 VIM プラグイン展開
-            vimのプラグイン vim/vundle.git は gitで管理している
-            マスターリポジトリはSVNなので gitのsubmodule機能は使えないため
-            git cloneを行うのみとする
+            vimのプラグイン vim/vundle.git は submodule管理している
             以下のコマンドを実行する
+             $ git submodule init
+             $ git submodule update
 
-            $ git clone http://github.com/gmarik/vundle.git ~/.vim/vundle.git
 
 
         2.2.3 vundle が使用する curl の設定
