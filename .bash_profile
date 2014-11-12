@@ -147,17 +147,17 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     unset VIM_PATH
     case $OSTYPE in
         # ***** Cygwin
-        #cygwin)
-        #    export VIM_PATH=/c/ProgramFiles/vim
-        #    ;;
+        cygwin)
+            export VIM_PATH=/cygdrive/c/ProgramFiles/vim
+            ;;
         # ***** Mingw
         msys)
             export VIM_PATH=/c/ProgramFiles/vim
             ;;
         # ***** Linux
-        #linux-gnu)
-        #    export VIM_PATH=/c/ProgramFiles/vim
-        #    ;;
+        linux-gnu)
+            export VIM_PATH=
+            ;;
     esac
 
 
@@ -274,17 +274,17 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     unset VIM_PATH
     case $OSTYPE in
         # ***** Cygwin
-        #cygwin)
-        #    export VIM_PATH=/c/ProgramFiles/vim
-        #    ;;
+        cygwin)
+            export VIM_PATH=/cygdrive/c/ProgramFiles/vim
+            ;;
         # ***** Mingw
         msys)
             export VIM_PATH=/c/ProgramFiles/vim
             ;;
         # ***** Linux
-        #linux-gnu)
-        #    export VIM_PATH=/c/ProgramFiles/vim
-        #    ;;
+        linux-gnu)
+            export VIM_PATH=
+            ;;
     esac
 
 
@@ -528,7 +528,7 @@ fi
 
 #----------  Set VIM path setting
 if [ ! "$(echo $PATH | grep ${VIM_PATH})" ]; then
-    export PATH=$PATH:${VIM_PATH}
+    export PATH=${VIM_PATH}:$PATH
 fi
 
 #========== Set License
