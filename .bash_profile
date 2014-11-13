@@ -186,11 +186,11 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     case $OSTYPE in
         # ***** Cygwin
         cygwin)
-            export QUARTUS_ROOTDIR=/cygdrive/c/altera/13.0sp1/quartus
+            export QUARTUS_ROOTDIR=/cygdrive/c/altera/13.1/quartus
             ;;
         # ***** Mingw
         msys)
-            export QUARTUS_ROOTDIR=/c/altera/13.0sp1/quartus
+            export QUARTUS_ROOTDIR=/c/altera/13.1/quartus
             ;;
         # ***** Linux
         linux-gnu)
@@ -202,11 +202,11 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     case $OSTYPE in
         # ***** Cygwin
         cygwin)
-            export ALTLIBPATH=C:/altera/10.1/modelsim_ase/altera/verilog
+            export ALTLIBPATH=C:/altera/13.1/modelsim_ase/altera/verilog
             ;;
         # ***** Mingw
         msys)
-            export ALTLIBPATH=/c/altera/10.1/modelsim_ase/altera/verilog
+            export ALTLIBPATH=/c/altera/13.1/modelsim_ase/altera/verilog
             ;;
         # ***** Linux
         linux-gnu)
@@ -220,12 +220,12 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     case $OSTYPE in
         # ***** Cygwin
         cygwin)
-            export MODEL_TECH=/cygdrive/c/altera/10.1/modelsim_ase
+            export MODEL_TECH=/cygdrive/c/altera/13.1/modelsim_ase
             export MODELSIM_PATH=${MODEL_TECH}/win32aloem
             ;;
         # ***** Mingw
         msys)
-            export MODEL_TECH=/c/altera/10.1/modelsim_ase
+            export MODEL_TECH=/c/altera/13.1/modelsim_ase
             export MODELSIM_PATH=${MODEL_TECH}/win32aloem
             ;;
         # ***** Linux
