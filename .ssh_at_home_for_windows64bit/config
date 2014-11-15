@@ -1,0 +1,6 @@
+Host conoha
+    HostName        157.7.72.183
+    Port            22
+    User            nori
+    identityfile    ~/.ssh/id_rsa_conoha_20141112
+
