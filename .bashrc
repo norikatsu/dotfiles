@@ -55,6 +55,7 @@
 #               2011/06/03 Undefine C-s (STOP setting)
 #               2011/06/14 Add View alias
 #               2011/06/19 Mod QuartsuII alias
+#               2014/11/17 Mod Docker  alias
 #
 #******************************************************************************
 
@@ -108,6 +109,12 @@ alias svz='svn up; svn diff; svn status'
 alias ff='firefox'
 
 alias nkfe='nkf -e --overwrite'
+
+
+alias dpid='docker inspect $(docker ps -q) | awk "/Pid/{print int(\$2)}"' 
+alias nconnect='sudo nsenter -t $(dpid) -m -u -i -n -p -- /bin/bash'
+
+
 
 
 case $OSTYPE in
