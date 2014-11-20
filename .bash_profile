@@ -53,6 +53,7 @@
 #               2011/05/14 Restart (Combine Cygwin,Mingw,Linux Version)
 #               2011/05/25 Add JuliaLsi Path setting
 #               2011/06/08 Add Vim Backup Files Dir Setting
+#               2014/11/19 Add Vertual Box PATH 
 #
 #******************************************************************************
 
@@ -164,20 +165,35 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     #========== Set Git Path
     case $OSTYPE in
         # ***** Cygwin
-        #cygwin)
-        #    export GIT_PATH=
-        #    ;;
+        cygwin)
+            export GIT_PATH=
+            ;;
         # ***** Mingw
         msys)
             export GIT_PATH=/mingw/Git/bin
             ;;
         # ***** Linux
-        #linux-gnu)
-        #    export GIT_PATH=
-        #    ;;
+        linux-gnu)
+            export GIT_PATH=
+            ;;
     esac
 
 
+    #========== Set VertualBox Path
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export VBOX_PATH="/cygdrive/c/Program Files/Oracle/VirtualBox"
+            ;;
+        # ***** Mingw
+        msys)
+            export VBOX_PATH="/c/Program Files/Oracle/VirtualBox"
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export VBOX_PATH=
+            ;;
+    esac
 
 
     #========== Set Altera QuartusII Path & Lincense
@@ -291,17 +307,33 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #========== Set Git Path
     case $OSTYPE in
         # ***** Cygwin
-        #cygwin)
-        #    export GIT_PATH=
-        #    ;;
+        cygwin)
+            export GIT_PATH=
+            ;;
         # ***** Mingw
         msys)
             export GIT_PATH=/mingw/Git/bin
             ;;
         # ***** Linux
-        #linux-gnu)
-        #    export GIT_PATH=
-        #    ;;
+        linux-gnu)
+            export GIT_PATH=
+            ;;
+    esac
+
+    #========== Set VertualBox Path
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export VBOX_PATH="/cygdrive/c/Program Files/Oracle/VirtualBox"
+            ;;
+        # ***** Mingw
+        msys)
+            export VBOX_PATH="/c/Program Files/Oracle/VirtualBox"
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export VBOX_PATH=
+            ;;
     esac
 
 
@@ -531,6 +563,10 @@ if [ ! "$(echo $PATH | grep ${VIM_PATH})" ]; then
     export PATH=${VIM_PATH}:$PATH
 fi
 
+#----------  Set VertualBox path setting
+if [ ! "$(echo $PATH | grep "${VBOX_PATH}")" ]; then
+    export PATH=${VBOX_PATH}:$PATH
+fi
 #========== Set License
 
 #---------- Set Altera QuartusII License
