@@ -1,5 +1,5 @@
 1. ProgramFilesのコピー
-    1.1 vim, 7zip は32bit、64bitで異なるので注意
+    1.1 vim, 7zip ConEmu は32bit、64bitで異なるので注意
     1.2 TortusSVN, WinMerge, VLC のインストール（64,32とも デフォルトの"Program Files"にインストール
 
 
@@ -8,12 +8,7 @@
 
     2.1 MinGw環境を C:\MinGW にインストール
         msys 環境作り
-            ##不要? Windowsの環境変数設定
-            ##不要?    WD = C:\MinGW\msys\1.0\\bin\
-            ##不要?    COMSPEC = C:\WINDOWS\SysWOW64\cmd.exe
-            ##不要?      (32bit版では COMSPEC = %SystemRoot%\system32\cmd.exe )
-            ##不要?    MSYSCON = sh.exe
-            ##不要?    MSYSTEM = MINGW32
+
 
     2.2 Git for Windows を C:\MinGW\Git にインストール
         文字コードはそのままを選択
@@ -34,6 +29,13 @@
     C:\MinGW\msys\1.0\bin\bash.exe --login -i
     (スタートアップディレクトリは環境変数HOMEで決まる） 
 
+        環境変数 HOME　を C:\Users\Norikatsu\Documents に設定
+
+        HOME に .sshを作成しKeyをファイルサーバからコピー
+        ConEmuの設定ファイルをロード
+        dotfiles\.gitをコピー
+        ドットファイルへのリンク作成
+        git pull (最新アップデート）
 
 3. Cygwinのインストール
     3.1 デフォルトでインストール
@@ -54,6 +56,11 @@
     conohaへの接続設定
     　接続 keepalive を60に設定することを忘れずに
     
+    設定エクスポート
+    reg export HKEY_CURRENT_USER\Software\SimonTatham\PuTTY c:\putty.reg
+    
+    設定インポート
+    reg import c:\putty.reg
 
 5. リモートサーバへの鍵アップ
     codebreak  -> id_rsa.pub をアップ
