@@ -54,6 +54,7 @@
 #               2011/05/25 Add JuliaLsi Path setting
 #               2011/06/08 Add Vim Backup Files Dir Setting
 #               2014/11/19 Add Vertual Box PATH 
+#               2014/11/23 Add Python PATH 
 #
 #******************************************************************************
 
@@ -195,6 +196,21 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
             ;;
     esac
 
+    #========== Set Python Path
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export PYTHON_PATH=
+            ;;
+        # ***** Mingw
+        msys)
+            export PYTHON_PATH="/c/Python34"
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export PYTHON_PATH=
+            ;;
+    esac
 
     #========== Set Altera QuartusII Path & Lincense
     export QUARTUS_LICENSE=nothing
@@ -336,6 +352,21 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
     esac
 
+    #========== Set Python Path
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export PYTHON_PATH=
+            ;;
+        # ***** Mingw
+        msys)
+            export PYTHON_PATH="/c/Python34"
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export PYTHON_PATH=
+            ;;
+    esac
 
     #========== Set Proxy (Linux only)
     # http ftp proxy
@@ -567,7 +598,15 @@ fi
 if [ ! "$(echo $PATH | grep "${VBOX_PATH}")" ]; then
     export PATH=${VBOX_PATH}:$PATH
 fi
+
+
+#----------  Set Python path setting
+if [ ! "$(echo $PATH | grep "${PYTHON_PATH}")" ]; then
+    export PATH=$PATH:${PYTHON_PATH}
+fi
+
 #========== Set License
+
 
 #---------- Set Altera QuartusII License
 if [ ! "$(echo $LM_LICENSE_FILE | grep $QUARTUS_LICENSE)" ]; then
