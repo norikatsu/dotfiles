@@ -28,7 +28,6 @@ endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
 
-filetype plugin indent on     " Required!
 
 " Installation check.
 if neobundle#exists_not_installed_bundles()
@@ -40,7 +39,7 @@ endif
 
 "neobundleを更新するための設定
 " インストール  :NeoBundleInstall
-" アップデート  :NeobundleUpdate
+" アップデート  :NeoBundleUpdate
 " 削除          :NeoBundleClean( vimrc該当行を削除したのち実行)
 "NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -52,6 +51,7 @@ NeoBundle 'vcscommand.vim'
 NeoBundle 'motemen/git-vim'
 
 
+filetype plugin indent on     " Required!
 
 "**********************************************************************
 "* Backup
