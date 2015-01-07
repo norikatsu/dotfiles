@@ -49,6 +49,7 @@ NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'motemen/git-vim'
+NeoBundle 'norikatsu/verilog_instance.vim'
 
 
 filetype plugin indent on     " Required!
