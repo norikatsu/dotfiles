@@ -373,6 +373,11 @@ nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprevious<CR>
 nmap <Space>t :<C-u>tabnew<CR>:<C-u>Ex<CR>
 
+"========== Window操作
+nnoremap <Space>ww :<C-u>split<CR>
+nnoremap <Space>wv :<C-u>vsplit<CR>
+nnoremap <Space>wc :<C-u>close<CR>
+
 
 "========== make 関連
 nnoremap <Space>co :<C-u>copen<CR>
@@ -428,6 +433,10 @@ nmap ,q :winc l<CR>:bw<CR>:diffoff<CR>
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
 let g:indent_guides_enable_on_vim_startup = 1
 
+
+"========== VimShell設定
+nnoremap <Space>vv :<C-u>VimShell<CR>
+nnoremap <Space>vp :<C-u>VimShell python<CR>
 
 
 "**********************************************************************
