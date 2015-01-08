@@ -438,6 +438,10 @@ let g:indent_guides_enable_on_vim_startup = 1
 nnoremap <Space>vv :<C-u>VimShell<CR>
 nnoremap <Space>vp :<C-u>VimShell python<CR>
 
+let g:vimshell_prompt_expr = 'getcwd()." > "'
+let g:vimshell_prompt_pattern = '^\f\+ > '
+
+
 
 "**********************************************************************
 "* Plugin Setting
