@@ -23,7 +23,7 @@ set nocompatible               " Be iMproved
 filetype off                   " Required!
 
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -31,10 +31,10 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 " Installation check.
 if neobundle#exists_not_installed_bundles()
-  echomsg 'Not installed bundles : ' .
+    echomsg 'Not installed bundles : ' .
         \ string(neobundle#get_not_installed_bundle_names())
-  echomsg 'Please execute ":NeoBundleInstall" command.'
-  "finish
+    echomsg 'Please execute ":NeoBundleInstall" command.'
+    "finish
 endif
 
 "neobundleを更新するための設定
@@ -54,7 +54,12 @@ NeoBundle 'norikatsu/verilog_instance.vim'
 " インデントに色を付けて見やすくする
 NeoBundle 'nathanaelkane/vim-indent-guides'
 
+NeoBundle 'Shougo/vimproc.vim'
+"Vim\plugins\vimproc\autoload\vimproc_win64.dll  // 同梱されているDLL
+"    ---> $HOME\.vim\bundle\vimproc.vim\autoload // ここにコピーする
 
+" vimshell
+NeoBundle 'Shougo/vimshell.vim'
 
 filetype plugin indent on     " Required!
 
@@ -134,22 +139,22 @@ endfunction
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=lightmagenta gui=none ctermfg=blue ctermbg=lightmagenta cterm=none'
 let s:slhlcmd = ''
 function! s:StatusLine(mode)
-  if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
-  endif
+    if a:mode == 'Enter'
+        silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+        silent exec g:hi_insert
+    else
+        highlight clear StatusLine
+        silent exec s:slhlcmd
+    endif
 endfunction
 
 function! s:GetHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
+    redir => hl
+    exec 'highlight '.a:hi
+    redir END
+    let hl = substitute(hl, '[\r\n]', '', 'g')
+    let hl = substitute(hl, 'xxx', '', '')
+    return hl
 endfunction
 
 
@@ -394,7 +399,7 @@ nnoremap <Space>gp :<C-u>Git push
 "========== VCScommand 設定
 nnoremap <Space>cv :<C-u>VCSVimDiff<Enter>
 nnoremap <Space>ca :<C-u>VCSAdd<Enter>
-nnoremap <Space>cc :<C-u>VCSCommit<Enter>
+nnoremap <Space>cc :<C-u>VCSAddCommit<Enter>
 "nnoremap <Space>cd :<C-u>VCSDiff<Enter>
 nnoremap <Space>cs :<C-u>VCSStatus<Enter>
 nnoremap <Space>cr :<C-u>VCSRevert
@@ -498,7 +503,7 @@ smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : 
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+    set conceallevel=2 concealcursor=i
 endif
 
 
