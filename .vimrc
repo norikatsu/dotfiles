@@ -51,6 +51,10 @@ NeoBundle 'vcscommand.vim'
 NeoBundle 'motemen/git-vim'
 NeoBundle 'norikatsu/verilog_instance.vim'
 
+" インデントに色を付けて見やすくする
+NeoBundle 'nathanaelkane/vim-indent-guides'
+
+
 
 filetype plugin indent on     " Required!
 
@@ -273,7 +277,9 @@ set t_Co=256
 colorscheme darkblue
 
 au InsertEnter * call s:ModeColor('desert','Enter')
+au InsertEnter * IndentGuidesEnable
 au InsertLeave * call s:ModeColor('darkblue','Leave')
+au InsertLeave * IndentGuidesEnable
 
 "========== HighLight
 set hlsearch
@@ -413,6 +419,9 @@ nmap ,q :winc l<CR>:bw<CR>:diffoff<CR>
 
 
 
+"========== vim-indent-guides
+" vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
+let g:indent_guides_enable_on_vim_startup = 1
 
 
 
