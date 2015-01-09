@@ -46,6 +46,7 @@ endif
 "読み込みプラグインリスト
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'motemen/git-vim'
