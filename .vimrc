@@ -387,30 +387,15 @@ nnoremap <Space>cn :<C-u>cnewer<CR>
 nnoremap <Space>cp :<C-u>colder<CR>
 
 
-"========== git-vim 設定
-let g:git_no_map_default = 1
-let g:git_command_edit = 'rightbelow vnew'
-nnoremap <Space>gd :<C-u>GitVimDiff<Enter>
-nnoremap <Space>gD :<C-u>GitVimDiff --cached<Enter>
-nnoremap <Space>gs :<C-u>GitStatus<Enter>
-nnoremap <Space>gl :<C-u>GitLog<Enter>
-nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
-nnoremap <Space>ga :<C-u>GitAdd<Enter>
-nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
-nnoremap <Space>gc :<C-u>GitCommit<Enter>
-nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
-nnoremap <Space>gp :<C-u>Git push
-
 
 "========== VCScommand 設定
 nnoremap <Space>cv :<C-u>VCSVimDiff<Enter>
 nnoremap <Space>ca :<C-u>VCSAdd<Enter>
-nnoremap <Space>cc :<C-u>VCSAddCommit<Enter>
+nnoremap <Space>cc :<C-u>VCSCommit<Enter>
 "nnoremap <Space>cd :<C-u>VCSDiff<Enter>
 nnoremap <Space>cs :<C-u>VCSStatus<Enter>
 nnoremap <Space>cr :<C-u>VCSRevert
 nnoremap <Space>cx :<C-u>VCSDelete
-
 
 
 "========== VimDiff 設定
