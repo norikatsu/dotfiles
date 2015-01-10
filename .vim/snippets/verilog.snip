@@ -1,10 +1,10 @@
 snippet	module
 abbr	module() endmodule;
 	module ${1:#:module_name} (
-		${2:#:port_list}
+	    ${2:#:port_list}
 	);
-		${3:#:code};
-
+	    ${3:#:code};
+	
 	endmodule//$1
 
 #snippet	reg
@@ -78,43 +78,43 @@ snippet	casex
 alias mul mux sel mul
 abbr	casex endcase
 	casex(${1:SEL})
-		${2:case_input}: ${3:case_output} = ${4};
-		$2: $3 = ${5};
-		$2: $3 = ${6};
-		$2: $3 = ${7};
-		default: $3 = {};
+	    ${2:case_input}: ${3:case_output} = ${4};
+	    $2: $3 = ${5};
+	    $2: $3 = ${6};
+	    $2: $3 = ${7};
+	    default: $3 = {};
 	endcase //($1)
-    ${8}
+	${8}
 
 snippet	always
 abbr	always() begin end
-	always@(${1:sensitivity_list}) begin
-		${2:code}
+	always@(posedge ${1:CLK} or negedge ${2:NRST} ) begin
+	    ${3:code1}
 	end
-    ${3}
+	${4}
 
 snippet always_posCLK
 abbr	always(posedge CLK) begin end
 	always@(posedge CLK) begin
-		${1:code}
+	    ${1:code}
 	end
-    ${2}
+	${2}
 
 snippet	if
 abbr	if() begin end
 	if(${1:#:condition}) begin
 	   ${2:code}
 	end${3}
-    ${4}
+	${4}
 
 snippet if_elif_else
 abbr	if() else if() else
 	if(${1:#:condition1}) begin
-	   ${2:code1}
+	    ${2:code1}
 	end else if(${3:#:condition2}) begin
-	   ${4:code2}
+	    ${4:code2}
 	end else begin
-	   ${5:code3}
+	    ${5:code3}
 	end
     ${6}
 
@@ -132,17 +132,17 @@ abbr	initial begin end
 	initial begin
 	   ${1:code}
 	end
-    ${2}
+	${2}
 
 snippet	ternary
 abbr	a?b:c
 	${1:a} ? ${2:b} : ${3:c}
-    ${4}
+	${4}
 
 snippet parameter
 abbr parameter
 	parameter ${1:parameter_name} = ${2:parameter_val};
-    ${3}
+	${3}
 
 snippet define
 abbr define
