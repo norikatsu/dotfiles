@@ -51,6 +51,8 @@ NeoBundle 'vimtaku/hl_matchit.vim.git'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'motemen/git-vim'
 NeoBundle 'norikatsu/verilog_instance.vim'
+NeoBundle 'norikatsu/headder_module.vim'
+
 
 " インデントに色を付けて見やすくする
 NeoBundle 'nathanaelkane/vim-indent-guides'
