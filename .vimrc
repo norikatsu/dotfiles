@@ -77,14 +77,16 @@ set backupdir=~/tmp/vimbackup,.
 "**********************************************************************
 "* Encoding
 "**********************************************************************
-if has("win32") || has("win64")
-    set encoding=cp932
-    set fileformat=dos
-else
-    set encoding=utf-8
-    set fileformat=unix
-endif
+"if has("win32") || has("win64")
+"    set encoding=cp932
+"    set fileformat=dos
+"else
+"    set encoding=utf-8
+"    set fileformat=unix
+"endif
 
+set encoding=utf-8
+set fileformat=unix
 set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932
 set fileformats=unix,dos
 set ambiwidth=double
@@ -305,9 +307,6 @@ set clipboard=unnamed
 
 "========== matchit.vim Setting (verilog begin-end関連づけ)
 source $VIMRUNTIME/macros/matchit.vim
-
-"========== encoding
-set encoding=utf-8
 
 "**********************************************************************
 "* Keybind
