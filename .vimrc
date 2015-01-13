@@ -358,9 +358,6 @@ nmap <Space>ee :<C-u>set fileencoding=euc-jp fileformat=unix<CR>
 nmap <Space>eu :<C-u>set fileencoding=utf-8 fileformat=unix<CR>
 nmap <Space>es :<C-u>set fileencoding=sjis fileformat=dos<CR>
 
-set fenc=utf-8
-set fileformat=unix
-
 "========== 文字コード設定変更(ファイルオープンし直し)
 nmap <Space>oe :<C-u>e ++enc=euc-jp<CR>
 nmap <Space>ou :<C-u>e ++enc=utf-8<CR>
