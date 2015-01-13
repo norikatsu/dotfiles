@@ -383,6 +383,8 @@ nnoremap <Space>cc :<C-u>VCSCommit<Enter>
 nnoremap <Space>cs :<C-u>VCSStatus<Enter>
 nnoremap <Space>cr :<C-u>VCSRevert
 nnoremap <Space>cx :<C-u>VCSDelete
+nnoremap <Space>cl :<C-u>VCSLog<Enter>
+nnoremap <Space>cn :<C-u>VSCAnnotate<Enter>
 
 
 "========== VimDiff 設定
