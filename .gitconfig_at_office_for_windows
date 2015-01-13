@@ -22,6 +22,7 @@
 [alias]
 	co = checkout
 	br = branch
+	cm = commit
 	ci = commit -a
 	st = status
 	svdc = svn dcommit
