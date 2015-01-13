@@ -4,6 +4,7 @@
 [core]
 	autocrlf = false
 	quotepath = false
+	excludesfile = ~/.gitignore
 [color]
 	ui = auto
 [difftool]

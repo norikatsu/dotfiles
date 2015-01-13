@@ -5,6 +5,7 @@
 	autocrlf = false
 	quotepath = false
 	editor = "'C:\\ProgramFiles\\vim\\gvim.exe' -c 'set fenc=utf-8'"
+	excludesfile = ~/.gitignore
 [color]
 	ui = auto
 [diff]
