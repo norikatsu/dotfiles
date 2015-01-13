@@ -228,22 +228,6 @@ augroup END
 
 
 "**********************************************************************
-"*RTL作成支援ツール用 (外部スクリプトを実行するので注意)
-"**********************************************************************
-" ~/bin  or ~/julia/bin 等 パスの通った場所にスクリプトを置くこと
-
-"========== ヘッダ部作成
-map _rcs :r !rcs_gen %<CR>
-
-"==========  Module Instantiation
-map _lmi :r !vlog_mod.rb -i <cword>.*v<CR>
-
-"==========  Module Drive Signals
-map _lms :r !vlog_mod.rb -s <cword>.*v<CR>
-
-
-
-"**********************************************************************
 "* コンパイラ設定(make実行時)
 "**********************************************************************
 "========== Compiler (Setting File Type)
@@ -322,6 +306,8 @@ set clipboard=unnamed
 "========== matchit.vim Setting (verilog begin-end関連づけ)
 source $VIMRUNTIME/macros/matchit.vim
 
+"========== encoding
+set encoding=utf-8
 
 "**********************************************************************
 "* Keybind
