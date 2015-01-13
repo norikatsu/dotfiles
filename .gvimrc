@@ -52,4 +52,9 @@ if filereadable(g:save_window_file)
   execute 'source' g:save_window_file
 endif
 
+"========== エンコードをutf-8にすることで文字化けすることへの対策
+source $VIMRUNTIME/delmenu.vim
+set langmenu=ja_jp.utf-8
+source $VIMRUNTIME/menu.vim
+
 
