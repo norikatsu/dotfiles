@@ -57,12 +57,16 @@ NeoBundle 'norikatsu/headder_module.vim'
 " インデントに色を付けて見やすくする
 NeoBundle 'nathanaelkane/vim-indent-guides'
 
+" vimproc
 NeoBundle 'Shougo/vimproc.vim'
 "Vim\plugins\vimproc\autoload\vimproc_win64.dll  // 同梱されているDLL
 "    ---> $HOME\.vim\bundle\vimproc.vim\autoload // ここにコピーする
 
 " vimshell
 NeoBundle 'Shougo/vimshell.vim'
+
+" unite
+NeoBundle 'Shougo/unite.vim'
 
 filetype plugin indent on     " Required!
 
@@ -335,7 +339,29 @@ set backspace=indent,eol,start
 
 
 "========== Filer 
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:newrw_altv = 1
+function! ToggleVExplorer()
+    if !exists("t:netrw_bufnr")
+        exec '1wincmd w'
+        25Vexplore
+        let t:netrw_bufnr = bufnr("%")
+        return
+    endif
+    let win = bufwinnr(t:netrw_bufnr)
+    if win != -1
+        let cur = winnr()
+        exe win . 'wincmd w'
+        close
+        exe cur . 'wincmd w'
+    endif
+    unlet t:netrw_bufnr
+endfunction
+
+
 nmap <Space>f :<C-u>Ex<CR>
+nmap <Space>e :call ToggleVExplorer()<CR><c-w>p
 
 
 "========== 文字コード設定変更(保存形式変更)
