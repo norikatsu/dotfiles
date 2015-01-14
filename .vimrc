@@ -360,7 +360,7 @@ function! ToggleVExplorer()
 endfunction
 
 
-nmap <Space>f :<C-u>Ex<CR>
+"nmap <Space>f :<C-u>Ex<CR>
 nmap <Space>e :call ToggleVExplorer()<CR><c-w>p
 
 
@@ -441,6 +441,25 @@ nnoremap <Space>vp :<C-u>VimShell python<CR>
 
 let g:vimshell_prompt_expr = 'getcwd()." > "'
 let g:vimshell_prompt_pattern = '^\f\+ > '
+
+
+"========== Unite設定
+nnoremap <Space>fu :<C-u>Unite -no-split<CR>
+nnoremap <Space>ff :<C-u>Unite<Space>buffer<CR>
+nnoremap <Space>fb :<C-u>Unite<Space>bookmark<CR>
+nnoremap <Space>fm :<C-u>Unite<Space>file_mru<CR>
+nnoremap <Space>fr :<C-u>UniteWithBufferDir file<CR>
+"nnoremap <Space>fr :<C-u>UniteResume<CR>
+ 
+" vinarise
+let g:vinarise_enable_auto_detect = 1
+ 
+" unite-build map
+nnoremap <silent> ,vb :Unite build<CR>
+nnoremap <silent> ,vcb :Unite build:!<CR>
+nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
+
+
 
 
 
