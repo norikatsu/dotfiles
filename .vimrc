@@ -69,9 +69,14 @@ NeoBundle 'Shougo/vimshell.vim'
 " unite
 NeoBundle 'Shougo/unite.vim'
 
-
 " vimで開いている時にtagの追加
 NeoBundle 'szw/vim-tags'
+
+" Markdown 関連
+NeoBundle 'kannokanno/previm'
+NeoBundle 'tyru/open-browser.vim'
+
+
 
 filetype plugin indent on     " Required!
 
@@ -529,6 +534,11 @@ let g:syntastic_cpp_check_header = 1
 
 nnoremap <Space>sy :<C-u>SyntasticCheck<CR>
 nnoremap <Space>se :<C-u>Errors<CR>
+
+
+"========== Markdown 設定
+nnoremap <Space>mp :<C-u>PrevimOpen<CR>
+
 
 "========== Highlight match Setting
 let g:hl_matchit_enable_on_vim_startup = 1
