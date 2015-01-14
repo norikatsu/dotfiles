@@ -69,6 +69,10 @@ NeoBundle 'Shougo/vimshell.vim'
 " unite
 NeoBundle 'Shougo/unite.vim'
 
+
+" vimで開いている時にtagの追加
+NeoBundle 'szw/vim-tags'
+
 filetype plugin indent on     " Required!
 
 "**********************************************************************
@@ -465,15 +469,13 @@ nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
 " 2階層上まで確認する
 set tags=./tags,tags,../tags,../../tags
 
-" Tag生成
-
 " TagList
 let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1
 let Tlist_Exit_OnlyWindow = 1
 
 map <Space>E :TlistToggle<CR>
-
+nnoremap <C-]> g<C-]>
 
 "**********************************************************************
 "* Plugin Setting
