@@ -1,7 +1,7 @@
 1. ProgramFilesのコピー
     1.1 vim, 7zip ConEmu は32bit、64bitで異なるので注意
     1.2 TortusSVN, WinMerge, VLC のインストール（64,32とも デフォルトの"Program Files"にインストール
-
+    1.3 vim のフォルダには ctags と verilotor を同梱する(パスを通す必要が無いため)
 
 
 2. MinGWのインストール
