@@ -538,7 +538,8 @@ nnoremap <Space>se :<C-u>Errors<CR>
 
 "========== Markdown 設定
 nnoremap <Space>mp :<C-u>PrevimOpen<CR>
-
+" md as markdown, instead of modula2
+autocmd  BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 "========== Highlight match Setting
 let g:hl_matchit_enable_on_vim_startup = 1
