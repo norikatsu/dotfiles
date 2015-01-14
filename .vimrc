@@ -53,7 +53,7 @@ NeoBundle 'taglist.vim'
 NeoBundle 'motemen/git-vim'
 NeoBundle 'norikatsu/verilog_instance.vim'
 NeoBundle 'norikatsu/headder_module.vim'
-
+NeoBundle 'scrooloose/syntastic'
 
 " インデントに色を付けて見やすくする
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -477,10 +477,6 @@ let Tlist_Exit_OnlyWindow = 1
 map <Space>E :TlistToggle<CR>
 nnoremap <C-]> g<C-]>
 
-"**********************************************************************
-"* Plugin Setting
-"**********************************************************************
-
 
 "========== neocomplete.vim Setting
 
@@ -501,36 +497,6 @@ let g:neocompete#enable_smart_case = 1
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
-"
-"" Use auto select 補完候補を出すときに、自動的に一番上の候補を選択 
-""let g:neocomplcache_enable_auto_select = 1
-"
-"" Use camel case completion. 大文字を区切りとしたワイルドカードのように振る舞うという機能
-"let g:neocomplcache_enable_camel_case_completion = 1
-"
-"" Use underbar completion. _区切りの補完を有効化
-"let g:neocomplcache_enable_underbar_completion = 1
-"
-"" Set minimum syntax keyword length. シンタックスをキャッシュするときの最小文字長
-"let g:neocomplcache_min_syntax_length = 3
-"
-"" Set manual completion length.
-"let g:neocomplcache_manual_completion_start_length = 0
-"
-
-"" ポップアップ削除
-""inoremap <expr><C-x> neocomplcache#smart_close_popup().”\<C-h>”
-"
-"" 選択候補確定
-"inoremap <expr><C-y> neocomplcache#close_popup()
-"
-"" 選択候補キャンセル ＆ ポップアップ削除
-"inoremap <expr><C-x> neocomplcache#cancel_popup()
-"
-"" 前回行われた補完をキャンセル
-"inoremap <expr><C-g> neocomplcache#undo_completion()
-"
-
 
 "========== neosnippet.vim Setting
 " Enable snipMate compatibility feature.
@@ -538,7 +504,6 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets, ~/.vim/snippets'
-
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -553,6 +518,17 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
+
+"========== Syntastic 設定
+let g:syntastic_check_on_open=0
+let g:syntastic_check_on_wq=0
+" C
+let g:syntastic_c_check_header = 1
+" C++
+let g:syntastic_cpp_check_header = 1
+
+nnoremap <Space>sy :<C-u>SyntasticCheck<CR>
+nnoremap <Space>se :<C-u>Errors<CR>
 
 "========== Highlight match Setting
 let g:hl_matchit_enable_on_vim_startup = 1
