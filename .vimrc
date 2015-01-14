@@ -49,6 +49,7 @@ NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
 NeoBundle 'vcscommand.vim'
+NeoBundle 'taglist.vim'
 NeoBundle 'motemen/git-vim'
 NeoBundle 'norikatsu/verilog_instance.vim'
 NeoBundle 'norikatsu/headder_module.vim'
@@ -381,11 +382,11 @@ nmap <Space>hn :<C-u>set nohlsearch<CR>
 
 
 "========== タブ操作
-nnoremap <C-t> :tabedit<CR>
+nnoremap <Space>t :<C-u>tabnew<CR>
+"nnoremap <C-t> :tabedit<CR>
 "nnoremap <C-x> :tabclose<CR>
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprevious<CR>
-nmap <Space>t :<C-u>tabnew<CR>:<C-u>Ex<CR>
 
 "========== Window操作
 nnoremap <Space>ww :<C-u>split<CR>
@@ -460,7 +461,18 @@ nnoremap <silent> ,vcb :Unite build:!<CR>
 nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
 
 
+"========== タグ設定
+" 2階層上まで確認する
+set tags=./tags,tags,../tags,../../tags
 
+" Tag生成
+
+" TagList
+let Tlist_Show_One_File = 1
+let Tlist_Use_Right_Window = 1
+let Tlist_Exit_OnlyWindow = 1
+
+map <Space>E :TlistToggle<CR>
 
 
 "**********************************************************************
