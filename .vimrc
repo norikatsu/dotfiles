@@ -76,7 +76,7 @@ NeoBundle 'szw/vim-tags'
 " Markdown 関連
 NeoBundle 'kannokanno/previm'
 NeoBundle 'tyru/open-browser.vim'
-
+NeoBundle 'glidenote/memolist.vim'
 
 
 filetype plugin indent on     " Required!
@@ -541,6 +541,18 @@ nnoremap <Space>se :<C-u>Errors<CR>
 nnoremap <Space>mp :<C-u>PrevimOpen<CR>
 " md as markdown, instead of modula2
 autocmd  BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+
+
+"========== Memo
+nmap <Space>mn :MemoNew<CR>
+nmap <Space>ml :MemoList<CR>
+nmap <Space>mg :MemoGrep<CR>
+let g:memolist_memo_suffix = "md"
+let g:memolist_template_dir_path = "~/.vim/template"
+
+
+
+
 
 "========== Highlight match Setting
 let g:hl_matchit_enable_on_vim_startup = 1
