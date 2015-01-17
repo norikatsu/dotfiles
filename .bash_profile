@@ -602,7 +602,7 @@ fi
 
 #----------  Set Python path setting
 if [ ! "$(echo $PATH | grep "${PYTHON_PATH}")" ]; then
-    export PATH=$PATH:${PYTHON_PATH}
+    export PATH=${PYTHON_PATH}:$PATH
 fi
 
 #========== Set License
