@@ -1,4 +1,5 @@
 dotfiles
 ========
 
-Linux/Windows共用dotfileの管理用
+#Linux/Windows共用dotfileの管理用
+
