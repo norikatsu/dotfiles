@@ -114,6 +114,49 @@ $ sudo yum -y --enablerepo=rpmforge install mercurial
 Office のLinuxでのみ有効にする為 ~/.hgrc_office_linux に対してリンクを張ること
 
 
+
+### Python3 インストール方法 for RedHat5
+
+#### ダウンロード
+ Python3.3をダウンロード
+
+```wget http://www.python.org/ftp/python/3.3.0/Python-3.3.0.tgz```
+
+#### ビルド
+
+```
+tar zxvf Python-3.3.0.tgz
+cd Python-3.3.0
+./configure \
+--prefix=/usr/local/python \
+--enable-shared
+make
+```
+
+#### インストール
+
+```
+sudo make install
+```
+
+/etc/ld.so.conf に下記行を追加
+
+```
+/usr/local/python/lib
+```
+
+rootで下記コマンド実行
+```
+su -
+ldconfig
+```
+
+```
+ln -s /usr/local/python/bin/python3 /usr/local/bin/python3
+```
+
+
+
 ### VIM インストール方法
 事前に Mercurialをインストールしておくこと
 #### ダウンロード
@@ -147,6 +190,12 @@ configディレクトリを指定すること (python2側は自動で見つけ�
 ```
 ./configure --with-features=huge --enable-multibyte --disable-selinux --prefix='/usr/local/vim-7.4' --enable-gui=gtk2 --enable-perlinterp --enable-pythoninterp --enable-python3interp  --with-python3-config-dir=/usr/lib/python3.4/config-3.4m-x86_64-linux-gnu  --enable-rubyinterp --enable-tclinterp --enable-luainterp=dynamic --with-lua-prefix=/usr --enable-gpm --enable-acl --enable-cscope --enable-fontset --enable-xim --enable-fail-if-missing
 ```
+
+以下はRedHat5での場合（python3のlibディレクトリは上記コマンドで確認すること）
+```
+./configure --enable-multibyte --enable-xim --enable-fontset --disable-selinux --with-features=huge --prefix='/usr/local/vim-7.4' --enable-luainterp=yes --enable-python3interp  --with-python3-config-dir=/usr/local/python/lib/python3.3/config-3.3m
+```
+
 
 #### make 実行
 

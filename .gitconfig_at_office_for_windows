@@ -30,3 +30,5 @@
 	diffh = diff HEAD
 	svrb = svn rebase
 	hint = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[difftool "sourcetree"]
+	cmd = 'C:/Program Files/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
