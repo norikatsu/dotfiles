@@ -12,6 +12,8 @@
 
     2.2 Git for Windows を C:\MinGW\Git にインストール
         文字コードはそのままを選択
+        Windowsの環境変数PATHに C:\MinGW\Git\bin を追加する
+
 
     2.3 下記空フォルダを作成
         "C:\MinGW\msys\1.0\mingw\" 
@@ -29,7 +31,7 @@
     C:\MinGW\msys\1.0\bin\bash.exe --login -i
     (スタートアップディレクトリは環境変数HOMEで決まる） 
 
-        環境変数 HOME　を C:\Users\Norikatsu\Documents に設定
+        環境変数 HOME　を C:\Users\nori に設定    －＞＞＞ホームディレクトリ！
 
         HOME に .sshを作成しKeyをファイルサーバからコピー
         ConEmuの設定ファイルをロード
@@ -103,5 +105,16 @@
              上記パッケージの使い方は
             vagrant box add NAME PACKNAME
 
+
+8. Panasonicカメラの設定
+    8.1 IE11を利用すること
+        カメラのアドレスに対して「信頼済みサイト」に追加登録
+        同じように「互換表示設定」で追加登録する
+
+
+9. tvrec へアクセス
+    9.1  ユーザー名の前に　IPアドレスをつけること
+        "192.168.***.***\user_name"
+        これはリモートデスクトップ接続、ネットワークドライブ登録両方に同じ
 
 
