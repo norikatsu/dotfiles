@@ -271,6 +271,21 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
             ;;
     esac
 
+    #========== Set Sourcery CodeBench
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export CODEBENCHPATH=/cygdrive/c/MinGW/msys/1.0/opt/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/bin
+            ;;
+        # ***** Mingw
+        msys)
+            export CODEBENCHPATH=/opt/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/bin
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export CODEBENCHPATH=/opt/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/bin
+            ;;
+    esac
 
     #========== Set Leda
     export SYNOPSYS_LICENSE=nothing
@@ -454,6 +469,22 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
     esac
 
+    #========== Set Sourcery CodeBench
+    case $OSTYPE in
+        # ***** Cygwin
+        cygwin)
+            export CODEBENCHPATH=/cygdrive/c/MinGW/msys/1.0/opt/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/bin
+            ;;
+        # ***** Mingw
+        msys)
+            export CODEBENCHPATH=/opt/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/bin
+            ;;
+        # ***** Linux
+        linux-gnu)
+            export CODEBENCHPATH=/opt/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/bin
+            ;;
+    esac
+
     #========== Set Leda
     export SYNOPSYS_LICENSE=27000@132.182.83.177
     case $OSTYPE in
@@ -605,6 +636,10 @@ if [ ! "$(echo $PATH | grep "${PYTHON_PATH}")" ]; then
     export PATH=${PYTHON_PATH}:$PATH
 fi
 
+#----------  Set Source CodeBench path setting
+if [ ! "$(echo $PATH | grep "${CODEBENCHPATH}")" ]; then
+    export PATH=$PATH:${CODEBENCHPATH}
+fi
 #========== Set License
 
 
