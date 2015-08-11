@@ -409,11 +409,11 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     case $OSTYPE in
         # ***** Cygwin
         cygwin)
-            export QUARTUS_ROOTDIR=/cygdrive/c/altera/13.0sp1/quartus
+            export QUARTUS_ROOTDIR=/cygdrive/c/altera/13.1/quartus
             ;;
         # ***** Mingw
         msys)
-            export QUARTUS_ROOTDIR=/c/altera/13.0sp1/quartus
+            export QUARTUS_ROOTDIR=/c/altera/13.1/quartus
             ;;
         # ***** Linux
         linux-gnu)
