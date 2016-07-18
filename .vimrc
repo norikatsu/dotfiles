@@ -56,7 +56,10 @@ if s:use_dein && v:version >= 704
 
         call dein#add('Shougo/dein.vim')
 
+        "以下の2個のファイルをコピーする
         "Vim\plugins\vimproc\autoload\vimproc_win64.dll  // 同梱されているDLL
+        "    ---> $HOME\.vim\dein\repos\github.com\Shougo\vimproc.vim\autoload // ここにコピーする
+        "Vim\plugins\vimproc\lib\vimproc_win64.dll  // 同梱されているDLL
         "    ---> $HOME\.vim\dein\repos\github.com\Shougo\vimproc.vim\lib // ここにコピーする
         call dein#add('Shougo/vimproc', {
               \ 'build': {
