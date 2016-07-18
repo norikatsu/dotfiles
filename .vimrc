@@ -4,82 +4,134 @@
 "  Type      :  vim init file
 "  Function  :  VIM Initial
 "  Author    :  Yoshida Norikatsu
-"               2013/11/17 Restart
+"               2016/07/18 Restart (dein.vim Version)
 "
 "******************************************************************************
 
-
 "**********************************************************************
-"* Runtimepath
+"* dein Setting
 "**********************************************************************
-set runtimepath+=$HOME/.vim,$HOME/.vim/after
 
+" Flags
+let s:use_dein = 1
 
-
-"**********************************************************************
-"* Neobundle Setting
-"**********************************************************************
-set nocompatible               " Be iMproved
-filetype off                   " Required!
-
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+" vi compatibility
+if !&compatible
+    set nocompatible
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
-
-
-" Installation check.
-if neobundle#exists_not_installed_bundles()
-    echomsg 'Not installed bundles : ' .
-        \ string(neobundle#get_not_installed_bundle_names())
-    echomsg 'Please execute ":NeoBundleInstall" command.'
-    "finish
+" Prepare .vim dir
+let s:vimdir = $HOME . "/.vim"
+if has("vim_starting")
+    if ! isdirectory(s:vimdir)
+        call system("mkdir " . s:vimdir)
+    endif
 endif
 
-"neobundleã‚’æ›´æ–°ã™ã‚‹ãŸã‚ã®è¨­å®š
-" ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«  :NeoBundleInstall
-" ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ  :NeoBundleUpdate
-" å‰Šé™¤          :NeoBundleClean( vimrcè©²å½“è¡Œã‚’å‰Šé™¤ã—ãŸã®ã¡å®Ÿè¡Œ)
-"NeoBundleFetch 'Shougo/neobundle.vim'
+" dein
+let s:dein_enabled  = 0
+if s:use_dein && v:version >= 704
+    let s:dein_enabled = 1
 
-"èª­ã¿è¾¼ã¿ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãƒªã‚¹ãƒˆ
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'vimtaku/hl_matchit.vim.git'
-NeoBundle 'vcscommand.vim'
-NeoBundle 'taglist.vim'
-NeoBundle 'motemen/git-vim'
-NeoBundle 'norikatsu/verilog_instance.vim'
-NeoBundle 'norikatsu/headder_module.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'h1mesuke/vim-alignta'
+    " Set dein paths
+    let s:dein_dir = s:vimdir . '/dein'
+    let s:dein_github = s:dein_dir . '/repos/github.com'
+    let s:dein_repo_name = "Shougo/dein.vim"
+    let s:dein_repo_dir = s:dein_github . '/' . s:dein_repo_name
 
-" ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã«è‰²ã‚’ä»˜ã‘ã¦è¦‹ã‚„ã™ãã™ã‚‹
-NeoBundle 'nathanaelkane/vim-indent-guides'
-
-" vimproc
-NeoBundle 'Shougo/vimproc.vim'
-"Vim\plugins\vimproc\autoload\vimproc_win64.dll  // åŒæ¢±ã•ã‚Œã¦ã„ã‚‹DLL
-"    ---> $HOME\.vim\bundle\vimproc.vim\autoload // ã“ã“ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹
-
-" vimshell
-NeoBundle 'Shougo/vimshell.vim'
-
-" unite
-NeoBundle 'Shougo/unite.vim'
-
-" vimã§é–‹ã„ã¦ã„ã‚‹æ™‚ã«tagã®è¿½åŠ 
-NeoBundle 'szw/vim-tags'
-
-" Markdown é–¢é€£
-NeoBundle 'kannokanno/previm'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'glidenote/memolist.vim'
+    " Check dein has been installed or not.
+    if !isdirectory(s:dein_repo_dir)
+        echo "dein is not installed, install now "
+        let s:dein_repo = "https://github.com/" . s:dein_repo_name
+        echo "git clone " . s:dein_repo . " " . s:dein_repo_dir
+        call system("git clone " . s:dein_repo . " " . s:dein_repo_dir)
+    endif
+    let &runtimepath = &runtimepath . "," . s:dein_repo_dir
 
 
-filetype plugin indent on     " Required!
+    " Check cache
+    if dein#load_state(s:dein_dir)
+        " Begin plugin part
+        call dein#begin(s:dein_dir)
+
+        call dein#add('Shougo/dein.vim')
+
+        "Vim\plugins\vimproc\autoload\vimproc_win64.dll  // “¯«‚³‚ê‚Ä‚¢‚éDLL
+        "    ---> $HOME\.vim\dein\repos\github.com\Shougo\vimproc.vim\autoload // ‚±‚±‚ÉƒRƒs[‚·‚é
+        "call dein#add('Shougo/vimproc', {
+        "      \ 'build': {
+        "      \     'windows': 'tools\\update-dll-mingw',
+        "      \     'cygwin': 'make -f make_cygwin.mak',
+        "      \     'mac': 'make -f make_mac.mak',
+        "      \     'linux': 'make',
+        "      \     'unix': 'gmake'}})
+
+        "call dein#add('Shougo/unite.vim', {
+        "      \ 'depends': ['vimproc'],
+        "      \ 'on_cmd': ['Unite'],
+        "      \ 'lazy': 1})
+
+        " vimshell
+        "call dein#add('Shougo/vimshell.vim')
+
+        if has('lua')
+            call dein#add('Shougo/neocomplete.vim', {
+                    \ 'on_i': 1,
+                    \ 'lazy': 1})
+
+            call dein#add('Shougo/neosnippet.vim')
+
+            call dein#add('Shougo/neosnippet-snippets')
+
+            call dein#add('ujihisa/neco-look', {
+                    \ 'depends': ['neocomplete.vim']})
+        endif
+
+        "call dein#add('tyru/open-browser.vim', {
+        "      \ 'on_map': ['<Plug>(openbrowser-smart-search)'],
+        "      \ 'lazy': 1})
+
+
+        call dein#add('vimtaku/hl_matchit.vim.git')
+
+        call dein#add('vcscommand.vim')
+        call dein#add('taglist.vim')
+        call dein#add('motemen/git-vim')
+        call dein#add('norikatsu/verilog_instance.vim')
+        call dein#add('norikatsu/headder_module.vim')
+        call dein#add('scrooloose/syntastic')
+        call dein#add('h1mesuke/vim-alignta')
+
+        " ƒCƒ“ƒfƒ“ƒg‚ÉF‚ğ•t‚¯‚ÄŒ©‚â‚·‚­‚·‚é
+        call dein#add('nathanaelkane/vim-indent-guides')
+
+
+        " vim‚ÅŠJ‚¢‚Ä‚¢‚é‚Étag‚Ì’Ç‰Á
+        call dein#add('szw/vim-tags')
+
+        " Markdown ŠÖ˜A
+        call dein#add('kannokanno/previm')
+        call dein#add('tyru/open-browser.vim')
+        call dein#add('glidenote/memolist.vim')
+
+        call dein#end()
+        call dein#save_state()
+    endif
+
+
+    " Installation check.
+    if dein#check_install()
+        call dein#install()
+    endif
+endif
+
+if s:dein_enabled && dein#tap("unite.vim")
+    nnoremap [unite] <Nop>
+    nmap <Leader>u [unite]
+    nnoremap <silent> [unite]b :Unite buffer<CR>
+endif
+
+
 
 "**********************************************************************
 "* Backup
@@ -112,24 +164,22 @@ set ambiwidth=double
 "**********************************************************************
 
 if has("win32") || has("win64")
-    "Windowsã§ã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ IMEOFFã«è¨­å®š
+    "Windows‚Å‚ÍƒfƒtƒHƒ‹ƒg IMEOFF‚Éİ’è
     set iminsert=0
     set imsearch=-1
 
-    "æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰çµ‚äº†æ™‚ã«IMEOFF
+    "‘}“üƒ‚[ƒhI—¹‚ÉIMEOFF
     inoremap <silent> <ESC> <ESC>
     inoremap <silent> <C-[> <ESC>
 
 else
-    "Linux ã§ã¯ æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰ã‚’å‡ºãŸã¨ãIMEã‚’OFFã«ã™ã‚‹
-    "   ã“ã®å‡¦ç†ã«ã¯ "xvkbd"ãŒå¿…è¦ãªã®ã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ã“ã¨
-    "   IMEã®ã‚ªãƒ•è¨­å®šã« <Ctrl>+<Shift>+<Space> ã‚’è¨­å®šã—ã¦ãŠã
+    "Linux ‚Å‚Í ‘}“üƒ‚[ƒh‚ğo‚½‚Æ‚«IME‚ğOFF‚É‚·‚é
+    "   ‚±‚Ìˆ—‚É‚Í "xvkbd"‚ª•K—v‚È‚Ì‚ÅƒCƒ“ƒXƒg[ƒ‹‚·‚é‚±‚Æ
+    "   IME‚ÌƒIƒtİ’è‚É <Ctrl>+<Shift>+<Space> ‚ğİ’è‚µ‚Ä‚¨‚­
     inoremap <silent> <esc> <esc>:call ForceImeOff()<cr>
     function! ForceImeOff()
         let imeoff = system('xvkbd -text "\[Control]\[Shift]\[space]" > /dev/null 2>&1')
     endfunction
-
-
 endif
 
 
@@ -180,17 +230,17 @@ endfunction
 
 
 "**********************************************************************
-"* å…¨è§’ã‚¹ãƒšãƒ¼ã‚¹å‡¦ç†
+"* ‘SŠpƒXƒy[ƒXˆ—
 "**********************************************************************
 if has("syntax")
     syntax on
 
-    " PODãƒã‚°å¯¾ç­–
+    " PODƒoƒO‘Îô
     syn sync fromstart
 
     function! ActivateInvisibleIndicator()
-        " ä¸‹ã®è¡Œã®"ã€€"ã¯å…¨è§’ã‚¹ãƒšãƒ¼ã‚¹
-        syntax match InvisibleJISX0208Space "ã€€" display containedin=ALL
+        " ‰º‚Ìs‚Ì"@"‚Í‘SŠpƒXƒy[ƒX
+        syntax match InvisibleJISX0208Space "@" display containedin=ALL
         highlight InvisibleJISX0208Space term=underline ctermbg=Blue guibg=darkgray gui=underline
         syntax match InvisibleTrailedSpace "[ \t]\+$" display containedin=ALL
         highlight InvisibleTrailedSpace term=underline ctermbg=Red guibg=NONE gui=undercurl guisp=darkorange
@@ -206,10 +256,10 @@ endif
 
 
 "**********************************************************************
-"* ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªç§»å‹•ã‚³ãƒãƒ³ãƒ‰å®šç¾© 
+"* ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠˆÚ“®ƒRƒ}ƒ“ƒh’è‹` 
 "**********************************************************************
-" -> :CD ã§é–‹ã„ã¦ã„ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ç§»å‹•
-" -> :CD! ã§ç§»å‹•å…ˆã‚’è¡¨ç¤ºã—ã¦ç¢ºèªã§ãã‚‹
+" -> :CD ‚ÅŠJ‚¢‚Ä‚¢‚éƒtƒ@ƒCƒ‹‚ÌƒfƒBƒŒƒNƒgƒŠ‚ÉˆÚ“®
+" -> :CD! ‚ÅˆÚ“®æ‚ğ•\¦‚µ‚ÄŠm”F‚Å‚«‚é
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
     if a:directory == ''
@@ -245,7 +295,7 @@ augroup END
 
 
 "**********************************************************************
-"* ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©è¨­å®š(makeå®Ÿè¡Œæ™‚)
+"* ƒRƒ“ƒpƒCƒ‰İ’è(makeÀs)
 "**********************************************************************
 "========== Compiler (Setting File Type)
 autocmd FileType verilog :compiler verilog
@@ -306,7 +356,7 @@ set diffopt=filler,vertical
 set laststatus=2
 set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%Y]%=\ (%v,%l)/%L%8P\
 
-"========== ä¸å¯è¦–å±æ€§æ–‡å­—ã®å¯è¦–åŒ–
+"========== •s‰Â‹‘®«•¶š‚Ì‰Â‹‰»
 set list
 set listchars=tab:>.,trail:-,eol:$,extends:>,precedes:<,nbsp:%
 
@@ -316,11 +366,11 @@ set ts=4
 set sw=4
 set sts=4
 
-"========== ã‚³ãƒ”ãƒšå‡¦ç†(ã‚³ãƒ”ãƒšãƒãƒƒãƒ•ã‚¡ã« unnamed ãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ç”¨ã™ã‚‹)
+"========== ƒRƒsƒyˆ—(ƒRƒsƒyƒoƒbƒtƒ@‚É unnamed ƒoƒbƒtƒ@‚ğg—p‚·‚é)
 "nmap <C-b> "+gP
 set clipboard=unnamed
 
-"========== matchit.vim Setting (verilog begin-endé–¢é€£ã¥ã‘)
+"========== matchit.vim Setting (verilog begin-endŠÖ˜A‚Ã‚¯)
 source $VIMRUNTIME/macros/matchit.vim
 
 "**********************************************************************
@@ -331,17 +381,17 @@ source $VIMRUNTIME/macros/matchit.vim
 nnoremap <silent> <Space>re :<C-u>!./rebuild.sh<CR>
 
 
-"========== ã‚«ãƒ¼ã‚½ãƒ«ç§»å‹•
+"========== ƒJ[ƒ\ƒ‹ˆÚ“®
 "inoremap <C-h> <Left>
 "inoremap <C-j> <Down>
 "inoremap <C-k> <Up>
 "inoremap <C-l> <Right>
 
 "========== BackSpace
-"     ã‚­ãƒ¼ãƒãƒƒãƒ—ã®è§£èª¬
-"     BSã‚­ãƒ¼ã¯ GUIã§ã¯ BSã‚³ãƒ¼ãƒ‰ã‚’å‡ºåŠ›,ã‚¿ãƒ¼ãƒŸãƒŠãƒ«ã§ã¯ DEL(^?)ã‚’å‡ºã™
-"     æ–‡å­—å‰Šé™¤ã¯ ^H(C-h) ã‚³ãƒ¼ãƒ‰ã ãŒã™ã§ã«å·¦ç§»å‹•ã«å‰²ã‚Šå½“ã¦ã¦ã„ã‚‹
-"     ã‚ˆã£ã¦ä»¥ä¸‹ã®è¨­å®šã‚’å…¥ã‚Œãªã„ã¨å·¦ã«ç§»å‹•ã™ã‚‹ã ã‘ã«ãªã£ã¦ã—ã¾ã†
+"     ƒL[ƒ}ƒbƒv‚Ì‰ğà
+"     BSƒL[‚Í GUI‚Å‚Í BSƒR[ƒh‚ğo—Í,ƒ^[ƒ~ƒiƒ‹‚Å‚Í DEL(^?)‚ğo‚·
+"     •¶šíœ‚Í ^H(C-h) ƒR[ƒh‚¾‚ª‚·‚Å‚É¶ˆÚ“®‚ÉŠ„‚è“–‚Ä‚Ä‚¢‚é
+"     ‚æ‚Á‚ÄˆÈ‰º‚Ìİ’è‚ğ“ü‚ê‚È‚¢‚Æ¶‚ÉˆÚ“®‚·‚é‚¾‚¯‚É‚È‚Á‚Ä‚µ‚Ü‚¤
 noremap   
 noremap!  
 noremap  <BS> 
@@ -375,36 +425,36 @@ endfunction
 nmap <Space>e :call ToggleVExplorer()<CR><c-w>p
 
 
-"========== æ–‡å­—ã‚³ãƒ¼ãƒ‰è¨­å®šå¤‰æ›´(ä¿å­˜å½¢å¼å¤‰æ›´)
+"========== •¶šƒR[ƒhİ’è•ÏX(•Û‘¶Œ`®•ÏX)
 nmap <Space>ee :<C-u>set fileencoding=euc-jp fileformat=unix<CR>
 nmap <Space>eu :<C-u>set fileencoding=utf-8 fileformat=unix<CR>
 nmap <Space>es :<C-u>set fileencoding=sjis fileformat=dos<CR>
 
-"========== æ–‡å­—ã‚³ãƒ¼ãƒ‰è¨­å®šå¤‰æ›´(ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³ã—ç›´ã—)
+"========== •¶šƒR[ƒhİ’è•ÏX(ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“‚µ’¼‚µ)
 nmap <Space>oe :<C-u>e ++enc=euc-jp<CR>
 nmap <Space>ou :<C-u>e ++enc=utf-8<CR>
 nmap <Space>os :<C-u>e ++enc=sjis<CR>
 
-"========== æ¤œç´¢æ™‚ã®ãƒã‚¤ãƒ©ã‚¤ãƒˆæ¶ˆå»
+"========== ŒŸõ‚ÌƒnƒCƒ‰ƒCƒgÁ‹
 "nnoremap <Esc><Esc> :<C-u>set nohlsearch<CR>
 nmap <Space>ho :<C-u>set hlsearch<CR>
 nmap <Space>hn :<C-u>set nohlsearch<CR>
 
 
-"========== ã‚¿ãƒ–æ“ä½œ
+"========== ƒ^ƒu‘€ì
 nnoremap <Space>t :<C-u>tabnew<CR>
 "nnoremap <C-t> :tabedit<CR>
 "nnoremap <C-x> :tabclose<CR>
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprevious<CR>
 
-"========== Windowæ“ä½œ
+"========== Window‘€ì
 nnoremap <Space>ww :<C-u>split<CR>
 nnoremap <Space>wv :<C-u>vsplit<CR>
 nnoremap <Space>wc :<C-u>close<CR>
 
 
-"========== make é–¢é€£
+"========== make ŠÖ˜A
 nnoremap <Space>co :<C-u>copen<CR>
 nnoremap <Space>cq :<C-u>cclose<CR>
 nnoremap <Space>cn :<C-u>cnewer<CR>
@@ -412,7 +462,7 @@ nnoremap <Space>cp :<C-u>colder<CR>
 
 
 
-"========== VCScommand è¨­å®š
+"========== VCScommand İ’è
 nnoremap <Space>cv :<C-u>VCSVimDiff<Enter>
 nnoremap <Space>ca :<C-u>VCSAdd<Enter>
 nnoremap <Space>cc :<C-u>VCSCommit<Enter>
@@ -424,16 +474,16 @@ nnoremap <Space>cl :<C-u>VCSLog<Enter>
 nnoremap <Space>cn :<C-u>VSCAnnotate<Enter>
 
 
-"========== VimDiff è¨­å®š
-"å‰ã®å¤‰æ›´ã®å…ˆé ­ã¸ç§»å‹•
+"========== VimDiff İ’è
+"‘O‚Ì•ÏX‚Ìæ“ª‚ÖˆÚ“®
 nmap <F7> [c
-"æ¬¡ã®å¤‰æ›´ã®å…ˆé ­ã¸ç§»å‹•
+"Ÿ‚Ì•ÏX‚Ìæ“ª‚ÖˆÚ“®
 nmap <F8> ]c
 
-"å·®åˆ†ãƒ¢ãƒ¼ãƒ‰é–‹å§‹
+"·•ªƒ‚[ƒhŠJn
 nmap ,d :vert diffs
 
-"å·®åˆ†ãƒ¢ãƒ¼ãƒ‰ã‚’çµ‚äº†
+"·•ªƒ‚[ƒh‚ğI—¹
 "nmap <Leader>dq :winc l<CR>:bw<CR>:diffoff<CR>
 nmap ,cq :winc l<CR>:bw<CR>:diffoff<CR>
 nmap ,gq :winc l<CR>:bw<CR>:diffoff<CR>
@@ -442,11 +492,11 @@ nmap ,q :winc l<CR>:bw<CR>:diffoff<CR>
 
 
 "========== vim-indent-guides
-" vimã‚’ç«‹ã¡ä¸Šã’ãŸã¨ãã«ã€è‡ªå‹•çš„ã«vim-indent-guidesã‚’ã‚ªãƒ³ã«ã™ã‚‹
+" vim‚ğ—§‚¿ã‚°‚½‚Æ‚«‚ÉA©“®“I‚Évim-indent-guides‚ğƒIƒ“‚É‚·‚é
 let g:indent_guides_enable_on_vim_startup = 1
 
 
-"========== VimShellè¨­å®š
+"========== VimShellİ’è
 nnoremap <Space>vv :<C-u>VimShell<CR>
 nnoremap <Space>vp :<C-u>VimShell python<CR>
 
@@ -454,7 +504,7 @@ let g:vimshell_prompt_expr = 'getcwd()." > "'
 let g:vimshell_prompt_pattern = '^\f\+ > '
 
 
-"========== Uniteè¨­å®š
+"========== Uniteİ’è
 nnoremap <Space>fu :<C-u>Unite -no-split<CR>
 nnoremap <Space>ff :<C-u>Unite<Space>buffer<CR>
 nnoremap <Space>fb :<C-u>Unite<Space>bookmark<CR>
@@ -471,8 +521,8 @@ nnoremap <silent> ,vcb :Unite build:!<CR>
 nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
 
 
-"========== ã‚¿ã‚°è¨­å®š
-" 2éšå±¤ä¸Šã¾ã§ç¢ºèªã™ã‚‹
+"========== ƒ^ƒOİ’è
+" 2ŠK‘wã‚Ü‚ÅŠm”F‚·‚é
 set tags=./tags,tags,../tags,../../tags
 
 " TagList
@@ -486,20 +536,20 @@ nnoremap <C-]> g<C-]>
 
 "========== neocomplete.vim Setting
 
-"neocomplcache ã‚’ä½¿ã†ã®ã§ç„¡åŠ¹åŒ–
+"neocomplcache ‚ğg‚¤‚Ì‚Å–³Œø‰»
 let g:acp_enableAtStartup = 0
 
 " Use neocomplete.vim
 let g:neocomplete#enable_at_startup = 1
 
-""ã‚¹ã‚¤ãƒƒãƒè¨­å®š
+""ƒXƒCƒbƒ`İ’è
 nmap ,y :NeoCompleteEnable <CR>
 nmap ,n :NeoCompleteDisable <CR>
 
-" Use smartcase. å¤§æ–‡å­—å…¥åŠ›ã¾ã§å¤§æ–‡å­—å°æ–‡å­—ã‚’åŒºåˆ¥ã—ãªã„
+" Use smartcase. ‘å•¶š“ü—Í‚Ü‚Å‘å•¶š¬•¶š‚ğ‹æ•Ê‚µ‚È‚¢
 let g:neocompete#enable_smart_case = 1
 
-" Tabã§è£œå®Œ
+" Tab‚Å•âŠ®
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
@@ -525,7 +575,7 @@ if has('conceal')
 endif
 
 
-"========== Syntastic è¨­å®š
+"========== Syntastic İ’è
 let g:syntastic_check_on_open=0
 let g:syntastic_check_on_wq=0
 " C
@@ -537,7 +587,7 @@ nnoremap <Space>sy :<C-u>SyntasticCheck<CR>
 nnoremap <Space>se :<C-u>Errors<CR>
 
 
-"========== Markdown è¨­å®š
+"========== Markdown İ’è
 nnoremap <Space>mp :<C-u>PrevimOpen<CR>
 " md as markdown, instead of modula2
 autocmd  BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
@@ -561,4 +611,5 @@ let g:hl_matchit_enable_on_vim_startup = 1
 
 "========== TextWidth (Filetype) Setting
 autocmd FileType verilog setlocal textwidth=0
+
 
