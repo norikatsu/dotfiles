@@ -504,7 +504,7 @@ Puttyで接続する場合には *.pkkを使用する
 #### サーバからクローン
 msys ホームにて
 ```
-git clone ssh://norikatsu@git.codebreak.com/norikatsu/dotfiles.git
+git clone https://github.com/norikatsu/dotfiles.git
 ```
 
 各設定ファイルへのリンクを張る
