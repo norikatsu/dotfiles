@@ -57,22 +57,22 @@ if s:use_dein && v:version >= 704
         call dein#add('Shougo/dein.vim')
 
         "Vim\plugins\vimproc\autoload\vimproc_win64.dll  // 同梱されているDLL
-        "    ---> $HOME\.vim\dein\repos\github.com\Shougo\vimproc.vim\autoload // ここにコピーする
-        "call dein#add('Shougo/vimproc', {
-        "      \ 'build': {
-        "      \     'windows': 'tools\\update-dll-mingw',
-        "      \     'cygwin': 'make -f make_cygwin.mak',
-        "      \     'mac': 'make -f make_mac.mak',
-        "      \     'linux': 'make',
-        "      \     'unix': 'gmake'}})
+        "    ---> $HOME\.vim\dein\repos\github.com\Shougo\vimproc.vim\lib // ここにコピーする
+        call dein#add('Shougo/vimproc', {
+              \ 'build': {
+              \     'windows': 'tools\\update-dll-mingw',
+              \     'cygwin': 'make -f make_cygwin.mak',
+              \     'mac': 'make -f make_mac.mak',
+              \     'linux': 'make',
+              \     'unix': 'gmake'}})
 
-        "call dein#add('Shougo/unite.vim', {
-        "      \ 'depends': ['vimproc'],
-        "      \ 'on_cmd': ['Unite'],
-        "      \ 'lazy': 1})
+        call dein#add('Shougo/unite.vim', {
+              \ 'depends': ['vimproc'],
+              \ 'on_cmd': ['Unite'],
+              \ 'lazy': 1})
 
         " vimshell
-        "call dein#add('Shougo/vimshell.vim')
+        call dein#add('Shougo/vimshell.vim')
 
         if has('lua')
             call dein#add('Shougo/neocomplete.vim', {
