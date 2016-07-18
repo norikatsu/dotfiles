@@ -28,6 +28,8 @@ if has("vim_starting")
     endif
 endif
 
+let &runtimepath = &runtimepath . "," . s:vimdir
+
 " dein
 let s:dein_enabled  = 0
 if s:use_dein && v:version >= 704
