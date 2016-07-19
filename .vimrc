@@ -587,6 +587,9 @@ let g:syntastic_check_on_wq=0
 let g:syntastic_c_check_header = 1
 " C++
 let g:syntastic_cpp_check_header = 1
+" Verilog
+let g:syntastic_verilog_checkers = ['iverilog']
+
 
 nnoremap <Space>sy :<C-u>SyntasticCheck<CR>
 nnoremap <Space>se :<C-u>Errors<CR>
