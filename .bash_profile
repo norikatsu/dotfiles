@@ -164,20 +164,20 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
 
 
     #========== Set Git Path
-    case $OSTYPE in
-        # ***** Cygwin
-        cygwin)
-            export GIT_PATH=
-            ;;
-        # ***** Mingw
-        msys)
-            export GIT_PATH=/mingw/Git/bin
-            ;;
-        # ***** Linux
-        linux-gnu)
-            export GIT_PATH=
-            ;;
-    esac
+    #case $OSTYPE in
+    #    # ***** Cygwin
+    #    cygwin)
+    #        export GIT_PATH=
+    #        ;;
+    #    # ***** Mingw
+    #    msys)
+    #        export GIT_PATH=/mingw/Git/bin
+    #        ;;
+    #    # ***** Linux
+    #    linux-gnu)
+    #        export GIT_PATH=
+    #        ;;
+    #esac
 
 
     #========== Set VertualBox Path
@@ -336,20 +336,20 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
 
     #========== Set Git Path
-    case $OSTYPE in
-        # ***** Cygwin
-        cygwin)
-            export GIT_PATH=
-            ;;
-        # ***** Mingw
-        msys)
-            export GIT_PATH=/mingw/Git/bin
-            ;;
-        # ***** Linux
-        linux-gnu)
-            export GIT_PATH=
-            ;;
-    esac
+    #case $OSTYPE in
+    #    # ***** Cygwin
+    #    cygwin)
+    #        export GIT_PATH=
+    #        ;;
+    #    # ***** Mingw
+    #    msys)
+    #        export GIT_PATH=/mingw/Git/bin
+    #        ;;
+    #    # ***** Linux
+    #    linux-gnu)
+    #        export GIT_PATH=
+    #        ;;
+    #esac
 
     #========== Set VertualBox Path
     case $OSTYPE in
@@ -555,11 +555,11 @@ fi
 
 
 #---------- Set Git Binpath
-if [ -d "${GIT_PATH}" ] ; then
-    if [ ! "$(echo $PATH | grep ${GIT_PATH})" ]; then
-        export PATH=${PATH}:${GIT_PATH}
-    fi
-fi
+#if [ -d "${GIT_PATH}" ] ; then
+#    if [ ! "$(echo $PATH | grep ${GIT_PATH})" ]; then
+#        export PATH=${PATH}:${GIT_PATH}
+#    fi
+#fi
 
 
 #---------- Set Altera QuartusII Path 
