@@ -467,7 +467,7 @@ $ sudo ln -s /usr/bin/gcc ${MODEL_TECH}/gcc-4.0.2-linux/bin/gcc
     C:\MinGW\msys\1.0\bin\bash.exe --login -i  
     (スタートアップディレクトリは環境変数HOMEで決まる）  
 
-環境変数 HOMEを C:\Users\Norikatsu\Documents に設定
+環境変数 HOMEを C:\Users\nori に設定
 
 HOME に .sshを作成しKeyをファイルサーバからコピー  
         ConEmuの設定ファイルをインポート(ConEmu.xml)  
