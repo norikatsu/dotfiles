@@ -65,14 +65,13 @@
     reg import c:\putty.reg
 
 5. リモートサーバへの鍵アップ
-    codebreak  -> id_rsa.pub をアップ
     conoha     -> id_rsa.pub とputty生成の Pubキーをアップ
 
 
 6. dotfilesの設定
     6.1 サーバからクローン
         msys ホームにて
-        git clone ssh://norikatsu@git.codebreak.com/norikatsu/dotfiles.git
+        git clone https://github.com/norikatsu/dotfiles.git
 
     6.2 各設定ファイルへのリンクを張る
         管理者権限でCMDを起動

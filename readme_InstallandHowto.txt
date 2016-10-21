@@ -62,10 +62,10 @@
 
 
     3.3 VIM インストール方法
-        事前に Mercurialをインストールしておくこと
+        事前に Mercurialをインストールしておくこと -> githubに移行 した
         3.3.1 インストール
             1.以下のコマンドでインストール
-                $ hg clone https://vim.googlecode.com/hg/ vim
+                $ git clone https://github.com/vim/vim.git 
 
             2.ダウンロードした vimディレクトリに移動し configure 実行
                 $ ./configure --enable-multibyte --enable-xim --enable-fontset --disable-selinux --with-features=huge --prefix='/usr/local/vim-7.4' --enable-luainterp=yes

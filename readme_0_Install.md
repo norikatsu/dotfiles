@@ -158,11 +158,11 @@ ln -s /usr/local/python/bin/python3 /usr/local/bin/python3
 
 
 ### VIM インストール方法
-事前に Mercurialをインストールしておくこと
+事前に Mercurialをインストールしておくこと -> githubに移行
 #### ダウンロード
 
 ```
-$ hg clone https://vim.googlecode.com/hg/ vim
+$ git clone https://github.com/vim/vim.git
 ```
 
 #### ダウンロードした vimディレクトリに移動し configure 実行
@@ -493,7 +493,6 @@ HOME に .sshを作成しKeyをファイルサーバからコピー
 
 
 ### リモートサーバへの鍵アップ
-codebreak  -> id_rsa.pub をアップ  
 conoha     -> id_rsa.pub とputty生成の Pubキーをアップ  
 conohaはssh接続を コマンドでする場合には id_rsa.pubを使用(sshコマンドベース)
 Puttyで接続する場合には *.pkkを使用する

@@ -4,7 +4,7 @@
 ## 概要
 ドットファイルは OSとして Linux, Cygwin, Mingwで共用とする。  
 また家と会社でも共有する。  
-全て、gitで管理する管理リポジトリは ```ssh://norikatsu@git.codebreak.com/norikatsu/dotfiles.git ```
+全て、gitで管理する管理リポジトリは ```https://github.com/norikatsu/dotfiles.git ```
 
 
 ### 環境依存ファイルについて
@@ -32,7 +32,7 @@ Linux用のファイル構成が基本となっているため、VIMの設定フ
 
 ダウンロード方法 は 以下のコマンドを $HOMEで実行する
 ```
-$ git clone ssh://norikatsu@git.codebreak.com/norikatsu/dotfiles.git 
+$ git clone https://github.com/norikatsu/dotfiles.git 
 ```
 
 #### VIM設定
