@@ -302,6 +302,15 @@ Fcitx XIM Frontendの Provides XIM supportにチェックを入れる
 Fcitxの切り替えキーバインドは[全体の設定]で行うコト  
 
 
+mozcの設定
+
+```
+$ /usr/lib64/mozc/mozc_tool --mode=dictionary_tool
+```
+これでmozcの辞書登録ツールが起動する
+そのたオプションは検索すること
+
+
 ### 17. ===== vim インストール
 
 #### 必要パッケージと,luaとpythonを事前にインストールする  
