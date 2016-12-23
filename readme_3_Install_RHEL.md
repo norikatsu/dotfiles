@@ -444,14 +444,23 @@ PATHの優先順位で /usr/local/binが優先される
 
 ### 18 .環境変数設定
 ```
-    export GTK_IM_MODULE=fcitx              // SSHリモート時にfcitxを使えるようにするコマンド
-    export XMODIFIERS="@im=fcitx"           // 上に同じ
     export NO_AT_BRIDGE=1                   // SSHリモート時の dbudエラーを表示しないようにするため
+
+    export GTK_IM_MODULE=fcitx              // SSHリモート時にfcitxを使えるようにするコマンド
+    export QT_IM_MODULE=fcitx               //
+    export XMODIFIERS="@im=fcitx"           //
+    export DefaultIMModule=fcitx            //
 ```
 
 ### 19. dotfile入手
 ```
 $ git clone https://github.com/norikatsu/dotfiles.git 
 ```
+
+### 20. リモート時の起動スクリプト
+```
+fcitx -d
+```
+gnome-terminal, screen と同じタイミングでfcitxも起動するスクリプトを用意する
 
 
