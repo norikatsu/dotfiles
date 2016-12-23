@@ -464,3 +464,17 @@ fcitx -d
 gnome-terminal, screen と同じタイミングでfcitxも起動するスクリプトを用意する
 
 
+### 21. githubへのアクセス設定
+
+githubは二段階承認設定のためpushのためにアクセストークンを用意する必要あり  
+トークンは githubの settingで生成する  
+
+ホームディレクトリに以下の設定ファイルを用意する
+
+```
+# vim .netrc
+
+machine github.com
+login norikatsu
+passwd [personalaccesstoken]
+```
