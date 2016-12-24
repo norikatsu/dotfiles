@@ -6,6 +6,7 @@
 "  Author    :  Yoshida Norikatsu
 "               2016/07/18 Restart (dein.vim Version)
 "               2016/12/24 Mod CRLF -> LF (nkf -Lu --overwrite .vimrc)
+"               2016/12/24 Add felix-cat-igirisu-toast-express
 "
 "******************************************************************************
 
@@ -119,6 +120,10 @@ if s:use_dein && v:version >= 704
         call dein#add('kannokanno/previm')
         call dein#add('tyru/open-browser.vim')
         call dein#add('glidenote/memolist.vim')
+
+        " fcitx  関連
+        call dein#add('anekos/felis-cat-igirisu-toast-express')
+
 
         call dein#end()
         call dein#save_state()
