@@ -5,6 +5,7 @@
 	name = Yoshida Norikatsu
 	email = yoshida.norikatsu@jp.panasonic.com
 [core]
+	editor = vim
 	autocrlf = false
 	quotepath = false
 	excludesfile = ~/.gitignore

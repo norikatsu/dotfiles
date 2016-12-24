@@ -2,7 +2,7 @@
 	name = Yoshida Norikatsu
 	email = norikatsu@gmail.com
 [core]
-	autocrlf = false
+	autocrlf = input
 	quotepath = false
 	editor = "'C:\\ProgramFiles\\vim\\gvim.exe' -c 'set fenc=utf-8'"
 	excludesfile = ~/.gitignore
