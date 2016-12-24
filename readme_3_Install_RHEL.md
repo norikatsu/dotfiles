@@ -348,9 +348,9 @@ $ sudo pip --proxy=http://proxy.mei.co.jp:8080 install virtualenvwrapper
 
 ~/.bashrc に下記を記述
 ```
-# vim ~/.bshrc
+# vim ~/.bashrc
 export WORKON_HOME=~/.virtualenvs
-source`whichvirtualenvwrapper.sh`
+source `which virtualenvwrapper.sh`
 ```
 
 
@@ -456,6 +456,14 @@ PATHの優先順位で /usr/local/binが優先される
 ```
 $ git clone https://github.com/norikatsu/dotfiles.git 
 ```
+
+```
+#sudo vim /etc/profile
+export LOCATIONTYPE=HYMOHE 
+or
+export LOCATIONTYPE=OFFICE 
+```
+
 
 ### 20. リモート時の起動スクリプト
 ```
