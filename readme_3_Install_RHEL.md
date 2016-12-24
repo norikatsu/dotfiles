@@ -47,7 +47,8 @@ b. インストールソフト 開発環境を選択
 
 enableProxy[comment]=Use a HTTP Proxy
 enableProxy=1
-httpProxy=
+httpProxy=[proxyserver:port]
+
 ```
 
 subscriptionのプロキシ設定
@@ -444,6 +445,7 @@ PATHの優先順位で /usr/local/binが優先される
 
 ### 18 .環境変数設定
 ```
+# vim .bashrc
     export NO_AT_BRIDGE=1                   // SSHリモート時の dbudエラーを表示しないようにするため
 
     export GTK_IM_MODULE=fcitx              // SSHリモート時にfcitxを使えるようにするコマンド
@@ -467,7 +469,7 @@ export LOCATIONTYPE=OFFICE
 
 ### 20. リモート時の起動スクリプト
 ```
-fcitx -d
+~/dotfiles/start_at_mobaxterm.sh
 ```
 gnome-terminal, screen と同じタイミングでfcitxも起動するスクリプトを用意する
 
