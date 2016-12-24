@@ -158,7 +158,7 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
             ;;
         # ***** Linux
         linux-gnu)
-            export VIM_PATH=
+            export VIM_PATH=/usr/local/bin
             ;;
     esac
 
@@ -330,7 +330,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
         # ***** Linux
         linux-gnu)
-            export VIM_PATH=
+            export VIM_PATH=/usr/local/bin
             ;;
     esac
 
@@ -584,7 +584,6 @@ case $OSTYPE in
         fi
         ;;
 esac
-
 
 
 

@@ -212,22 +212,21 @@ if [ "${TERM}" == "screen" ]; then
 fi
 
 
+#========== Python 2 or 3 selectable ==========
+export WORKON_HOME=~/.virtualenvs
+source `which virtualenvwrapper.sh`
 
 
 
-#******************************************************************************
-# Completion options
-#******************************************************************************
-
-# These completion tuning parameters change the default behavior of bash_completion:
+#========== SSH remote No Error ==========
+export NO_AT_BRIDGE=1
 
 
+#========== fcitx ==========
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+export DefaultIMModule=fcitx
 
-#******************************************************************************
-# History Options
-#******************************************************************************
-
-# Don't put duplicate lines in the history.
-# export HISTCONTROL="ignoredups"
 
 
