@@ -442,6 +442,12 @@ $ sudo ln -s /usr/local/vim-8.0/bin/vim /usr/local/bin/vimdiff
 PATHの優先順位で /usr/local/binが優先される  
 
 
+fontの設定
+```
+$ cp Ricty.ttf ~/.fonts/
+$ fc-cache -vf
+```
+
 
 ### 18 .環境変数設定
 ```
