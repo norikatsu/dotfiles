@@ -29,7 +29,7 @@ colorscheme darkblue
 if has("win32") || has("win64")
     set guifont=Ricty:h13:cSHIFTJIS
 else
-    set guifont=monospace\ 12
+    set guifont=Ricty\ 12
 end
 
 
