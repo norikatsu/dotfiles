@@ -10,6 +10,7 @@
 "              2011/06/07 Mod Colorscheme (Switch Input Mode / Normal Mode)
 "              2011/06/07 Colorscheme setting go to .vimrc
 "              2011/06/07 Add Save Window Size Function
+"              2016/12/25 Mod Linux Font & Windows GUI setting
 "
 "******************************************************************************
 
@@ -58,3 +59,7 @@ set langmenu=ja_jp.utf-8
 source $VIMRUNTIME/menu.vim
 
 
+"========== 半透明設定
+if has("win32") || has("win64")
+    autocmd GUIEnter * set transparency=220
+end
