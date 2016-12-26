@@ -61,5 +61,5 @@ source $VIMRUNTIME/menu.vim
 
 "========== 半透明設定
 if has("win32") || has("win64")
-    autocmd GUIEnter * set transparency=220
+    autocmd GUIEnter * set transparency=205
 end
