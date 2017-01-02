@@ -494,3 +494,40 @@ machine github.com
 login norikatsu
 passwd [personalaccesstoken]
 ```
+
+
+### 22. EPEL リポジトリの追加
+
+`http://ftp-srv2.kddilabs.jp/Linux/distributions/fedora/epel/7/x86_64/e/ `より  
+`epel-release-7-2.noarch.rpm` をダウンロード
+
+```
+# sudo yum localinstall epel-release-7-2.noarch.rpm
+```
+
+EPELリポジトリはデフォルトで有効化されている。
+無効化して、任意指定にする為には以下の設定
+
+```
+# vim /etc/yum.repos.d/epel.repo# nano /etc/yum.repos.d/epel.repo
+
+[epel]
+enable=0
+
+インストール時の任意指定
+$ yum --enablerepo=epel install ????
+```
+
+
+### 23. ファイラー nemo のインストール
+
+```
+# sudo yum install nemo
+```
+
+
+### 24. byobu のインストール
+
+```
+# sudo yum install byobu
+```
