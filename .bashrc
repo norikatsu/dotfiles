@@ -228,5 +228,6 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
 export DefaultIMModule=fcitx
 
+export LM_LICENSE_FILE=/usr/cad/diamond38/diamond/3.8_x64/license/license.dat
 
 
