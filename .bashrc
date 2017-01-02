@@ -88,11 +88,13 @@ fi
 # Setting Aliases
 #******************************************************************************
 
-
-#alias ls='ls -F --color=auto'
-#alias ll='ls -l -F --color=auto'
-alias ls='ls --show-control-chars -F --color=auto'
-alias ll='ls --show-control-chars -l -F --color=auto'
+if ls --color=auto --show-control-chars >/dev/null 2>&1;then
+    alias ls='ls --show-control-chars -F --color=auto'
+    alias ll='ls --show-control-chars -l -F --color=auto'
+else
+    alias ls='ls -F --color=auto'
+    alias ll='ls -l -F --color=auto'
+fi
 
 alias vi='vim'
 alias gvi='gvim'
@@ -161,6 +163,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #========== Filer
     if [ "${OSTYPE}" == "linux-gnu" ]; then
         alias nau='nautilus --no-desktop'
+        alias nem='nemo --no-desktop'
     fi
 
     #========== GUI Yum Tool
