@@ -19,6 +19,8 @@ b. インストールソフト 開発環境を選択
 ```
 # visudo
     user    ALL=(ALL)   ALL
+
+    secure_path に /usr/lobal/bin を追加
 ```
 
 ### 3. ===== ロケール設定
@@ -445,8 +447,11 @@ PATHの優先順位で /usr/local/binが優先される
 fontの設定
 ```
 $ cp Ricty.ttf ~/.fonts/
+$ sudo yum -y install ipa-gothic-fonts ipa-mincho-fonts ipa-pgothic-fonts ipa-pmincho-fonts
 $ fc-cache -vf
 ```
+(EPELリポジトリが無いとエラーになるかもしれないので、22. を参照してEPELリポジトリを先にインストールしておくこと)
+
 
 
 ### 18 .環境変数設定
