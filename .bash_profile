@@ -404,7 +404,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
 
     #========== Set Altera QuartusII Path & Lincense
-    export QUARTUS_LICENSE=1700@10.64.218.165
+    export QUARTUS_LICENSE=1700@10.78.91.137
 
     case $OSTYPE in
         # ***** Cygwin
@@ -502,8 +502,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
 
     #========== Set Xilinx
-    export XILINXD_LICENSE_FILE=2100@10.64.218.165
-    export VIVADO=/usr/cad/vivado-2013.3/Vivado/2013.3
+    export XILINXD_LICENSE_FILE=2100@10.78.91.137
+    export VIVADO_PATH=/usr/cad/vivado-2016.4/Vivado/2016.4
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
 
@@ -520,6 +520,14 @@ else
     echo " LOCATIONTYPE Variable is ${LOCATIONTYPE} is non-correspondence.  Please confirm it in /etc/profile"
     echo " This message is sent from ${HOME}/.bash_profile"
 fi
+
+
+
+
+#********** MYHOME & OFFICE setting **********
+    #========== Set Lattice Diamond & Lincense
+    export DIAMOND_LICENSE=/usr/cad/diamond38/diamond/3.8_x64/license/license.dat
+
 
 
 #****************************************************************************o*
@@ -599,9 +607,9 @@ fi
 
 
 #----------  Set Vivado Environment Variables 
-if [ ! "$(echo $PATH | grep ${VIVADO}/bin)" ]; then
-    export PATH=$PATH:${VIVADO}/bin
-    export LD_LIBRARY_PATH=${VIVADO}/bin:/usr/X11R6/lib:/usr/cad/libs
+if [ ! "$(echo $PATH | grep ${VIVADO_PATH}/bin)" ]; then
+    export PATH=$PATH:${VIVADO_PATH}/bin
+    export LD_LIBRARY_PATH=${VIVADO_PATH}/bin:/usr/X11R6/lib:/usr/cad/libs
 fi
 
 #----------  Set Xilinx lib tool Environment Variables 
@@ -663,6 +671,15 @@ if [ ! "$(echo $LM_LICENSE_FILE | grep $SYNOPSYS_LICENSE)" ]; then
     export LM_LICENSE_FILE=$LM_LICENSE_FILE:$SYNOPSYS_LICENSE
 fi
 
+
+#---------- Set Lattice Diamond License
+if [ ! "$(echo $LM_LICENSE_FILE | grep $DIAMOND_LICENSE)" ]; then
+    if [ "$LM_LICENSE_FILE" = "" ]; then
+        export LM_LICENSE_FILE=$DIAMOND_LICENSE
+    else
+        export LM_LICENSE_FILE=$LM_LICENSE_FILE:$DIAMOND_LICENSE
+    fi
+fi
 
 #****************************************************************************o*
 # EXEC Screen
