@@ -188,7 +188,7 @@ gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 必要パッケージのインストール
 
 ```
-    # yum install glibc.i686 libXext.i386 libX11.i386 libXau.i386 libXdmcp.i386 freetype.i386 fontconfig.i386 and expat.i386
+    # yum install libSM.so.6
 ```
 
 quartus13.1のtarを解凍してから `# ./setup.sh` 実行  

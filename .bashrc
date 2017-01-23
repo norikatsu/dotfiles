@@ -163,7 +163,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #========== Filer
     if [ "${OSTYPE}" == "linux-gnu" ]; then
         alias nau='nautilus --no-desktop'
-        alias nem='nemo --no-desktop'
+        alias nem='nemo --no-desktop 2>/dev/null'
     fi
 
     #========== GUI Yum Tool
@@ -216,8 +216,8 @@ fi
 
 
 #========== Python 2 or 3 selectable ==========
-export WORKON_HOME=~/.virtualenvs
-source `which virtualenvwrapper.sh`
+#export WORKON_HOME=~/.virtualenvs
+#source `which virtualenvwrapper.sh`
 
 
 
