@@ -647,6 +647,13 @@ fi
 if [ ! "$(echo $PATH | grep "${CODEBENCHPATH}")" ]; then
     export PATH=$PATH:${CODEBENCHPATH}
 fi
+
+
+#---------- Set Current Path
+export PATH=$PATH:.
+
+
+
 #========== Set License
 
 
