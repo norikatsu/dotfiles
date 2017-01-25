@@ -448,6 +448,7 @@ fontの設定
 ```
 $ cp Ricty.ttf ~/.fonts/
 $ sudo yum -y install ipa-gothic-fonts ipa-mincho-fonts ipa-pgothic-fonts ipa-pmincho-fonts
+$ sudo yum -y install vlgothic-*
 $ fc-cache -vf
 ```
 (EPELリポジトリが無いとエラーになるかもしれないので、22. を参照してEPELリポジトリを先にインストールしておくこと)
