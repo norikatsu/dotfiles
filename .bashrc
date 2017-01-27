@@ -133,6 +133,10 @@ case $OSTYPE in
 esac
 
 
+#========== Google Chrome
+if [ "${OSTYPE}" == "linux-gnu" ]; then
+    alias chrome='google-chrome 2>/dev/null'
+fi
 
 #********** MYHOME setting **********
 if [ "${LOCATIONTYPE}" == "MYHOME" ]; then
@@ -140,6 +144,7 @@ if [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     #========== Filer
     if [ "${OSTYPE}" == "linux-gnu" ]; then
         alias nau='nautilus --no-desktop'
+        alias nem='nemo --no-desktop 2>/dev/null'
     fi
 
     #========== GUI Yum Tool
@@ -175,11 +180,11 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #========== QuartusII
     if [ "${OSTYPE}" == "linux-gnu" ]; then
         alias qua='quartus --64bit'
-        alias qua11='/usr/cad/quartus-111/quartus/bin/quartus --64bit'
+        alias qua13='/usr/cad/quartus-131/quartus/bin/quartus --64bit'
         alias qprg='quartus_pgmw --64bit'
     else
         alias qua='quartus'
-        alias qua11='/usr/cad/quartus-111/quartus/bin/quartus'
+        alias qua13='/usr/cad/quartus-131/quartus/bin/quartus'
         alias qprg='quartus_pgmw'
     fi
 #********** Non-Correspondence **********
