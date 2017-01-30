@@ -537,3 +537,21 @@ $ yum --enablerepo=epel install ????
 ```
 # sudo yum install byobu
 ```
+
+
+### 24. Icarus Verilog のインストール
+
+Icarus Verilogのサイトからダウンロードしておく
+
+ftp://icarus.com/pub/eda/verilog/v0.9/
+
+```
+# tar xvfz ./verilog-*.*.*.tar.gz
+# cd verilog-*.*.*
+# ./configure  --prefix=/usr/lobal/bin
+# make
+# sudo make install
+
+```
+
+
