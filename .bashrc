@@ -89,12 +89,21 @@ fi
 #******************************************************************************
 
 if ls --color=auto --show-control-chars >/dev/null 2>&1;then
+    alias l='ls --show-control-chars -CF --color=auto'
+    alias la='ls --show-control-chars -A --color=auto'
     alias ls='ls --show-control-chars -F --color=auto'
-    alias ll='ls --show-control-chars -l -F --color=auto'
+    alias ll='ls --show-control-chars -alF --color=auto'
 else
+    alias l='ls -CF --color=auto'
+    alias la='ls -A --color=auto'
     alias ls='ls -F --color=auto'
-    alias ll='ls -l -F --color=auto'
+    alias ll='ls -l -alF --color=auto'
 fi
+
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
 
 alias vi='vim'
 alias gvi='gvim'
