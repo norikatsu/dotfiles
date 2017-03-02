@@ -28,6 +28,7 @@
 #              2010/09/12 Mod for New Mingw(Ver 20100909)
 #              2010/09/20 Mod Login sequence
 #              2011/05/06 Mod When Shell is bash,Load .bash_profile
+#              2017/03/02 Dell ^M code
 #
 #******************************************************************************
 
@@ -53,4 +54,4 @@ if [ -n "$BASH_VERSION" ]; then
     else
         echo "No ${HOME}/.bash_profile  (This message at $PWD/.profile)"
     fi
-fi  
+fi
