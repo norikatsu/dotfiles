@@ -47,7 +47,7 @@
 
 
 # if running bash
-if [ -n "$BASH_VERSION" ]; then 
+if [ -n "$BASH_VERSION" ]; then
     # include .bash_profile if it exists
     if [ -f "$HOME/.bash_profile" ]; then
         source "${HOME}/.bash_profile"
