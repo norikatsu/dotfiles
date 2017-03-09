@@ -297,6 +297,7 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     export VIVADO=/usr/cad/vivado-2013.3/Vivado/2013.3
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
+    export XIL_IMPACT_USE_LIBUSB=1
 
 
     #========== Set Julia Project
@@ -506,6 +507,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     export VIVADO_PATH=/usr/cad/vivado-2016.4/Vivado/2016.4
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
+    export XIL_IMPACT_USE_LIBUSB=1
 
 
 
@@ -528,6 +530,8 @@ fi
     #========== Set Lattice Diamond & Lincense
     export DIAMOND_LICENSE=/usr/cad/diamond38/diamond/3.8_x64/license/license.dat
 
+    #========== WINE 32bit Set
+    export WINEARCH=win32
 
 
 #****************************************************************************o*

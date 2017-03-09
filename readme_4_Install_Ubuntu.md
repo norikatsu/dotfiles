@@ -92,8 +92,7 @@ sudp apt install ctags
 cd ~
 git clone https://github.com/norikatsu/dotfiles.git 
 ln -s ./dotfiles/.bashrc .bashrc
-ln -s ./dotfiles/.bash_profile .bash_profile
-ln -s ./dotfiles/.profile .profile
+ln -s ./dotfiles/.bash_profile .profile    <- Ubuntuでは bash_profileを読み込まないので .profileとしてリンク
 ln -s ./dotfiles/.vim .vim
 ln -s ./dotfiles/.vimrc .vimrc
 ln -s ./dotfiles/.gvimrc .gvimrc
@@ -171,6 +170,9 @@ sudo vim /etc/fstab
 //fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam  /mnt/devcam cifs username=PINナンバー@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
 
 
+
+
+
 ===========================================================
 ○nemo インストール
 
@@ -178,6 +180,21 @@ sudo add-apt-repository ppa:webupd8team/nemo
 sudo apt update
 sudo apt install nemo nemo-fileroller
 sudo apt install nemo-emblems nemo-filename-repairer nemo-image-converter
+
+リモートログインして nemoを使うと --no-desktop オプションをつけても全画面表示となってしまうため
+Ubuntuではリモート時は使えない・・・
+
+またローカル環境で使う場合にも、テーマ変更時に、テーマ設定ファイルが noutilus用に作られているため
+イマイチなデザインになってしまう・・・
+
+
+===========================================================
+○nautilus での sftp設定
+nautilusの「サーバへ接続」にて
+sftp://user@serveraddres
+と入力することで接続できる
+必要があれば　ブックマーク登録しておく
+
 
 
 
@@ -246,15 +263,191 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6010", MODE="0666"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6810", MODE="0666"
 
 
+===========================================================
+○Diamond (Lattice) インストール
+
+・rpmパッケージを alienコマンドで debに変換する必要がある
+alienコマンドはroot権限がないと実行できない。
+
+sudo apt install alien
+sudo alien -g --scripts  diamond_3_7-base_x64-96-1-x86_64-linux.rpm
+cd diamond_3_7-base_x64-3.7
+sudo debian/rules binary
+
+debへの変換は長い時間がかかるので注意
+
+
+・インストール
+cd ..
+sudo dpkg -i diamond-3-7-base-x64_3.7-97_amd64.deb
+
+
+
+・libpng12のリンク変更
+cd /usr/local/diamond/3.8_x64/bin/lin64
+sudo mv libpng12.so.0 libpng12.so.0.old
+sudo ln -s /usr/lib/x86_64-linux-gnu/libpng12.so.0 libpng12.so.0
+
+
+
+
+
+・ライセンスの設定
+デフォルトで eth0のMACアドレスを見に行くようになっているが、Ubuntuにはeth0が存在しないので
+下記の仮想eth0を作成する(MACアドレスも下記のように設定する）
+
+sudo ip tuntap add dev eth0 mode tap
+sudo ip link set dev eth0 address 1c:23:45:67:89:ab
+
+LatticeのHPでのライセンス申請も上記仮想MACアドレスで申請する
+license.dat ファイルを /usr/local/diamond/3.8_x64/license 下にコピーしておく
+
+
+
+
+
+
+
 
 ===========================================================
 ○ xeroxネットプリンタ設定
-xeroxのHPからドライバ(deb)ファイルをダウンロードして
+xeroxのHPからドライバ、とユーティリティ(deb)ファイルをダウンロードして
 インストール
+　→　残念ながら認証ありの状態で使う方法はわからず
 
-GUIのシステム - プリンタから追加 (ネット、プロトコルは IPP)
 
 
+
+
+
+===========================================================
+○ 環境整備
+
+http://blog.wagavulin.jp/entry/2016/07/03/073247
+http://superjeter007.blog.jp/archives/3028716.html
+上記サイト参照
+
+sudo apt install compizconfig-settings-manager unity-tweak-tool
+
+unity-tweal-tool で起動する
+　ランチャーの場所（左か下）、サイズなど変更
+　ウィンドスナップ機能はOFFにしておく
+
+
+・スクロールバーのサイズを一般的なサイズにする
+gsettings set com.canonical.desktop.interface scrollbar-mode normal
+
+（元にもどすには）
+gsettings reset com.canonical.desktop.interface scrollbar-mode
+
+
+・テーマ変更
+マテリアルデザインに変更する
+sudo add-apt-repository ppa:snwh/pulp
+sudo apt update
+sudo apt install paper-icon-theme paper-gtk-theme
+
+unity-tweal-tool で
+[テーマ]と[アイコン]にてそれぞれ "Paper"を選択する
+
+
+
+・時計アプリ
+cairo-clock のインストールと起動設定
+
+sudo apt install cairo-clock
+
+Dash で「自動起動」を検索すると、自動起動するアプリケーションの設定ウィンドウが立ち上がる
+ここに cairo-clock を登録
+オプションは --helpで調べる
+例として下記の様に自動起動登録する
+cairo-clock --xposition=1800 --width=127 --height=127 --theme=radium --ontop
+
+
+===========================================================
+○ meld(diff ツール）のインストール
+
+sudo apt install meld
+
+
+
+===========================================================
+○ RabbitVCS(GUI SVN ツール）のインストール
+
+sudo add-apt-repository ppa:rabbitvcs/ppa
+sudo apt update
+sudo apt install rabbitvcs-nautilus
+
+
+
+
+
+
+
+
+===========================================================
+○ wineインストールと環境整備
+下記サイト参考
+http://runit.blog.fc2.com/blog-entry-5.html
+
+sudo add-apt-repository ppa:ubuntu-wine/ppa
+sudo apt update
+sudo apt install wine1.8
+
+export WINEARCH=win32
+
+下記コマンドで設定
+winecfg 
+ここで MONO と GECKOをインストールするようメッセージが出た場合には
+これに従いインストールする
+
+起動後　
+アプリケーション タブで Windowsのバージョンを選択（何を選ぶかはその場その場で決める）
+
+
+次に下記コマンド実行
+winetricks
+
+「Select the〜」が選択されているので、そのまま「OK」をクリック
+OKを押し続け、選択項目時に一番上の Install a Windows DLL or Componentを選択
+あとは dotnet4.0など選択してダウンロードする
+
+フォントは
+$HOME/.wine/drive_c/windows/Fonts/ にttcフォントファイルをコピーする
+
+
+
+
+===========================================================
+○RS232C (USB)を wine上から使う設定
+
+USB RS232CはLinuxマシンに接続するとすぐに認識する
+/dev/下に ttyUSB*が出来上がる
+
+このデバイスは dialout グループになっているので使いたいユーザを
+dialoutグループに追加する
+
+sudo gpasswd -a nori dialout
+
+下記コマンドで追加されていることを確認
+getent group dialout 
+
+
+~/.wine/dosdevices 下に /dev/ttyUSB*へのリンクを com*名で作成する
+
+ln -s /dev/ttyUSB0 ~/.wine/dosdevices/com1
+
+
+
+
+===========================================================
+○Irfanviewを wine上から使う設定
+
+mfc42.dllをインストール
+winetricks mfc42
+
+あとは wine上で ifranviewのインストーラーを実行する
+wine iview***_setup.exe
 
 
 
