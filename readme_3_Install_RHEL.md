@@ -188,8 +188,17 @@ gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 必要パッケージのインストール
 
 ```
-    # yum install libSM.so.6
+    # yum install libSM.so.6 libXdmcp.i686
 ```
+
+下記もインストールしているが、今回はrpmをlocalinstallした
+```
+    # yum install libSM.i686
+    # yum install libXtst.i686
+    # yum install libXi.i686
+```
+
+
 
 quartus13.1のtarを解凍してから `# ./setup.sh` 実行  
 インストールディレクトリとパッケージをcuiで選択  
