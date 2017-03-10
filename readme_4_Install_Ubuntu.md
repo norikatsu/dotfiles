@@ -288,6 +288,16 @@ cd /usr/local/diamond/3.8_x64/bin/lin64
 sudo mv libpng12.so.0 libpng12.so.0.old
 sudo ln -s /usr/lib/x86_64-linux-gnu/libpng12.so.0 libpng12.so.0
 
+・ライブラリのチェック
+下記を実行
+/usr/local/diamond/3.7_x64/ispfpga/bin/lin64/lmutil lmhostid
+
+そのようなコマンドはないとエラーが出る場合、下記を実行
+file /usr/local/diamond/3.7_x64/ispfpga/bin/lin64/lmutil
+ここでダイナミックリンクとして要求されている、ld-lsb-x86-64.so.3 が無い
+よって下記のようにライブラリのリンクを作成
+sudo ln -s /lib64/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
+
 
 
 
@@ -298,6 +308,16 @@ sudo ln -s /usr/lib/x86_64-linux-gnu/libpng12.so.0 libpng12.so.0
 
 sudo ip tuntap add dev eth0 mode tap
 sudo ip link set dev eth0 address 1c:23:45:67:89:ab
+
+ifconfig -a で追加されていることを確認
+
+毎回コマンドで実行するのが面倒な場合、下記ファイルを作成（まだ未確認）
+sudo vim /etc/udev/rules.d/70-persistent-net.rules
+
+SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="1c:23:45:67:89:ab", ATTR{dev_id}=="0x0", ATTR{type}=="1", NAME="eth0"
+
+
+
 
 LatticeのHPでのライセンス申請も上記仮想MACアドレスで申請する
 license.dat ファイルを /usr/local/diamond/3.8_x64/license 下にコピーしておく
