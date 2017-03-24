@@ -323,6 +323,11 @@ LatticeのHPでのライセンス申請も上記仮想MACアドレスで申請�
 license.dat ファイルを /usr/local/diamond/3.8_x64/license 下にコピーしておく
 
 
+・アンインストール方法
+パッケージ名を " dpkg -l"コマンドで確認
+アンインストールは下記コマンド
+
+sudo dpkg -r diamond-**** 
 
 
 
