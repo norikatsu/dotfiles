@@ -487,11 +487,11 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     esac
 
     #========== Set Leda
-    export SYNOPSYS_LICENSE=27000@132.182.83.177
+    export SYNOPSYS_LICENSE=27020@132.182.83.177
     case $OSTYPE in
         # ***** Linux
         linux-gnu)
-            export LEDA_PATH=/usr/cad/leda-2010.12
+            export LEDA_PATH=/usr/cad/leda-2014.12-SP1-1
             export LEDA_CONFIG=${LEDA_PATH}/pana/leda_config.tcl
             ;;
         # ***** other
