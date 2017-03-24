@@ -240,6 +240,11 @@ GUIインストーラーにてインストール先を /usr/cad/vivado2014.2に�
 
 ### 15. ===== xilinxデザインツールをインストール
 
+/usr/local/Xilinx_LabTools ディレクトリを作成しその下にインストール
+
+Xilinx_LabTools_14.7_1015_1.tar を解凍し
+xsetup スクリプトを実行することでインストーラが起動する
+
 
 
 
@@ -563,4 +568,19 @@ ftp://icarus.com/pub/eda/verilog/v0.9/
 
 ```
 
+
+
+### 25. Lattice Diamond のインストール
+
+Diamond Ver3.9以降が RHEL7に対応  
+rpmパッケージを以下の要領でインストールして、  
+ライセンスファイルをコピーする  
+
+
+```
+# sudo mkdir /usr/cad/diamond-390
+# sudo rpm -Uvh --prefix /usr/cad/diamond-390 ./diamond_3_9-base_x64-99-2-x86_64-linux.rpm
+# sudo cp license.dat /usr/cad/diamond-390/diamond/3.9_x64/license
+
+```
 
