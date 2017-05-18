@@ -55,6 +55,7 @@
 #               2011/06/08 Add Vim Backup Files Dir Setting
 #               2014/11/19 Add Vertual Box PATH 
 #               2014/11/23 Add Python PATH 
+#               2017/05/18 Mod Questa(Modelsim) Path & License
 #
 #******************************************************************************
 
@@ -446,7 +447,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #========== Set ModelSim Path & Lincense
     #export MODELSIM_LICENSE=1717@132.182.83.174
     #export MODELSIM_LICENSE=1717@cae-x4:1717@zion:1717@jp0200swtc103
-    export MODELSIM_LICENSE=1717@cae-x8:1717@jp0200swtc103
+    #export MODELSIM_LICENSE=1717@cae-x8:1717@jp0200swtc103
+    export MODELSIM_LICENSE=1717@132.182.83.178
 
     case $OSTYPE in
         # ***** Cygwin
@@ -461,7 +463,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
         # ***** Linux
         linux-gnu)
-            export MODEL_TECH=/usr/cad/questa-10.0d/questasim
+            export MODEL_TECH=/usr/cad/questa-10.6a/questasim
             export MODELSIM_PATH=$MODEL_TECH/bin
             # 32bit or 64bit
             export MTI_VCO_MODE=32
