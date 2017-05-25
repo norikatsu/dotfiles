@@ -101,8 +101,8 @@ if s:use_dein && v:version >= 704
 
         call dein#add('vimtaku/hl_matchit.vim.git')
 
-        call dein#add('vcscommand.vim')
-        call dein#add('taglist.vim')
+        call dein#add('vim-scripts/vcscommand.vim')
+        call dein#add('vim-scripts/taglist.vim')
         call dein#add('motemen/git-vim')
         call dein#add('norikatsu/verilog_instance.vim')
         call dein#add('norikatsu/headder_module.vim')
