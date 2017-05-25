@@ -25,3 +25,9 @@ if [ $SHLVL -eq 1 ]; then
   fi
 fi
 のように書けばいいでしょう。最初に起動されたbashで、なおかつXが利用可能なら、かな漢字変換サーバとlxterminalを起動します。
+
+
+4. cmderインストール
+    git for Windows環境等で使用するbashでも使えるターミナルソフト
+
+    cmder miniを使うこと
