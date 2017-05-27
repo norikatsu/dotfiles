@@ -77,10 +77,19 @@ Vivado, Quartusのインストール
 
 ### 5. ===== gnome-terminal インストール
 
+#### --- Ubuntu apt リポジトリ変更 とアップデート
+    sudo sed -i -e 's%http://.*.ubuntu.com%http://ftp.jaist.ac.jp/pub/Linux%g' /etc/apt/sources.list
+    sudo apt update
+    sudo apt upgrade
+
 #### --- Ubuntu側の設定 
 
     sudo apt-get install aptitude
     sudo aptitude install gnome-terminal
+
+    git のデフォルトエディタがvimではないので変更
+    sudo update-alternatives --config editor
+
 
 
 #### --- 日本語入力ができるよう インストール
@@ -95,13 +104,10 @@ Vivado, Quartusのインストール
     export QT_IM_MODULE=uim
 
 
-で書いたかな漢字変換サーバとlxterminalの起動を自動化するなら、例えばhome directoryの.bashrcの末尾に
-if [ $SHLVL -eq 1 ]; then
-  if DISPLAY=localhost:0.0 xset q > /dev/null 2>&1 ; then
-    DISPLAY=localhost:0.0 UIM_CANDWIN_PROG=uim-candwin-gtk uim-xim &
-    DISPLAY=localhost:0.0 XMODIFIERS="@im=uim" GTK_IM_MODULE=uim QT_IM_MODULE=uim lxterminal &
-  fi
-fi
-のように書けばいいでしょう。最初に起動されたbashで、なおかつXが利用可能なら、かな漢字変換サーバとlxterminalを起動します。
+    上記設定を行うスクリプトを作成する
+    if [ $SHLVL -eq 2 ]; then
+        DISPLAY=localhost:0.0 UIM_CANDWIN_PROG=uim-candwin-gtk uim-xim &
+        DISPLAY=localhost:0.0 XMODIFIERS="@im=uim" GTK_IM_MODULE=uim QT_IM_MODULE=uim gnome-terminal &
+    fi
 
 
