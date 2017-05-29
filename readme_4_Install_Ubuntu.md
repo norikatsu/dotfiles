@@ -158,6 +158,33 @@ sudo vim /etc/nsswitch.conf
 hosts:    files mdns4_minimal [NOTFOUND=return] dns wins
 
 
+remminaの設定
+    プロファイルの「名前」は任意、「グループ」空欄、「プロトコル」はRDP
+
+    基本設定の
+        サーバはIPアドレスorマシン名
+        ユーザー名はWindowsのログイン名 (ドメイン時はPINナンバーのみ）
+        パスワードは PCCドメインのパスワード
+        ドメインは "pcc-ad.pcc.mei.co.jp
+
+        解像度は任意
+        色数は "True color" （これにしないとフォントレンダリングが汚くなる）
+
+    高度な設定
+        品質　は最高に（これにしないとフォントが汚くなる）
+        サウンドはオフ
+        セキュリティはネゴシエーション
+        クライアント名、起動プログラム、起動パスは空欄
+        チェック欄も空欄
+
+
+共通の設定画面（メインウィンドの歯車マークをクリック）
+    RDPでの詳細設定（カーソルの影など）はレスポンスを見て調整すること
+
+
+
+
+
 ===========================================================
 ○ファイルサーバマウント
 
@@ -169,8 +196,13 @@ sudo vim /etc/fstab
 
 //fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam  /mnt/devcam cifs username=PINナンバー@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
 
+実際の記載は下記の様にしている（パスワードのみ隠してある）
 
-
+# Filse Server
+//fs-minami2.japan.gds.panasonic.com/favc-s44$/n-diad   /mnt/pfdev  cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
+//fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam    /mnt/devcam cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
+//fs-minami1.japan.gds.panasonic.com/FAVC-S02$/n-dsc5   /mnt/dsc5   cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
+//jp0200swvfa15/bsd-dghome/DesignRoot/current           /mnt/cad    cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
 
 
 ===========================================================
