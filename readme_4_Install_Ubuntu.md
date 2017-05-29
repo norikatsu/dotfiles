@@ -511,3 +511,24 @@ alias ls='ls --color=auto'
 
 
 
+===========================================================
+○マウス環境整備
+
+Logcoolのマウスの場合 Unifying を使うためには下記ツールが必要
+
+$ sudo add-apt-repository ppa:daniel.pavel/solaar
+$ sudo apt-get update
+$ sudo apt-get install solaar
+
+再起動後、通知領域に solaarのアイコンが表示される
+
+
+
+カーソル速度の調整ツール
+
+$ sudo apt install  dconf-editor
+
+$ dconf-editor で起動する（Windowsのregieditのような階層構造になっている）
+
+    org > gnome > desktop > peripherals > mouse 
+        上記数値を -1.0 ~ 1.0 に調整することで速度を変えられる (1.0が最速）
