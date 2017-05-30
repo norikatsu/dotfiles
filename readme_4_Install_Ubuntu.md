@@ -241,10 +241,10 @@ sftp://user@serveraddres
 ○Xilinx LabTool インストール
 
 インストーラー実行をsudoで実行するとエラーとなるため
-一旦自分のホームにインストールしてから /usr/cad 下にコピーする
+一旦自分のホームにインストールしてから /usr/local 下にコピーする
 
 コピー結果が
-/usr/cad/Xilinx_LabTools/14.7 ....
+/usr/local/Xilinx_LabTools/14.7 ....
 となるようにコピーする
 
 
