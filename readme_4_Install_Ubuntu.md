@@ -578,5 +578,51 @@ Extensin PackをWEBサイトからダウンロードしてインストールす�
 本体インストール後 Extension Packをダブルクリックでインストールされる
 
 
+USBを使えるようにするため virtualboxグループにユーザーを参加させる
+# sudo gpasswd -a USERNAME voxusers
+
+
+===========================================================
+○modernIE
+modernIEの設定 - USBの設定で "USBデバイスフィルター"を追加して
+デバイスとして USB-232C変換機を登録する (他のFPGA書き込み機はLinux経由で使うため登録しない）
+
+IE のプロキシ設定
+Acrbatインストール
+ブックマーク保存
+Zドライブに devcam登録
+
+
+日本語環境をセットアップ
+    Windows+Iキーを押して設定チャームを開き、画面右下の[Change PC settings]をクリック
+    [PC Settings]画面左の[Time and language]をクリック
+    [Time and language]画面左で[Region and language]をクリック
+    画面右の[Country and region]ドロップダウンを[Japan]に変更
+    [Language]セクションで[Add a language]をクリック
+    [Add a language]画面で[日本語]をクリック
+    [Time and language]画面に戻ると[Languages]セクションに[日本語]が追加され、その下の表示が[language pack available]に切り替わります。
+    [日本語]をクリックし、[Set as primary]ボタンを押す
+    再度[日本語]をクリックし、[Options]ボタンを押す。
+    [日本語]画面の[Download language pack]の下の[Download]ボタンを押す。
+    Windowsキーを押してStart画面を表示し、右上のIEUserをクリックし、ポップアップメニューの[Sign out]を押す。
+    マウスをクリックして、サインイン画面を表示し、パスワード欄にPassw0rd!と入力してエンターキーを押す。
+    Start画面のStartが日本語で「スタート」と表示されていればOK
+    これで、日本語を入力、表示できるようになりました。
+
+
+キーボードの設定
+
+コマンド指定して実行で
+"mmc devmgmt.msc"
+
+起動後下記編集
+「Keyboards」の「Standard PS/2 keyboard」の「Properties」をクリックします。
+「Driver」の「Update Driver…」をクリックします。
+「Browse my computer for driver software」をクリックします。
+「Let me pick from a list of device drivers on my computer」をクリックします。
+「Show compatible hardware」のチェックを外し、「Manufactuer」で「(Standard keyboards)」を選択し、「Japanese PS/2 Keyboard (106/109 Key)」を選択して「Next」をクリックします。
+ドライバの確認が行われるので「Yes」をクリックします。
+
+
 
 
