@@ -437,6 +437,58 @@ sudo apt install rabbitvcs-nautilus
 
 
 
+===========================================================
+○ ssh クライアント側としての設定
+ローカルを PC-A
+サーバを   PC-B
+とする
+
+PC-A 
+    $ cd ~/.ssh
+    $ ssh-keygen -t rsa
+
+        パスフレーズ当は空欄とする
+        id_rsa : 秘密鍵
+        id_rsa.pub : 公開鍵　ができる
+
+    id_rsa.pub を PC-Bの ~/.sshに置く
+
+
+PC-B
+    ~/.ssh/authorized_keys ファイルに公開鍵をまとめる
+
+    $ cat id_rsa.pub >> authorized_keys
+    $ chmod 600 authorized_keys
+
+
+PC-A
+    秘密鍵のパーミッションも変えておく
+    $ chmod 600 ~/.ssh/id_rsa
+
+
+疎通確認
+PC-A側からログインする
+
+    $ ssh -l [ユーザ名] -i [秘密鍵のパス] [サーバのホスト名]
+
+一度上記方法でログインすると次からは秘密鍵指定は不要となる
+
+
+いちいちログインにオプション記載が面倒なので PC-Aの
+ ~/.ssh/configに省略設定を記載する
+
+ $ vim ~/.ssh/config
+
+    # FPGA-Buiild
+    Host fpga-build                     <- ログイン時の指定ホスト名
+        HostName 192.168.1.1            <- 対象マシンのアドレス or 名前
+        User nori                       <- ログイン時のユーザー名
+        IdentityFile ~/.ssh/id_rsa      <- 秘密鍵
+        Port 22                         <- 使用ポート番号
+        TCPKeepAlive yes                <- 接続状態を継続したい場合：yes　継続しない場合：no
+        IdentitiesOnly yes              <- IdentityFileが必要な場合：yes　必要ない場合：no
+        ForwardX11 yes                  <- X11フォワーディングを使う場合には yes
+        Compression yes                 <- 上記の際にデータ圧縮を行う際 yes
 
 
 
