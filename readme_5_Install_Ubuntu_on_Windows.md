@@ -7,7 +7,7 @@ Vivado, Quartusのインストール
 日本語環境、vim環境を整備する
 ---
 
-### 2. ===== 環境変数 HOME設定
+### 0. ===== 環境変数 HOME設定
     bash,vim等で参照するため
     HOME 変数に "C:\Users\?????"
     を設定する
@@ -48,7 +48,11 @@ Vivado, Quartusのインストール
     > mklink /D .vim       .\dotfiles\.vim
 
 
-### 3. ===== gvim起動
+### 3. ===== vim
+    c:\ProgramFiles\vim に
+    解凍
+    同じディレクトリに ctags.exe も入れる
+
     初回起動時にプラグインのインストールが行われるので
     しばらくほっておく
     インストール後  .vimrc にあるように vimpron用のdllをコピーする
@@ -74,8 +78,33 @@ Vivado, Quartusのインストール
     "C:\Windows\System32\bash.exe ~"
 
 
+### 5. ===== x-Finder
+    
+    c:\ProgramFiles\Xfinder に X-Finderをコピー
+    その他、ツールとして
+        Leeya
+        E-rename
+    をコピーする
 
-### 5. ===== gnome-terminal インストール
+    スタートアップに xf64.exe を登録
+
+### 6. ===== SVN, WinMerge, VLC, IfranView
+    それぞれ、最新版をダウンロードし
+    インストーラでデフォルトパスにインストール
+
+### 7. ===== リモートデスクトップ環境
+    リモートデスクトップ接続時に、キーボード配置がUSに成っている場合、
+
+    リモートで接続した状態で、
+        デバイスマネージャー -> キーボード - リモートデスクトップキーボードデバイス を右クリック
+        ドライバソフトウエアの更新
+        コンピュータを参照してドライバソフトウエアの更新
+        コンピュータ上のデバイスドライバーの一覧から選択
+        互換性のあるハードウェアのチェックを外し、（標準キーボード）から"日本語PS/2キーボード(106/109) を選択
+        再起動後有効化
+
+
+### 8. ===== gnome-terminal インストール
 
 #### --- Ubuntu apt リポジトリ変更 とアップデート
     sudo sed -i -e 's%http://.*.ubuntu.com%http://ftp.jaist.ac.jp/pub/Linux%g' /etc/apt/sources.list
