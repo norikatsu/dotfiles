@@ -51,6 +51,6 @@ set output-meta on
 
 
 # Kanji Code
-set kanji-code uft-8
+#set kanji-code uft-8
 
 
