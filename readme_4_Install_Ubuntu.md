@@ -158,6 +158,33 @@ sudo vim /etc/nsswitch.conf
 hosts:    files mdns4_minimal [NOTFOUND=return] dns wins
 
 
+remminaの設定
+    プロファイルの「名前」は任意、「グループ」空欄、「プロトコル」はRDP
+
+    基本設定の
+        サーバはIPアドレスorマシン名
+        ユーザー名はWindowsのログイン名 (ドメイン時はPINナンバーのみ）
+        パスワードは PCCドメインのパスワード
+        ドメインは "pcc-ad.pcc.mei.co.jp
+
+        解像度は任意
+        色数は "True color" （これにしないとフォントレンダリングが汚くなる）
+
+    高度な設定
+        品質　は最高に（これにしないとフォントが汚くなる）
+        サウンドはオフ
+        セキュリティはネゴシエーション
+        クライアント名、起動プログラム、起動パスは空欄
+        チェック欄も空欄
+
+
+共通の設定画面（メインウィンドの歯車マークをクリック）
+    RDPでの詳細設定（カーソルの影など）はレスポンスを見て調整すること
+
+
+
+
+
 ===========================================================
 ○ファイルサーバマウント
 
@@ -169,8 +196,13 @@ sudo vim /etc/fstab
 
 //fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam  /mnt/devcam cifs username=PINナンバー@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
 
+実際の記載は下記の様にしている（パスワードのみ隠してある）
 
-
+# Filse Server
+//fs-minami2.japan.gds.panasonic.com/favc-s44$/n-diad   /mnt/pfdev  cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
+//fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam    /mnt/devcam cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
+//fs-minami1.japan.gds.panasonic.com/FAVC-S02$/n-dsc5   /mnt/dsc5   cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
+//jp0200swvfa15/bsd-dghome/DesignRoot/current           /mnt/cad    cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
 
 
 ===========================================================
@@ -209,10 +241,10 @@ sftp://user@serveraddres
 ○Xilinx LabTool インストール
 
 インストーラー実行をsudoで実行するとエラーとなるため
-一旦自分のホームにインストールしてから /usr/cad 下にコピーする
+一旦自分のホームにインストールしてから /usr/local 下にコピーする
 
 コピー結果が
-/usr/cad/Xilinx_LabTools/14.7 ....
+/usr/local/Xilinx_LabTools/14.7 ....
 となるようにコピーする
 
 
@@ -405,6 +437,58 @@ sudo apt install rabbitvcs-nautilus
 
 
 
+===========================================================
+○ ssh クライアント側としての設定
+ローカルを PC-A
+サーバを   PC-B
+とする
+
+PC-A 
+    $ cd ~/.ssh
+    $ ssh-keygen -t rsa
+
+        パスフレーズ当は空欄とする
+        id_rsa : 秘密鍵
+        id_rsa.pub : 公開鍵　ができる
+
+    id_rsa.pub を PC-Bの ~/.sshに置く
+
+
+PC-B
+    ~/.ssh/authorized_keys ファイルに公開鍵をまとめる
+
+    $ cat id_rsa.pub >> authorized_keys
+    $ chmod 600 authorized_keys
+
+
+PC-A
+    秘密鍵のパーミッションも変えておく
+    $ chmod 600 ~/.ssh/id_rsa
+
+
+疎通確認
+PC-A側からログインする
+
+    $ ssh -l [ユーザ名] -i [秘密鍵のパス] [サーバのホスト名]
+
+一度上記方法でログインすると次からは秘密鍵指定は不要となる
+
+
+いちいちログインにオプション記載が面倒なので PC-Aの
+ ~/.ssh/configに省略設定を記載する
+
+ $ vim ~/.ssh/config
+
+    # FPGA-Buiild
+    Host fpga-build                     <- ログイン時の指定ホスト名
+        HostName 192.168.1.1            <- 対象マシンのアドレス or 名前
+        User nori                       <- ログイン時のユーザー名
+        IdentityFile ~/.ssh/id_rsa      <- 秘密鍵
+        Port 22                         <- 使用ポート番号
+        TCPKeepAlive yes                <- 接続状態を継続したい場合：yes　継続しない場合：no
+        IdentitiesOnly yes              <- IdentityFileが必要な場合：yes　必要ない場合：no
+        ForwardX11 yes                  <- X11フォワーディングを使う場合には yes
+        Compression yes                 <- 上記の際にデータ圧縮を行う際 yes
 
 
 
@@ -508,6 +592,89 @@ alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
 alias ls='ls --color=auto'
+
+
+
+===========================================================
+○マウス環境整備
+
+Logcoolのマウスの場合 Unifying を使うためには下記ツールが必要
+
+$ sudo add-apt-repository ppa:daniel.pavel/solaar
+$ sudo apt-get update
+$ sudo apt-get install solaar
+
+再起動後、通知領域に solaarのアイコンが表示される
+
+
+
+カーソル速度の調整ツール
+
+$ sudo apt install  dconf-editor
+
+$ dconf-editor で起動する（Windowsのregieditのような階層構造になっている）
+
+    org > gnome > desktop > peripherals > mouse 
+        上記数値を -1.0 ~ 1.0 に調整することで速度を変えられる (1.0が最速）
+
+
+
+===========================================================
+○VirtualBox 
+
+aptコマンドでインストールすること
+Extensin PackをWEBサイトからダウンロードしてインストールすること
+ここで 本体のバージョンと揃える必要あり
+(20170530時点の Ubuntu 16.04では 5.0.40 になっているので注意）
+
+本体インストール後 Extension Packをダブルクリックでインストールされる
+
+
+USBを使えるようにするため virtualboxグループにユーザーを参加させる
+# sudo gpasswd -a USERNAME voxusers
+
+
+===========================================================
+○modernIE
+modernIEの設定 - USBの設定で "USBデバイスフィルター"を追加して
+デバイスとして USB-232C変換機を登録する (他のFPGA書き込み機はLinux経由で使うため登録しない）
+
+IE のプロキシ設定
+Acrbatインストール
+ブックマーク保存
+Zドライブに devcam登録
+
+
+日本語環境をセットアップ
+    Windows+Iキーを押して設定チャームを開き、画面右下の[Change PC settings]をクリック
+    [PC Settings]画面左の[Time and language]をクリック
+    [Time and language]画面左で[Region and language]をクリック
+    画面右の[Country and region]ドロップダウンを[Japan]に変更
+    [Language]セクションで[Add a language]をクリック
+    [Add a language]画面で[日本語]をクリック
+    [Time and language]画面に戻ると[Languages]セクションに[日本語]が追加され、その下の表示が[language pack available]に切り替わります。
+    [日本語]をクリックし、[Set as primary]ボタンを押す
+    再度[日本語]をクリックし、[Options]ボタンを押す。
+    [日本語]画面の[Download language pack]の下の[Download]ボタンを押す。
+    Windowsキーを押してStart画面を表示し、右上のIEUserをクリックし、ポップアップメニューの[Sign out]を押す。
+    マウスをクリックして、サインイン画面を表示し、パスワード欄にPassw0rd!と入力してエンターキーを押す。
+    Start画面のStartが日本語で「スタート」と表示されていればOK
+    これで、日本語を入力、表示できるようになりました。
+
+
+キーボードの設定
+
+コマンド指定して実行で
+"mmc devmgmt.msc"
+
+起動後下記編集
+「Keyboards」の「Standard PS/2 keyboard」の「Properties」をクリックします。
+「Driver」の「Update Driver…」をクリックします。
+「Browse my computer for driver software」をクリックします。
+「Let me pick from a list of device drivers on my computer」をクリックします。
+「Show compatible hardware」のチェックを外し、「Manufactuer」で「(Standard keyboards)」を選択し、「Japanese PS/2 Keyboard (106/109 Key)」を選択して「Next」をクリックします。
+ドライバの確認が行われるので「Yes」をクリックします。
+
 
 
 
