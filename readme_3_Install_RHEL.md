@@ -143,6 +143,11 @@ ethernet0.Address = "AB:CD:EF:12:34:56"
 
 ### 10. ===== chromeのインストール
 
+
+会社環境ではリポジトリ登録での方法がうまく行かなかったので
+直接rpmパッケージをインストールした
+
+
 googleのリポジトリを登録
 ```
 # vi /etc/yum.repos.d/google.chrome.repo
