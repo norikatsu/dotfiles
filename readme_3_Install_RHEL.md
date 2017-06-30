@@ -558,7 +558,7 @@ $ yum --enablerepo=epel install ????
 ```
 
 
-### 24. Icarus Verilog のインストール
+### 25. Icarus Verilog のインストール
 
 Icarus Verilogのサイトからダウンロードしておく
 
@@ -575,7 +575,7 @@ ftp://icarus.com/pub/eda/verilog/v0.9/
 
 
 
-### 25. Lattice Diamond のインストール
+### 26. Lattice Diamond のインストール
 
 Diamond Ver3.9以降が RHEL7に対応  
 rpmパッケージを以下の要領でインストールして、  
@@ -588,4 +588,103 @@ rpmパッケージを以下の要領でインストールして、
 # sudo cp license.dat /usr/cad/diamond-390/diamond/3.9_x64/license
 
 ```
+
+
+### 27. 外付けUSB-HDDのマウントとNTFSへの対応
+
+USB-HDDを接続しても、デフォルトでは自動マウントしない
+接続後USBとして認識しているか、確認してデバイスパスを確認する
+
+```
+# lsusb 
+# sudo fdisk -l
+```
+
+これで /dev以下のパスが確認できる。例えば /dev/sdb1となっていたとする
+
+外部HDDがNTFSの場合、mount時のFileTypeをNTFSにする必要があるが
+デフォルトでNTFSに非対応なので下記パッケージをインストールする
+
+```
+# sudo yum localinstall ntfs-3g-****.rpm
+
+```
+
+下記のようにマウントする (マウントパスは事前に作っておくこと)
+```
+# sudo mount -t ntfs  /dev/sdb1  /mnt/usbhdd/
+
+```
+
+
+### 28. ssh 公開鍵方式の設定
+
+RedHat側から LinuxBにログインする場合を想定
+
+```
+[Redhat] $ ssh-keygen -t rsa  
+```
+鍵の名前を聞かれるので、デフォルト"id_rsa" のまま  
+パスフレーズは空欄のまま。下記のファイルが生成される  
+
+id_rsa     : 秘密鍵  
+id_rsa.pub : 公開鍵  
+
+秘密鍵は ~/.sshの下に配置し、パーミッションは600にしておく
+```
+[Redhat] $ mv id_rsa ~/.ssh
+[RedHat] $ chmod 600 id_rsa 
+```
+
+ログイン時のコマンド短縮のため下記設定を ~/.ssh/config ファイルに記入しておく
+
+```
+# LinuxB
+Host LinuxB                     ( sshコマンドで指定する ホスト名）
+    HostName ***.***.***.***    ( LinuxBのIPアドレス）
+    User USERNAME               ( LinuxBのアカウント名)
+    IdentityFile ~/.ssh/id_rsa  ( 秘密鍵のパス)
+    Port 22
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+    ForwardX11 yes
+    Compression yes
+```
+
+
+id_rsa.pubを LinuxBに転送し ~/.sshの下に配置  
+authorized_keys ファイルに統合する。このファイルのパーミッションは 600にすること
+ 
+```
+[LinuxB] $ cat id_rsa.pub >> authorized_keys
+[LinuxB] $ rm id_rsa.pub
+[LinuxB] $ chmod 600 authorized_keys 
+```
+
+これで  ssh ホスト名  だけでログイン可能となる
+
+
+
+### 29. rsync によるバックアップの設定
+
+上記 27. で設定した外付けHDD /mnt/usbhdd (の中の Backup/nori-fpga-build )にバックアップを取る設定
+
+```
+rsync -auv -delete --safe-links /home/nori /mnt/usbhdd/Backup/nori-fpga-build/
+```
+
+
+上記 28. で設定した外部PC LinuxBの中身を /mnt/usbhdd (の中の Backup/nori-ubuntu) にバックアップを取る設定
+
+```
+rsync -auv -delete --safe-links -e ssh nori@LinuxB:/home/nori /mnt/usbhdd/Backup/nori-fpga-build/
+```
+
+
+
+
+
+
+
+
 
