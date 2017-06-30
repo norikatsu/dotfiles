@@ -695,9 +695,13 @@ $ crontab -e
 12:20分 月曜-金曜(1-5)に ローカル /home/noriを usbhddにバックアップ
 13:00分 月曜-金曜(1-5)に リモート /home/noriを usbhddにバックアップする処理
 
-20 12 * * 1-5 nori rsync -au -delete --safe-links --log-file=/home/nori/log/rsync-redhat-`date +"%Y%m%d-%H%M"`.log /home/nori /mnt/usbhdd/Backup/nori-fpga-build/
-00 13 * * 1-5 nori rsync -au -delete --safe-links --log-file=/home/nori/log/rsync-ubuntu-`date +"%Y%m%d-%H%M"`.log -e ssh nori@nori-linux:/home/nori /mnt/usbhdd/Backup/nori-ubuntu/
+20 12 * * 1-5 rsync -au -delete --safe-links --log-file=/home/nori/log/rsync-redhat-`date +"%Y%m%d-%H%M"`.log /home/nori /mnt/usbhdd/Backup/nori-fpga-build/
+00 13 * * 1-5 rsync -au -delete --safe-links --log-file=/home/nori/log/rsync-ubuntu-`date +"%Y%m%d-%H%M"`.log -e ssh nori@nori-linux:/home/nori /mnt/usbhdd/Backup/nori-ubuntu/
 
+本来上記記載のままだと ``の区切り、""の区切りによる誤検出で正常に実行されないのでコマンドはスクリプトにまとめて
+rsync_redhat.sh, rsync_ubuntu.sh として dotfilesにコミットしておく
 
-
+cronにはスクリプトを登録して下記のようにする
+20 12 * * 1-5 rsync_redhat.sh
+00 13 * * 1-5 rsync_ubuntu.sh
 
