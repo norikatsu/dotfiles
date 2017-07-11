@@ -80,7 +80,7 @@ ftp://icarus.com/pub/eda/verilog/v0.9/
 # sudo apt install flex bison
 # tar xvfz ./verilog-*.*.*.tar.gz
 # cd verilog-*.*.*
-# ./configure  --prefix=/usr/lobal/bin
+# ./configure    (デフォルトで /usr/local/bin にインストールされる）
 # make
 # sudo make install
 
