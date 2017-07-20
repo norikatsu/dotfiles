@@ -424,7 +424,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             #export QUARTUS_ROOTDIR=/usr/cad/quartus-130/quartus
 
             # QuartusII Auto Add Setting
-            export ALTERAOCLSDKROOT="/usr/local/altera/quartus-131/hld"
+            export ALTERAOCLSDKROOT="/usr/cad/quartus-161/hld"
             ;;
     esac
 
@@ -506,7 +506,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
     #========== Set Xilinx
     export XILINXD_LICENSE_FILE=2100@10.78.91.137
-    export VIVADO_PATH=/usr/cad/vivado-2016.4/Vivado/2016.4
+    export VIVADO_PATH=/usr/cad/vivado-2017.2/Vivado/2017.2
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
     export XIL_IMPACT_USE_LIBUSB=1
@@ -727,3 +727,5 @@ if [ "${OSTYPE}" == "linux-gnu" ]; then
 fi
 
 
+
+export QSYS_ROOTDIR="/usr/cad/quartus-161/quartus/sopc_builder/bin"

@@ -196,6 +196,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
         alias qua13='/usr/cad/quartus-131/quartus/bin/quartus'
         alias qprg='quartus_pgmw'
     fi
+
 #********** Non-Correspondence **********
 else
     echo " LOCATIONTYPE Variable is ${LOCATIONTYPE} is non-correspondence.  Please confirm it in /etc/profile"
@@ -247,3 +248,7 @@ export DefaultIMModule=fcitx
 
 
 
+
+export ALTERAOCLSDKROOT="/usr/cad/quartus-161/hld"
+
+export QSYS_ROOTDIR="/usr/cad/quartus-161/quartus/sopc_builder/bin"
