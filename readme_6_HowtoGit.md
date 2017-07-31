@@ -29,3 +29,6 @@ $ git remote add origin ssh://remote_-PC/home/****/git___repo      (URLは上記
 $ git push origin master
 
 
+#### Config確認
+$ git config --list
+
