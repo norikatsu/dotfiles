@@ -25,7 +25,9 @@ $ git --bare git_repo  (リポジトリ作成）
 
 #### ローカルの SVNからコピーしたgitリポジトリの リモートURLを変更してプッシュ
 
-$ git remote add origin ssh://remote_-PC/home/****/git___repo      (URLは上記でリモートPCに作成したディレクトリの絶対パス)
+$ git remote add origin ssh://remote-PC/home/****/git_repo      (URLは上記でリモートPCに作成したディレクトリの絶対パス)
+    (sshの設定ファイルでユーザ名入力を短縮していない場合には下記の様にURLを設定する）
+　　　　　$ git remote add origin ssh://USERNAME@remote-PC/home/****/git_repo 
 $ git push origin master
 
 
