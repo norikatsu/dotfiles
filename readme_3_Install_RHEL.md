@@ -466,6 +466,7 @@ PATHの優先順位で /usr/local/binが優先される
 fontの設定
 ```
 $ cp Ricty.ttf ~/.fonts/
+$ cp CicaE.ttf ~/.fonts/
 $ sudo yum -y install ipa-gothic-fonts ipa-mincho-fonts ipa-pgothic-fonts ipa-pmincho-fonts
 $ sudo yum -y install vlgothic-*
 $ fc-cache -vf

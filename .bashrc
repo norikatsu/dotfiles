@@ -223,7 +223,24 @@ stty stop undef
 umask 022
 
 #========== Set Prompt ==========
-PS1='\[\e[0;32m\][\u@\h\[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ '
+
+# Normal Version
+#PS1='\[\e[0;32m\][\u@\h\[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ '
+
+# Gopher Version
+#PS1="\[\e[0;32m\][\u@\[\e[00m\]\[\e[0;34m\]"`echo -e '\UE161' `" \[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ "
+
+if [ -e /etc/lsb-release ]; then
+    # Ubuntu
+    PS1="\[\e[0;32m\][\u@\[\e[00m\]\[\e[0;34m\]"`echo -e '\UE161' `" \[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ "
+elif [ -e /etc/redhat-release ]; then
+    # Redhat
+    PS1="\[\e[0;32m\][\u@\[\e[00m\]\[\e[0;31m\]"`echo -e '\UE18E' `" \[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ "
+else
+    # other
+    PS1='\[\e[0;32m\][\u@\h\[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ '
+fi
+
 
 if [ "${TERM}" == "screen" ]; then
     export PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}"; echo -ne "\033\\"; echo -ne "\ek\e\\"'

@@ -11,6 +11,7 @@
 "              2011/06/07 Colorscheme setting go to .vimrc
 "              2011/06/07 Add Save Window Size Function
 "              2016/12/25 Mod Linux Font & Windows GUI setting
+"              2017/08/07 Mod Linux Font & Windows GUI setting -> CicaE
 "
 "******************************************************************************
 
@@ -30,7 +31,7 @@ colorscheme darkblue
 if has("win32") || has("win64")
     set guifont=Ricty:h13:cSHIFTJIS
 else
-    set guifont=Ricty\ 12
+    set guifont=CicaE\ 12
 end
 
 
