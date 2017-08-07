@@ -29,7 +29,8 @@ colorscheme darkblue
 
 "========== Font
 if has("win32") || has("win64")
-    set guifont=Ricty:h13:cSHIFTJIS
+    "set guifont=Ricty:h13:cSHIFTJIS
+    set guifont=CicaE:h13:cSHIFTJIS:qDRAFT
 else
     set guifont=CicaE\ 12
 end
