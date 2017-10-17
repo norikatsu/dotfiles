@@ -699,4 +699,30 @@ Zドライブに devcam登録
 
 
 
+===========================================================
+○ Skype for Buisiness
+
+pidgin をインストール
+
+# sudo apt install pidgin
+# sudo apt install pidgin-sipe
+
+Linuxを再起動する
+
+pidgin を起動後アカウント追加
+
+    Base タブ
+        Protocol : Office Communicator
+        Username : yoshida.norikatsu@palet.jp.panasonic.com
+        Login    : PCC-AD\PINナンバー
+        Password : 上記のパスワード
+
+    Advancedタブ
+        Server   : 空欄
+        Connection type : Auto
+        User Agent : UCCAPI/15.0.4420.1017 OC/15.0.4420.1017
+        Authentication scheme : TLS-SDK
+
+以上で接続できる
+
 
