@@ -30,9 +30,10 @@ colorscheme darkblue
 "========== Font
 if has("win32") || has("win64")
     "set guifont=Ricty:h13:cSHIFTJIS
-    set guifont=CicaE:h13:cSHIFTJIS:qDRAFT
+    set guifont=Cica:h13:cSHIFTJIS:qDRAFT
+    set rop=type:directx,renmode:5
 else
-    set guifont=CicaE\ 12
+    set guifont=Cica\ 12
 end
 
 

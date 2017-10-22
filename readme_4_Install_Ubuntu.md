@@ -207,11 +207,11 @@ sudp apt install git
 
 ===========================================================
 ○svnインストール 
-sudp apt install subversion
+sudo apt install subversion
 
 ===========================================================
 ○ctagsインストール 
-sudp apt install ctags
+sudo apt install ctags
 
 
 
