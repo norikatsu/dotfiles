@@ -850,3 +850,10 @@ pidgin を起動後アカウント追加
 以上で接続できる
 
 
+    自動起動設定
+    $ gnome-session-properties
+    で自動起動するアプリの設定が開くので pidginを追加する
+
+
+
+
