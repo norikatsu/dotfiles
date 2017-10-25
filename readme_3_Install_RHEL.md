@@ -706,3 +706,71 @@ cronにはスクリプトを登録して下記のようにする
 20 12 * * 1-5 rsync_redhat.sh
 00 13 * * 1-5 rsync_ubuntu.sh
 
+
+
+### 31. ===== NFS サーバ起動
+
+```
+# sudo yum install nfs-server
+
+# sudo systemctl enable rpcbind
+# sudo systemctl enable nfs-server
+
+```
+
+ファイアウォールを通すため使用ポートを固定
+```
+sudo vim /etc/sysconfig/nfs
+下記行のコメントアウトを外す
+MOUNTD_PORT=892
+
+```
+
+
+サービスの起動、再起動コマンド
+# sudo systemctl start nfs-server
+# sudo systemctl restart nfs-server
+
+サービスが起動しているか確認
+service nfs status
+
+
+```
+
+設定ファイルは下記
+```
+/etc/exports
+
+エクスポートしたいパス    アクセス許可クライアント(オプション) 
+/home/nori                nori-linux(rw)
+/home/test                192.168.1.3(ro)
+/home/test2               192.168.1.4(anonuid=1000,anongid=1000)      <=NFS経由でのアクセス時のUID等を指定する場合
+
+exports変更反映
+# sudo exportfs -ar
+
+```
+
+Firewallの設定
+ポート 111 と ポート 2049  と ポート 892 の TCP/UDP を許可
+```
+# sudo firewall-cmd --add-port=2049/tcp --permanent
+# sudo firewall-cmd --add-port=2049/udp --permanent
+# sudo firewall-cmd --add-port=111/tcp --permanent
+# sudo firewall-cmd --add-port=111/udp --permanent
+# sudo firewall-cmd --add-port=892/tcp --permanent
+# sudo firewall-cmd --add-port=892/udp --permanent
+```
+・設定を読込みます
+# sudo firewall-cmd --reload
+
+・設定を確認します
+# sudo firewall-cmd --list-all
+
+以下の表示があればOK
+    ports: 111/udp 2049/tcp 2049/udp 111/tcp 892/tcp 892/udp
+
+
+
+
+

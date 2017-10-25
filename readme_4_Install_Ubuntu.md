@@ -856,4 +856,20 @@ pidgin を起動後アカウント追加
 
 
 
+===========================================================
+○ NFS マウント
+
+NFSクライアントをインストール
+# sudo apt install nfs-common
+
+
+NFSサーバ側の状態を確認
+# showmount -e IPaddrs
+
+/etc/fstab
+
+Server:/PATH   /mnt/tmp  nfs  defaults 0 0
+
+
+
 
