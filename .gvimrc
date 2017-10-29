@@ -31,7 +31,7 @@ colorscheme darkblue
 if has("win32") || has("win64")
     "set guifont=Ricty:h13:cSHIFTJIS
     set guifont=Cica:h13:cSHIFTJIS:qDRAFT
-    set rop=type:directx,renmode:5
+    "set rop=type:directx,renmode:5
 else
     set guifont=Cica\ 12
 end
