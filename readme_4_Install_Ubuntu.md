@@ -82,12 +82,12 @@ sudo apt-get install openssh-server
 
 ===========================================================
 ○nVIDIAドライバインストール
-sudo add-apt-repository -y ppa:graphics-drivers/ppa
-sudo apt update
 
 画面左上の『アクティビティ』をクリック、softwareと入力、
 表示されたソフトウェアとアップデートをクリックして起動し、
 「追加のドライバー」タブでドライバーをインストールする。
+
+(一緒に Processor microcode firmware for Intel microcodeもインストールする)
 
 
 ===========================================================
@@ -323,20 +323,19 @@ sudo vim /etc/fstab
 
 以下の様に記述
 
-//fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam  /mnt/devcam cifs username=PINナンバー@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
 
-smb2等に対応するためには下記の様にする
-//fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam  /mnt/devcam cifs vers=2.1,username=PINナンバー@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
-
+smb3等に対応するためには下記の様にする
+//fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam  /mnt/devcam cifs username=PINナンバー@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,vers=3.0,defaults 0 0
 
 
-実際の記載は下記の様にしている（パスワードのみ隠してある）
+
+実際の記載は下記の様にしている（パスワードのみ隠してある） (versについてはサーバ側で対応しているバージョンにあわせること)
 
 # Filse Server
-//fs-minami2.japan.gds.panasonic.com/favc-s44$/n-diad   /mnt/pfdev  cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
-//fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam    /mnt/devcam cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
-//fs-minami1.japan.gds.panasonic.com/FAVC-S02$/n-dsc5   /mnt/dsc5   cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
-//jp0200swvfa15/bsd-dghome/DesignRoot/current           /mnt/cad    cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,defaults 0 0
+//fs-minami2.japan.gds.panasonic.com/favc-s44$/n-diad   /mnt/pfdev  cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,vers=1.0,defaults 0 0
+//fs-kita3.japan.gds.panasonic.com/sav1$/tech/devcam    /mnt/devcam cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,vers=1.0,defaults 0 0
+//fs-minami1.japan.gds.panasonic.com/FAVC-S02$/n-dsc5   /mnt/dsc5   cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,vers=1.0,defaults 0 0
+//jp0200swvfa15/bsd-dghome/DesignRoot/current           /mnt/cad    cifs username=4006376@japan.gds.panasonic.com,password=PASSWORD,sec=ntlm,iocharset=utf8,rw,uid=1000,gid=1000,vers=1.0,defaults 0 0
 
 
 ===========================================================
@@ -416,17 +415,22 @@ setup.shの先頭の実行シェル指定がNGなので
 32bitライブラリが必要なので下記をインストール
 sudo apt-get install libxft2:i386 libxext6:i386 libncurses5:i386 libsm6:i386 libxtst6:i386 libxi6:i386
 
-usb blaster driver
 
-sudo vim /etc/udev/rules.d/92-usbblaster.rules  (新規作成)
+Ubuntu17.10では libpng12.so.0が必要だが、debが存在しない
+ので違うバージョン用のdebをダウンロードして gdebiでインストールする
+
+
+usb blaster 用の設定
+
+sudo vim /etc/udev/rules.d/51-usbblaster.rules  (新規作成)
 # USB-Blaster
-SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6001", MODE="0666"
-SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6002", MODE="0666"
-SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6003", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6001", MODE="0666" SYMLINK+="usbblaster2/%k"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6002", MODE="0666" SYMLINK+="usbblaster2/%k"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6003", MODE="0666" SYMLINK+="usbblaster2/%k"
 
 # USB-Blaster II
-SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6010", MODE="0666"
-SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6810", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6010", MODE="0666" SYMLINK+="usbblaster2/%k"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6810", MODE="0666" SYMLINK+="usbblaster2/%k"
 
 
 ===========================================================
@@ -774,6 +778,9 @@ Extensin PackをWEBサイトからダウンロードしてインストールす�
 (20170530時点の Ubuntu 16.04では 5.0.40 になっているので注意）
 
 本体インストール後 Extension Packをダブルクリックでインストールされる
+
+
+ゲストのWindows上で "Guest Addition"をインストールする
 
 
 USBを使えるようにするため virtualboxグループにユーザーを参加させる
