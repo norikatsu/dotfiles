@@ -879,4 +879,15 @@ Server:/PATH   /mnt/tmp  nfs  defaults 0 0
 
 
 
+===========================================================
+○ ウィンドウスナップ(Edge Tiling)の無効化(17.10)
+
+ウィンドを画面端に寄せるとサイズが変わる機能を無効にする方法
+一般ユーザ権限で下記コマンドを実行する
+
+$ dconf write /org/gnome/mutter/edge-tiling false
+$ dconf write /org/gnome/shell/overrides/edge-tiling false
+
+
+
 
