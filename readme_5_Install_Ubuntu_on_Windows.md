@@ -58,7 +58,7 @@ Vivado, Quartusのインストール
     インストール後  .vimrc にあるように vimpron用のdllをコピーする
 
 
-### 4. ===== cmderインストール
+### 4. ===== cmder,VcXsrvインストール
     ターミナルソフト(git bash , Ubuntu on bash用)
     mini版をインストール
 
@@ -78,6 +78,8 @@ Vivado, Quartusのインストール
     "C:\Windows\System32\bash.exe ~"
 
 
+    Xserverは VcXsrv をインストール
+
 ### 5. ===== x-Finder
     
     c:\ProgramFiles\Xfinder に X-Finderをコピー
@@ -92,24 +94,18 @@ Vivado, Quartusのインストール
     それぞれ、最新版をダウンロードし
     インストーラでデフォルトパスにインストール
 
-### 7. ===== リモートデスクトップ環境
-    リモートデスクトップ接続時に、キーボード配置がUSに成っている場合、
-
-    リモートで接続した状態で、
-        デバイスマネージャー -> キーボード - リモートデスクトップキーボードデバイス を右クリック
-        ドライバソフトウエアの更新
-        コンピュータを参照してドライバソフトウエアの更新
-        コンピュータ上のデバイスドライバーの一覧から選択
-        互換性のあるハードウェアのチェックを外し、（標準キーボード）から"日本語PS/2キーボード(106/109) を選択
-        再起動後有効化
+### 7. ===== Windows側のフォントをLinux側で使えるようにする
+# sudo ln -s /mnt/c/Windows/Fonts /usr/share/fonts/windows
+# sudo fc-cache -fv
 
 
-### 8. ===== gnome-terminal インストール
 
 #### --- Ubuntu apt リポジトリ変更 とアップデート
-    sudo sed -i -e 's%http://.*.ubuntu.com%http://ftp.jaist.ac.jp/pub/Linux%g' /etc/apt/sources.list
+
+    sudo sed -i.bak -e "s%http://archive.ubuntu.com/ubuntu/%http://ftp.iij.ad.jp/pub/linux/ubuntu/archive/%g" /etc/apt/sources.list
     sudo apt update
     sudo apt upgrade
+
 
 #### --- Ubuntu側の設定 
 
