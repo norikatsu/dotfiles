@@ -78,6 +78,11 @@ sudo update-alternatives --config editor
 ○sshdインストール
 sudo apt-get install openssh-server
 
+ Xfording(サーバ側)の設定
+/etc/ssh/sshd_config
+X11Forwaring yes
+と書き換える
+
 
 
 ===========================================================
