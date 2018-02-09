@@ -162,7 +162,8 @@ https://extensions.gnome.org/extension/8/places-status-indicator/
 トップバーからワークスペースを切り替えられるようにする
 https://extensions.gnome.org/extension/21/workspace-indicator/
 
-
+トップバーをマルチディスプレイ　全てに表示
+https://extensions.gnome.org/extension/921/multi-monitors-add-on/
 
 ===========================================================
 ○ 『デスクトップ』『音楽』などの日本語フォルダー名を英語表記にする
