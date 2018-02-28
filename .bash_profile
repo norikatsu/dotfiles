@@ -448,7 +448,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #export MODELSIM_LICENSE=1717@132.182.83.174
     #export MODELSIM_LICENSE=1717@cae-x4:1717@zion:1717@jp0200swtc103
     #export MODELSIM_LICENSE=1717@cae-x8:1717@jp0200swtc103
-    export MODELSIM_LICENSE=1717@132.182.83.178
+    #export MODELSIM_LICENSE=1717@132.182.83.178
+    export MODELSIM_LICENSE=20010@10.186.125.38
 
     case $OSTYPE in
         # ***** Cygwin
