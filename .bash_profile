@@ -56,6 +56,7 @@
 #               2014/11/19 Add Vertual Box PATH 
 #               2014/11/23 Add Python PATH 
 #               2017/05/18 Mod Questa(Modelsim) Path & License
+#               2018/04/06 Mod Xilinx & Altera License
 #
 #******************************************************************************
 
@@ -406,7 +407,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
 
     #========== Set Altera QuartusII Path & Lincense
-    export QUARTUS_LICENSE=1700@10.78.91.137
+    #export QUARTUS_LICENSE=1700@10.78.91.137
+    export QUARTUS_LICENSE=1700@10.78.91.175
 
     case $OSTYPE in
         # ***** Cygwin
@@ -506,7 +508,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
 
     #========== Set Xilinx
-    export XILINXD_LICENSE_FILE=2100@10.78.91.137
+    #export XILINXD_LICENSE_FILE=2100@10.78.91.137
+    export XILINXD_LICENSE_FILE=2100@10.78.91.175
     export VIVADO_PATH=/usr/cad/vivado-2017.2/Vivado/2017.2
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
