@@ -466,7 +466,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
         # ***** Linux
         linux-gnu)
-            export MODEL_TECH=/usr/cad/questa-10.6a/questasim
+            export MODEL_TECH=/usr/cad/questa-10.6b/questasim
             export MODELSIM_PATH=$MODEL_TECH/bin
             # 32bit or 64bit
             export MTI_VCO_MODE=32
