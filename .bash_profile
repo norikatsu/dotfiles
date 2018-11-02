@@ -469,8 +469,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             export MODEL_TECH=/usr/cad/questa-10.6b/questasim
             export MODELSIM_PATH=$MODEL_TECH/bin
             # 32bit or 64bit
-            export MTI_VCO_MODE=32
-            #export MTI_VCO_MODE=64
+            #export MTI_VCO_MODE=32
+            export MTI_VCO_MODE=64
             export MTI_GCC_VER=4.3.3
             ;;
     esac
