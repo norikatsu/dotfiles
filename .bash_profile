@@ -471,7 +471,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             # 32bit or 64bit
             #export MTI_VCO_MODE=32
             export MTI_VCO_MODE=64
-            export MTI_GCC_VER=4.3.3
+            export MTI_GCC_VER=5.3.0
             ;;
     esac
 
