@@ -335,6 +335,17 @@ $ /usr/lib64/mozc/mozc_tool --mode=dictionary_tool
 
 ### 17. ===== vim インストール
 
+#### 2018/11/29 に追記 CentOS用の公式パッケージがあるのでこれを使う方が楽
+  $ wget https://copr.fedorainfracloud.org/coprs/unixcommunity/vim/repo/epel-7/unixcommunity-vim-epel-7.repo -P /etc/yum.repos.d/
+古いvim消す
+  $ yum remove "vim*"
+  $ yum install vim-enhanced
+  $ vim --version
+     VIM - Vi IMproved 8.0 (2016 Sep 12, compiled May 22 2017 12:47:09)
+
+
+#### 以下自前ビルドの方法の説明
+
 #### 必要パッケージと,luaとpythonを事前にインストールする  
 ```
 # yum install lua
