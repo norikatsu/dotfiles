@@ -233,6 +233,9 @@ umask 022
 if [ -e /etc/lsb-release ]; then
     # Ubuntu
     PS1="\[\e[0;32m\][\u@\[\e[00m\]\[\e[0;34m\]"`echo -e '\UF113' `" \[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ "
+elif [ -e /etc/centos-release ]; then
+    # CentOS
+    PS1="\[\e[0;32m\][\u@\[\e[00m\]\[\e[0;36m\]"`echo -e '\UF301' `" \[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ "
 elif [ -e /etc/redhat-release ]; then
     # Redhat
     PS1="\[\e[0;32m\][\u@\[\e[00m\]\[\e[0;31m\]"`echo -e '\UF309' `" \[\e[00m\] \[\e[0;33m\]\w\[\e[00m\]\[\e[0;32m\]]\[\e[00m\] \$ "
