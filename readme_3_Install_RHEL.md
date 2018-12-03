@@ -642,10 +642,11 @@ RedHat側から LinuxBにログインする場合を想定
 id_rsa     : 秘密鍵  
 id_rsa.pub : 公開鍵  
 
-秘密鍵は ~/.sshの下に配置し、パーミッションは600にしておく
+秘密鍵は ~/.sshの下に配置し、パーミッションはファイルは600に、フォルダは700にしておく
 ```
 [Redhat] $ mv id_rsa ~/.ssh
-[RedHat] $ chmod 600 id_rsa 
+[RedHat] $ chmod 700 ~/.ssh
+[RedHat] $ chmod 600 ~/.ssh/id_rsa 
 ```
 
 ログイン時のコマンド短縮のため下記設定を ~/.ssh/config ファイルに記入しておく
