@@ -55,14 +55,17 @@ $ sudo apt upgrade
 
 ===========================================================
 ○vim8.0インストール
-17.10ではデフォルトリポジトリに vim8.0登録済みなので
-リポジトリ追加不要
-$ sudo apt install vim-gtk3
 
-それ以前のバージョンではリポジトリ追加する
-$ sudo add-apt-repository ppa:jonathonf/vim
-$ sudo apt update
-$ sudo apt install vim-gtk3
+    最新版のvimを使うためにppaを追加してインストール
+    sudo add-apt-repository ppa:jonathonf/vim
+    sudo apt update
+    sudo apt install vim
+
+vimをアップデート後、カラースキームが無い等のエラーが出るばあいがある
+これは deinのキャッシュが古いため、よってdeinでキャッシュクリアが必要
+
+    vimを立ち上げて下記コマンドを実行する
+    :call dein#recache_runtimepath()
 
 
 ===========================================================
