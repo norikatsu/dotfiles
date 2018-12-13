@@ -303,6 +303,16 @@ sudo vim /etc/nsswitch.conf
 hosts:    files mdns4_minimal [NOTFOUND=return] dns wins
 
 
+
+
+○remmina最新版インストール
+$ sudo apt-add-repository ppa:remmina-ppa-team/remmina-next
+$ sudo apt-get update
+$ sudo apt-get install remmina remmina-plugin-rdp libfreerdp-plugins-standard
+
+
+
+
 remminaの設定
     プロファイルの「名前」は任意、「グループ」空欄、「プロトコル」はRDP
 
