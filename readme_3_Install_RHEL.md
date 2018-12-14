@@ -797,6 +797,7 @@ Firewallの設定
    server ntp1.mei.co.jp
    server ntp2.mei.co.jp
 
+# sudo systemctl ntpdate ntp*2.mei.co.jp   <- ズレが大きいと同期しないので初めに手動で合わせる
 # sudo systemctl start ntpd 
 # sudo systemctl enable ntpd 
 
