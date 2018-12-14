@@ -785,4 +785,37 @@ Firewallの設定
 
 
 
+### 32. ===== ntp サーバ
+
+```
+# sudo yum install ntp
+
+# sudo vim /etc/ntp.conf
+
+   #Add Server 
+   server ntp0.mei.co.jp
+   server ntp1.mei.co.jp
+   server ntp2.mei.co.jp
+
+# sudo systemctl start ntpd 
+# sudo systemctl enable ntpd 
+
+```
+
+Firewalld を有効にしている場合には ntpを許可
+```
+# sudo firewall-cmd --add-service=ntp --permanent 
+success
+# sudo firewall-cmd --reload 
+success
+```
+
+以下のコマンドで動作確認
+(同期状況が帰ってきたらOK)
+```
+# ntpq -p
+
+```
+
+
 
