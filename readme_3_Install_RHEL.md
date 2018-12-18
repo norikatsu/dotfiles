@@ -724,6 +724,9 @@ cronにはスクリプトを登録して下記のようにする
 
 ```
 # sudo yum install nfs-server
+   or 
+# sudo yum install nfs-utils
+
 
 # sudo systemctl enable rpcbind
 # sudo systemctl enable nfs-server
