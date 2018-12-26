@@ -790,6 +790,8 @@ Firewallの設定
 
 ### 32. ===== ntp サーバ
 
+
+以下は古いバージョンでの設定
 ```
 # sudo yum install ntp
 
@@ -822,5 +824,28 @@ success
 
 ```
 
+CentOS7からは ntpd廃止で chronyd が標準になったため下記のようにする
 
+# sudo yum inst
+
+```
+# sudo yum install chrony
+
+# sudo vim /etc/chrony.conf
+
+   #Add Server 
+   server ntp0.mei.co.jp
+   server ntp1.mei.co.jp
+   server ntp2.mei.co.jp
+
+# sudo ntpdate ntp*2.mei.co.jp   <- ズレが大きいと同期しないので初めに手動で合わせる
+# sudo hwclock -w               <- ハードクロックに書き込み
+# sudo systemctl start  chronyd
+# sudo systemctl enable chronyd
+
+```
+
+動いているかの確認は
+# chronyc sources  -> サーバ名と数値がでればOK
+# timedatectl      -> NTP synchronized : yes となっていればOK
 
