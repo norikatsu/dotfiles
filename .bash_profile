@@ -57,6 +57,7 @@
 #               2014/11/23 Add Python PATH 
 #               2017/05/18 Mod Questa(Modelsim) Path & License
 #               2018/04/06 Mod Xilinx & Altera License
+#               2019/01/22 Add vcs,veldi
 #
 #******************************************************************************
 
@@ -491,18 +492,47 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
     esac
 
-    #========== Set Leda
-    export SYNOPSYS_LICENSE=27020@132.182.83.177
+    #========== Set Leda & VCS, Verdi
+    export SYNOPSYS_LICENSE=27020@cae-x7
     case $OSTYPE in
         # ***** Linux
         linux-gnu)
             export LEDA_PATH=/usr/cad/leda-2014.12-SP1-1
             export LEDA_CONFIG=${LEDA_PATH}/pana/leda_config.tcl
+
+        ## MTI_VCO_MODE setting at Line 474
+            # VCS
+            export VCS_HOME=/usr/cad/vcs-mx-2017.12-SP2-1
+            if [ "${MTI_VCO_MODE}" == "32" ]; then
+                export VCS_TARGET_ARCH=linux
+            else
+                export VCS_TARGET_ARCH=amd64
+            fi
+
+            export SNPSLMD_QUEUE="true"
+            export SNPS_MAX_WAITTIME=100000
+            export SNPS_MAX_QUEUETIME=100000
+
+            # Verdi
+            export VERDI_HOME=/usr/cad/verdi-2017.12-SP2-1
+            export NOVAS_HOME=/usr/cad/verdi-2017.12-SP2-1
+            export NOVAS_IDLE_LICENSE_CHECKBACK=5
+
+            if [ "${MTI_VCO_MODE}" == "32" ]; then
+                export NOVAS_PLI=$NOVAS_HOME/share/PLI/VCS/LINUX
+                export NOVAS_LD_LIBRARY_PATH=$NOVAS_HOME/share/FsdbReader/LINUX
+            else
+                export VCS_TARGET_ARCH amd64
+                export NOVAS_PLI=$NOVAS_HOME/share/PLI/VCS/LINUX64
+                export NOVAS_LD_LIBRARY_PATH=$NOVAS_HOME/share/FsdbReader/LINUX64
+            fi
             ;;
         # ***** other
         *)
             export LEDA_PATH=/usr/local
             export LEDA_CONFIG=nothing
+            export VCS_HOME=nothing
+            export VERDI_HOME=nothing
             ;;
     esac
 
@@ -613,6 +643,17 @@ fi
 #----------  Set LEDA  Environment Variables 
 if [ ! "$(echo $PATH | grep ${LEDA_PATH}/bin)" ]; then
     export PATH=$PATH:${LEDA_PATH}/bin
+fi
+
+#----------  Set VCS Environment Variables 
+if [ ! "$(echo $PATH | grep ${VCS_HOME}/bin)" ]; then
+    export PATH=$PATH:${VCS_HOME}/bin
+fi
+
+#----------  Set Verdi Environment Variables 
+if [ ! "$(echo $PATH | grep ${NOVAS_HOME}/bin)" ]; then
+    export PATH=$PATH:${NOVAS_HOME}/bin
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${NOVAS_PLI}
 fi
 
 
