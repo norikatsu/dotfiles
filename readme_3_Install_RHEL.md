@@ -236,11 +236,24 @@ Xilinx_Vivado_SDK_2016.3_*****.bin
 
 GUIインストーラーにてインストール先を /usr/cad/vivado2016.3に選択  
 
+
+CUIインストール方法
+```
+# ./xsetup -b ConfigGen
+```
+で ~/.Xilinx/install_config.txt が生成される
+このファイルを編集（インストール先など）し下記コマンドでインストール実行
+```
+# sudo ./xsetup --agree XilinxEULA,3rdPartyEULA,WebTalkTerms --batch Install --config ~/.Xilinx/install_config.txt
+```
+
+
 ### 14. ===== Vivado2014.* のインストール
     
 Xilinx_Vivado_SDK_2014.2_*****.bin  
 上記プログラムがインストーラー  
 GUIインストーラーにてインストール先を /usr/cad/vivado2014.2に選択  
+
 
 
 ### 15. ===== xilinxデザインツールをインストール
