@@ -471,8 +471,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             export MODEL_TECH=/usr/cad/quartus-161/modelsim_ase
             export MODELSIM_PATH=$MODEL_TECH/bin
             # 32bit or 64bit
-            #export MTI_VCO_MODE=32
-            export MTI_VCO_MODE=64
+            export MTI_VCO_MODE=32
+            #export MTI_VCO_MODE=64
             export MTI_GCC_VER=5.3.0
             ;;
     esac
