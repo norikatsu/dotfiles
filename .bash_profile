@@ -504,11 +504,13 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
         ## MTI_VCO_MODE setting at Line 474
             # VCS
             export VCS_HOME=/usr/cad/vcs-mx-2017.12-SP2-1
-            if [ "${MTI_VCO_MODE}" == "32" ]; then
-                export VCS_TARGET_ARCH=linux
-            else
-                export VCS_TARGET_ARCH=amd64
-            fi
+            #if [ "${MTI_VCO_MODE}" == "32" ]; then
+            #    export VCS_TARGET_ARCH=linux
+            #else
+            #    export VCS_TARGET_ARCH=amd64
+            #fi
+            ##### Fix 64bit 
+            export VCS_TARGET_ARCH=amd64
 
             export SNPSLMD_QUEUE="true"
             export SNPS_MAX_WAITTIME=100000
