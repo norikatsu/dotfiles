@@ -770,7 +770,7 @@ service nfs status
 /etc/exports
 
 エクスポートしたいパス    アクセス許可クライアント(オプション) 
-/home/nori                nori-linux(rw)
+/home/nori                planck(rw)
 /home/test                192.168.1.3(ro)
 /home/test2               192.168.1.4(anonuid=1000,anongid=1000)      <=NFS経由でのアクセス時のUID等を指定する場合
 
