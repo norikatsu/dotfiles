@@ -296,7 +296,8 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     export LEDA_CONFIG=nothing
 
     #========== Set Xilinx
-    export XILINXD_LICENSE_FILE=2100@10.64.218.165
+    #export XILINXD_LICENSE_FILE=2100@10.64.218.165
+    export XILINXD_LICENSE_FILE=2100@10.69.102.209
     export VIVADO=/usr/cad/vivado-2013.3/Vivado/2013.3
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
@@ -409,7 +410,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
     #========== Set Altera QuartusII Path & Lincense
     #export QUARTUS_LICENSE=1700@10.78.91.137
-    export QUARTUS_LICENSE=1700@10.78.91.175
+    #export QUARTUS_LICENSE=1700@10.78.91.175
+    export QUARTUS_LICENSE=1700@10.69.102.209
 
     case $OSTYPE in
         # ***** Cygwin
@@ -542,7 +544,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
     #========== Set Xilinx
     #export XILINXD_LICENSE_FILE=2100@10.78.91.137
-    export XILINXD_LICENSE_FILE=2100@10.78.91.175
+    #export XILINXD_LICENSE_FILE=2100@10.78.91.175
+    export XILINXD_LICENSE_FILE=2100@10.69.102.209
     export VIVADO_PATH=/usr/cad/vivado-2017.2/Vivado/2017.2
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
