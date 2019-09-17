@@ -265,6 +265,10 @@ ntp1.mei.co.jp
 ntp2.mei.co.jp
 
 
+サービスの再起動
+$ sudo systemctl restart systemd-timesyncd.service
+
+
 時刻同期後、以下のコマンドでBIOSの時計を更新
 sudo hwclock -w
 
