@@ -496,7 +496,7 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     esac
 
     #========== Set Leda & VCS, Verdi
-    export SYNOPSYS_LICENSE=27020@cae-x7
+    export SYNOPSYS_LICENSE=27020@cae-x7:20000@10.186.125.49
     case $OSTYPE in
         # ***** Linux
         linux-gnu)
