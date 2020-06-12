@@ -55,14 +55,17 @@ $ sudo apt upgrade
 
 ===========================================================
 ○vim8.0インストール
-17.10ではデフォルトリポジトリに vim8.0登録済みなので
-リポジトリ追加不要
-$ sudo apt install vim-gtk3
 
-それ以前のバージョンではリポジトリ追加する
-$ sudo add-apt-repository ppa:jonathonf/vim
-$ sudo apt update
-$ sudo apt install vim-gtk3
+    最新版のvimを使うためにppaを追加してインストール
+    sudo add-apt-repository ppa:jonathonf/vim
+    sudo apt update
+    sudo apt install vim
+
+vimをアップデート後、カラースキームが無い等のエラーが出るばあいがある
+これは deinのキャッシュが古いため、よってdeinでキャッシュクリアが必要
+
+    vimを立ち上げて下記コマンドを実行する
+    :call dein#recache_runtimepath()
 
 
 ===========================================================
@@ -262,6 +265,10 @@ ntp1.mei.co.jp
 ntp2.mei.co.jp
 
 
+サービスの再起動
+$ sudo systemctl restart systemd-timesyncd.service
+
+
 時刻同期後、以下のコマンドでBIOSの時計を更新
 sudo hwclock -w
 
@@ -275,6 +282,16 @@ sudo hwclock -w
 
 下記コマンド実行
 sudo fc-cache -fv
+
+
+Cicaの絵文字コード確認方法
+Windowsにて Windowsアクセサリ - 文字コード表 を起動
+フォントに Cica を選択
+詳細表示にチェックを入れ
+文字コードを Unicode
+グループを Unicodeカテゴリによる入力を選択
+
+これでCicaフォント内の絵文字一覧が確認できる
 
 
 ===========================================================
@@ -291,6 +308,16 @@ sudo vim /etc/nsswitch.conf
 下記の様にhosts: 行の末尾に "wins"を追記
 
 hosts:    files mdns4_minimal [NOTFOUND=return] dns wins
+
+
+
+
+○remmina最新版インストール
+$ sudo apt-add-repository ppa:remmina-ppa-team/remmina-next
+$ sudo apt-get update
+$ sudo apt-get install remmina remmina-plugin-rdp libfreerdp-plugins-standard
+
+
 
 
 remminaの設定
@@ -619,6 +646,7 @@ PC-B
 
 PC-A
     秘密鍵のパーミッションも変えておく
+    $ chmod 700 ~/.ssh/
     $ chmod 600 ~/.ssh/id_rsa
 
 
@@ -782,6 +810,7 @@ aptコマンドでインストールすること
 Extensin PackをWEBサイトからダウンロードしてインストールすること
 ここで 本体のバージョンと揃える必要あり
 (20170530時点の Ubuntu 16.04では 5.0.40 になっているので注意）
+(20181218時点の Ubuntu 18.04では 5.2.18 になっているので注意）
 
 本体インストール後 Extension Packをダブルクリックでインストールされる
 

@@ -236,11 +236,24 @@ Xilinx_Vivado_SDK_2016.3_*****.bin
 
 GUIインストーラーにてインストール先を /usr/cad/vivado2016.3に選択  
 
+
+CUIインストール方法
+```
+# ./xsetup -b ConfigGen
+```
+で ~/.Xilinx/install_config.txt が生成される
+このファイルを編集（インストール先など）し下記コマンドでインストール実行
+```
+# sudo ./xsetup --agree XilinxEULA,3rdPartyEULA,WebTalkTerms --batch Install --config ~/.Xilinx/install_config.txt
+```
+
+
 ### 14. ===== Vivado2014.* のインストール
     
 Xilinx_Vivado_SDK_2014.2_*****.bin  
 上記プログラムがインストーラー  
 GUIインストーラーにてインストール先を /usr/cad/vivado2014.2に選択  
+
 
 
 ### 15. ===== xilinxデザインツールをインストール
@@ -334,6 +347,17 @@ $ /usr/lib64/mozc/mozc_tool --mode=dictionary_tool
 
 
 ### 17. ===== vim インストール
+
+#### 2018/11/29 に追記 CentOS用の公式パッケージがあるのでこれを使う方が楽
+  $ wget https://copr.fedorainfracloud.org/coprs/unixcommunity/vim/repo/epel-7/unixcommunity-vim-epel-7.repo -P /etc/yum.repos.d/
+古いvim消す
+  $ yum remove "vim*"
+  $ yum install vim-enhanced
+  $ vim --version
+     VIM - Vi IMproved 8.0 (2016 Sep 12, compiled May 22 2017 12:47:09)
+
+
+#### 以下自前ビルドの方法の説明
 
 #### 必要パッケージと,luaとpythonを事前にインストールする  
 ```
@@ -631,10 +655,11 @@ RedHat側から LinuxBにログインする場合を想定
 id_rsa     : 秘密鍵  
 id_rsa.pub : 公開鍵  
 
-秘密鍵は ~/.sshの下に配置し、パーミッションは600にしておく
+秘密鍵は ~/.sshの下に配置し、パーミッションはファイルは600に、フォルダは700にしておく
 ```
 [Redhat] $ mv id_rsa ~/.ssh
-[RedHat] $ chmod 600 id_rsa 
+[RedHat] $ chmod 700 ~/.ssh
+[RedHat] $ chmod 600 ~/.ssh/id_rsa 
 ```
 
 ログイン時のコマンド短縮のため下記設定を ~/.ssh/config ファイルに記入しておく
@@ -712,6 +737,9 @@ cronにはスクリプトを登録して下記のようにする
 
 ```
 # sudo yum install nfs-server
+   or 
+# sudo yum install nfs-utils
+
 
 # sudo systemctl enable rpcbind
 # sudo systemctl enable nfs-server
@@ -742,7 +770,7 @@ service nfs status
 /etc/exports
 
 エクスポートしたいパス    アクセス許可クライアント(オプション) 
-/home/nori                nori-linux(rw)
+/home/nori                planck(rw)
 /home/test                192.168.1.3(ro)
 /home/test2               192.168.1.4(anonuid=1000,anongid=1000)      <=NFS経由でのアクセス時のUID等を指定する場合
 
@@ -773,4 +801,64 @@ Firewallの設定
 
 
 
+### 32. ===== ntp サーバ
+
+
+以下は古いバージョンでの設定
+```
+# sudo yum install ntp
+
+# sudo vim /etc/ntp.conf
+
+   #Add Server 
+   server ntp0.mei.co.jp
+   server ntp1.mei.co.jp
+   server ntp2.mei.co.jp
+
+# sudo ntpdate ntp*2.mei.co.jp   <- ズレが大きいと同期しないので初めに手動で合わせる
+# sudo hwclock -w               <- ハードクロックに書き込み
+# sudo systemctl start ntpd 
+# sudo systemctl enable ntpd 
+
+```
+
+Firewalld を有効にしている場合には ntpを許可
+```
+# sudo firewall-cmd --add-service=ntp --permanent 
+success
+# sudo firewall-cmd --reload 
+success
+```
+
+以下のコマンドで動作確認
+(同期状況が帰ってきたらOK)
+```
+# ntpq -p
+
+```
+
+CentOS7からは ntpd廃止で chronyd が標準になったため下記のようにする
+
+# sudo yum inst
+
+```
+# sudo yum install chrony
+
+# sudo vim /etc/chrony.conf
+
+   #Add Server 
+   server ntp0.mei.co.jp
+   server ntp1.mei.co.jp
+   server ntp2.mei.co.jp
+
+# sudo ntpdate ntp*2.mei.co.jp   <- ズレが大きいと同期しないので初めに手動で合わせる
+# sudo hwclock -w               <- ハードクロックに書き込み
+# sudo systemctl start  chronyd
+# sudo systemctl enable chronyd
+
+```
+
+動いているかの確認は
+# chronyc sources  -> サーバ名と数値がでればOK
+# timedatectl      -> NTP synchronized : yes となっていればOK
 

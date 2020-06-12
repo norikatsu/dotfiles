@@ -56,6 +56,8 @@
 #               2014/11/19 Add Vertual Box PATH 
 #               2014/11/23 Add Python PATH 
 #               2017/05/18 Mod Questa(Modelsim) Path & License
+#               2018/04/06 Mod Xilinx & Altera License
+#               2019/01/22 Add vcs,veldi
 #
 #******************************************************************************
 
@@ -294,7 +296,8 @@ elif [ "${LOCATIONTYPE}" == "MYHOME" ]; then
     export LEDA_CONFIG=nothing
 
     #========== Set Xilinx
-    export XILINXD_LICENSE_FILE=2100@10.64.218.165
+    #export XILINXD_LICENSE_FILE=2100@10.64.218.165
+    export XILINXD_LICENSE_FILE=2100@10.69.102.209
     export VIVADO=/usr/cad/vivado-2013.3/Vivado/2013.3
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
@@ -406,7 +409,9 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
 
 
     #========== Set Altera QuartusII Path & Lincense
-    export QUARTUS_LICENSE=1700@10.78.91.137
+    #export QUARTUS_LICENSE=1700@10.78.91.137
+    #export QUARTUS_LICENSE=1700@10.78.91.175
+    export QUARTUS_LICENSE=1700@10.69.102.209
 
     case $OSTYPE in
         # ***** Cygwin
@@ -448,7 +453,8 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
     #export MODELSIM_LICENSE=1717@132.182.83.174
     #export MODELSIM_LICENSE=1717@cae-x4:1717@zion:1717@jp0200swtc103
     #export MODELSIM_LICENSE=1717@cae-x8:1717@jp0200swtc103
-    export MODELSIM_LICENSE=1717@132.182.83.178
+    #export MODELSIM_LICENSE=1717@132.182.83.178
+    export MODELSIM_LICENSE=20010@10.186.125.38
 
     case $OSTYPE in
         # ***** Cygwin
@@ -463,12 +469,13 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
         # ***** Linux
         linux-gnu)
-            export MODEL_TECH=/usr/cad/questa-10.6a/questasim
+            #export MODEL_TECH=/usr/cad/questa-10.6b/questasim
+            export MODEL_TECH=/usr/cad/quartus-161/modelsim_ase
             export MODELSIM_PATH=$MODEL_TECH/bin
             # 32bit or 64bit
             export MTI_VCO_MODE=32
             #export MTI_VCO_MODE=64
-            export MTI_GCC_VER=4.3.3
+            export MTI_GCC_VER=5.3.0
             ;;
     esac
 
@@ -488,24 +495,57 @@ elif [ "${LOCATIONTYPE}" == "OFFICE" ]; then
             ;;
     esac
 
-    #========== Set Leda
-    export SYNOPSYS_LICENSE=27020@132.182.83.177
+    #========== Set Leda & VCS, Verdi
+    export SYNOPSYS_LICENSE=27020@cae-x7:20000@10.186.125.49
     case $OSTYPE in
         # ***** Linux
         linux-gnu)
             export LEDA_PATH=/usr/cad/leda-2014.12-SP1-1
             export LEDA_CONFIG=${LEDA_PATH}/pana/leda_config.tcl
+
+        ## MTI_VCO_MODE setting at Line 474
+            # VCS
+            export VCS_HOME=/usr/cad/vcs-mx-2017.12-SP2-1
+            #if [ "${MTI_VCO_MODE}" == "32" ]; then
+            #    export VCS_TARGET_ARCH=linux
+            #else
+            #    export VCS_TARGET_ARCH=amd64
+            #fi
+            ##### Fix 64bit 
+            export VCS_TARGET_ARCH=amd64
+
+            export SNPSLMD_QUEUE="true"
+            export SNPS_MAX_WAITTIME=100000
+            export SNPS_MAX_QUEUETIME=100000
+
+            # Verdi
+            export VERDI_HOME=/usr/cad/verdi-2017.12-SP2-1
+            export NOVAS_HOME=/usr/cad/verdi-2017.12-SP2-1
+            export NOVAS_IDLE_LICENSE_CHECKBACK=5
+
+            if [ "${MTI_VCO_MODE}" == "32" ]; then
+                export NOVAS_PLI=$NOVAS_HOME/share/PLI/VCS/LINUX
+                export NOVAS_LD_LIBRARY_PATH=$NOVAS_HOME/share/FsdbReader/LINUX
+            else
+                export VCS_TARGET_ARCH amd64
+                export NOVAS_PLI=$NOVAS_HOME/share/PLI/VCS/LINUX64
+                export NOVAS_LD_LIBRARY_PATH=$NOVAS_HOME/share/FsdbReader/LINUX64
+            fi
             ;;
         # ***** other
         *)
             export LEDA_PATH=/usr/local
             export LEDA_CONFIG=nothing
+            export VCS_HOME=nothing
+            export VERDI_HOME=nothing
             ;;
     esac
 
 
     #========== Set Xilinx
-    export XILINXD_LICENSE_FILE=2100@10.78.91.137
+    #export XILINXD_LICENSE_FILE=2100@10.78.91.137
+    #export XILINXD_LICENSE_FILE=2100@10.78.91.175
+    export XILINXD_LICENSE_FILE=2100@10.69.102.209
     export VIVADO_PATH=/usr/cad/vivado-2017.2/Vivado/2017.2
 
     export XILINX_LIB_PATH=/usr/local/Xilinx_LabTools/14.7/LabTools/LabTools/bin/lin64
@@ -609,6 +649,17 @@ fi
 #----------  Set LEDA  Environment Variables 
 if [ ! "$(echo $PATH | grep ${LEDA_PATH}/bin)" ]; then
     export PATH=$PATH:${LEDA_PATH}/bin
+fi
+
+#----------  Set VCS Environment Variables 
+if [ ! "$(echo $PATH | grep ${VCS_HOME}/bin)" ]; then
+    export PATH=$PATH:${VCS_HOME}/bin
+fi
+
+#----------  Set Verdi Environment Variables 
+if [ ! "$(echo $PATH | grep ${NOVAS_HOME}/bin)" ]; then
+    export PATH=$PATH:${NOVAS_HOME}/bin
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${NOVAS_PLI}
 fi
 
 
