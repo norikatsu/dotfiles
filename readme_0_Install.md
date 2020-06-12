@@ -501,6 +501,8 @@ Puttyで接続する場合には *.pkkを使用する
 
 ### dotfilesの設定
 #### サーバからクローン
+会社では Gitにプロキシ設定が必要なので 
+.gitconfigファイルを用意する（このプロジェクト内にあるものを参照する）
 msys ホームにて
 ```
 git clone https://github.com/norikatsu/dotfiles.git
