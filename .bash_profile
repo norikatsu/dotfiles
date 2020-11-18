@@ -750,32 +750,32 @@ fi
 #******************************************************************************
 
 #========== Check Screen
-if [ "${OSTYPE}" == "linux-gnu" ]; then
-    which screen 1>/dev/null 2>/dev/null
-else
-    which screen 1>${HOME}/null 2>${HOME}/null
-fi
-
-if [ $? -eq 0 ]; then
-    SCREEN_ERROR=0
-else
-    SCREEN_ERROR=1
-fi
-
-if [ -e "${HOME}/null" ] ; then
-  rm -f ${HOME}/null
-fi
+#if [ "${OSTYPE}" == "linux-gnu" ]; then
+#    which screen 1>/dev/null 2>/dev/null
+#else
+#    which screen 1>${HOME}/null 2>${HOME}/null
+#fi
+#
+#if [ $? -eq 0 ]; then
+#    SCREEN_ERROR=0
+#else
+#    SCREEN_ERROR=1
+#fi
+#
+#if [ -e "${HOME}/null" ] ; then
+#  rm -f ${HOME}/null
+#fi
 
 #========== Exec screen
-if [ "${OSTYPE}" == "linux-gnu" ]; then
-    if [ ${SCREEN_ERROR} == "0" ]; then
-        if [ "${DISPLAY}" = "" ]; then
-            if [ "${TERM}" != "screen" ]; then
-                exec screen -D -RR
-            fi
-        fi
-    fi
-fi
+#if [ "${OSTYPE}" == "linux-gnu" ]; then
+#    if [ ${SCREEN_ERROR} == "0" ]; then
+#        if [ "${DISPLAY}" = "" ]; then
+#            if [ "${TERM}" != "screen" ]; then
+#                exec screen -D -RR
+#            fi
+#        fi
+#    fi
+#fi
 
 
 
