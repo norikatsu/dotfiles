@@ -56,6 +56,7 @@
 #               2011/06/14 Add View alias
 #               2011/06/19 Mod QuartsuII alias
 #               2014/11/17 Mod Docker  alias
+#               2020/11/17 Mod DISPLAY for WSL
 #
 #******************************************************************************
 
@@ -267,7 +268,11 @@ export XMODIFIERS="@im=fcitx"
 export DefaultIMModule=fcitx
 
 
+#========== WSL (Linux on Windows)  ==========
 
+if [ -e /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+    export DISPLAY=192.168.1.64:0.0
+fi
 
 export ALTERAOCLSDKROOT="/usr/cad/quartus-131/hld"
 
