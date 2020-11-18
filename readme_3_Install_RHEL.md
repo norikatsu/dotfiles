@@ -542,7 +542,7 @@ githubは二段階承認設定のためpushのためにアクセストークン�
 
 machine github.com
 login norikatsu
-passwd [personalaccesstoken]
+password [personalaccesstoken]
 ```
 
 
