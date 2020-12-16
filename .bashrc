@@ -272,6 +272,13 @@ export DefaultIMModule=fcitx
 
 if [ -e /proc/sys/fs/binfmt_misc/WSLInterop ]; then
     export DISPLAY=192.168.1.64:0.0
+
+    #===== fcitx or WLS =====
+    if [ $SHLVL = 1 ] ; then
+        (fcitx-autostart > /dev/null 2>&1 &)
+        xset -r 49 > /dev/null 2>&1
+    fi
+
 fi
 
 export ALTERAOCLSDKROOT="/usr/cad/quartus-131/hld"
